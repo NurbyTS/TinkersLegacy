@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "tinkerslegacy:dynamic_material_part",
+  "part": "tinkerslegacy:bolt_core",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_part/bolt_shaft",
+    "layer1": "tinkerslegacy:item/tool_part/bolt_tip"
+  }
+}

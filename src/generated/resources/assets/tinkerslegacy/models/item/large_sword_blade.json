@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "tinkerslegacy:dynamic_material_part",
+  "part": "tinkerslegacy:large_sword_blade",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_part/large_sword_blade"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "tinkerslegacy:dynamic_material_part",
+  "part": "tinkerslegacy:pick_head",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_part/pick_head"
+  }
+}

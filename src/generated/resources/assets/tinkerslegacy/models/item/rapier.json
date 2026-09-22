@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tools/rapier/layer0",
+    "layer1": "tinkerslegacy:item/tools/rapier/layer1",
+    "layer2": "tinkerslegacy:item/tools/rapier/layer2"
+  },
+  "tool": "tinkerslegacy:rapier"
+}

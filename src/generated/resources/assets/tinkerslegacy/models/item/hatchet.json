@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tools/hatchet/layer0",
+    "layer1": "tinkerslegacy:item/tools/hatchet/layer1",
+    "layer2": "tinkerslegacy:item/tools/hatchet/layer2"
+  },
+  "tool": "tinkerslegacy:hatchet"
+}

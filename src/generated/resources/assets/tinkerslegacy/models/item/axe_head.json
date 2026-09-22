@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "tinkerslegacy:dynamic_material_part",
+  "part": "tinkerslegacy:axe_head",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_part/axe_head"
+  }
+}

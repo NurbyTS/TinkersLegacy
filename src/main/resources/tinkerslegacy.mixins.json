@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.nurby.tinkerslegacy.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PlayerAttackMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
