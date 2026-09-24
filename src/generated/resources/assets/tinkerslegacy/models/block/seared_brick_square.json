@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "tinkerslegacy:block/seared_brick_square"
+  }
+}

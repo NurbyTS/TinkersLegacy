@@ -89,7 +89,23 @@ public final class TLCreativeTabs {
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
+                        output.accept(TLItems.Items.COBALT_NUGGET.get());
+                        output.accept(TLItems.Items.ARDITE_NUGGET.get());
+                        output.accept(TLItems.Items.ALUBRASS_NUGGET.get());
+                        output.accept(TLItems.Items.KNIGHTSLIME_NUGGET.get());
+                        output.accept(TLItems.Items.MANYULLYN_NUGGET.get());
+                        output.accept(TLItems.Items.PIGIRON_NUGGET.get());
+
+                        output.accept(TLItems.Items.COBALT_INGOT.get());
+                        output.accept(TLItems.Items.ARDITE_INGOT.get());
+                        output.accept(TLItems.Items.ALUBRASS_INGOT.get());
+                        output.accept(TLItems.Items.KNIGHTSLIME_INGOT.get());
+                        output.accept(TLItems.Items.MANYULLYN_INGOT.get());
+                        output.accept(TLItems.Items.PIGIRON_INGOT.get());
+
                         output.accept(TLItems.Items.SEARED_BRICK.get());
+                        output.accept(TLItems.Items.MUD_BRICK.get());
+                        output.accept(TLItems.Items.DRIED_BRICK.get());
                 }
         }
 
@@ -102,8 +118,28 @@ public final class TLCreativeTabs {
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
+                        output.accept(TLItems.Blocks.COBALT_BLOCK.get());
+                        output.accept(TLItems.Blocks.ARDITE_BLOCK.get());
+                        output.accept(TLItems.Blocks.ALUBRASS_BLOCK.get());
+                        output.accept(TLItems.Blocks.KNIGHTSLIME_BLOCK.get());
+                        output.accept(TLItems.Blocks.MANYULLYN_BLOCK.get());
+                        output.accept(TLItems.Blocks.PIGIRON_BLOCK.get());
+                        output.accept(TLItems.Blocks.SILKY_JEWEL_BLOCK.get());
+                        
                         output.accept(TLItems.Blocks.GROUT.get());
+
+                        output.accept(TLItems.Blocks.SEARED_STONE.get());
+                        output.accept(TLItems.Blocks.SEARED_COBBLESTONE.get());
+                        output.accept(TLItems.Blocks.SEARED_PAVER.get());
                         output.accept(TLItems.Blocks.SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.CRACKED_SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.FANCY_SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.SQUARE_SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.SEARED_ROAD.get());
+                        output.accept(TLItems.Blocks.SEARED_CREEPERFACE.get());
+                        output.accept(TLItems.Blocks.TRIANGLE_SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.SMALL_SEARED_BRICKS.get());
+                        output.accept(TLItems.Blocks.SEARED_TILES.get());
                 }
         }
 
