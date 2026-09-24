@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -20,6 +21,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.function.Consumer;
 
 public final class TLCreativeTabs {
@@ -38,35 +40,62 @@ public final class TLCreativeTabs {
         }
 
         public static void register(IEventBus modBus) {
-                MAIN = CREATIVE_TABS.register(
-                                "main",
-                                () -> CreativeModeTab.builder()
-                                                .title(Component.translatable(
-                                                                "itemGroup.tinkerslegacy"))
-                                                .icon(() -> new ItemStack(TLItems.Items.SEARED_BRICK.get()))
-                                                .displayItems((parameters, output) -> {
-                                                        for (Consumer<CreativeModeTab.Output> provider : ITEM_PROVIDERS) {
-                                                                provider.accept(output);
-                                                        }
-                                                })
-                                                .build());
-
+                All.register();
                 Items.register();
                 Blocks.register();
                 Parts.register();
                 Tools.register();
 
-                addItems(output -> {
-                        output.accept(TLItems.Blocks.SEARED_BRICKS.get());
-                });
-
                 CREATIVE_TABS.register(modBus);
         }
 
-        private static final class Items {
-                
+        private static final List<String> TAB_ORDER = List.of("all", "items", "blocks", "parts", "tools");
+
+        private static void registerTab(
+                        String name,
+                        Supplier<ItemStack> icon,
+                        Consumer<CreativeModeTab.Output> contents) {
+                CREATIVE_TABS.register(name, () -> {
+                        CreativeModeTab.Builder builder = CreativeModeTab.builder()
+                                        .title(Component.translatable(
+                                                        "itemGroup.tinkerslegacy." + name))
+                                        .icon(icon)
+                                        .displayItems((parameters, output) -> contents.accept(output));
+
+                        int index = TAB_ORDER.indexOf(name);
+
+                        if (index > 0) {
+                                builder.withTabsBefore(
+                                                ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID,
+                                                                TAB_ORDER.get(index - 1)));
+                        }
+
+                        return builder.build();
+                });
+        }
+
+        private static final class All {
                 private static void register() {
-                        addItems(Items::populate);
+                        registerTab(
+                                        "all",
+                                        () -> new ItemStack(TLItems.Blocks.SEARED_BRICKS.get()),
+                                        All::populate);
+                }
+
+                private static void populate(CreativeModeTab.Output output) {
+                        Items.populate(output);
+                        Blocks.populate(output);
+                        Parts.populate(output);
+                        Tools.populate(output);
+                }
+        }
+
+        private static final class Items {
+                private static void register() {
+                        registerTab(
+                                        "items",
+                                        () -> new ItemStack(TLItems.Items.SEARED_BRICK),
+                                        Items::populate);
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
@@ -75,9 +104,11 @@ public final class TLCreativeTabs {
         }
 
         private static final class Blocks {
-
                 private static void register() {
-                        addItems(Blocks::populate);
+                        registerTab(
+                                        "blocks",
+                                        () -> new ItemStack(TLItems.Blocks.SEARED_BRICKS),
+                                        Blocks::populate);
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
@@ -87,9 +118,24 @@ public final class TLCreativeTabs {
         }
 
         private static final class Parts {
-
                 private static void register() {
-                        addItems(Parts::populate);
+                        registerTab(
+                                        "parts",
+                                        Parts::createIcon,
+                                        Parts::populate);
+                }
+
+                private static ItemStack createIcon() {
+                        PartDefinition part = ToolParts.BINDING.get();
+                        ItemStack stack = new ItemStack(TLItems.Parts.BINDING.get());
+                        stack.set(
+                                        TLDataComponents.MATERIALS,
+                                        part.statTypes().stream()
+                                                        .map(statType -> new MaterialLayer(
+                                                                        statType,
+                                                                        TLMaterials.IRON.get().id()))
+                                                        .toList());
+                        return stack;
                 }
 
                 private static void populate(
@@ -181,9 +227,26 @@ public final class TLCreativeTabs {
         }
 
         private static final class Tools {
-
                 private static void register() {
-                        addItems(Tools::populate);
+                        registerTab(
+                                        "tools",
+                                        Tools::createIcon,
+                                        Tools::populate);
+                }
+
+                private static ItemStack createIcon() {
+                        ToolDefinition definition = TLTools.PICKAXE.get();
+                        DynamicTool tool = TLItems.Tools.PICKAXE.get();
+                        ItemStack stack = new ItemStack(tool);
+                        stack.set(
+                                        TLDataComponents.MATERIALS,
+                                        definition.parts().stream()
+                                                        .map(part -> new MaterialLayer(
+                                                                        part.statType(),
+                                                                        TLMaterials.IRON.get().id()))
+                                                        .toList());
+                        tool.calculateStats(stack);
+                        return stack;
                 }
 
                 private static void populate(

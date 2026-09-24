@@ -79,5 +79,9 @@
   "tinkerslegacy.mininglevel.2": "Diamond",
   "tinkerslegacy.mininglevel.3": "Obsidian",
 
-  "itemGroup.tinkerslegacy": "Tinker's Legacy"
+  "itemGroup.tinkerslegacy.all": "Tinker's Legacy: All",
+  "itemGroup.tinkerslegacy.items": "Tinker's Legacy: Items",
+  "itemGroup.tinkerslegacy.blocks": "Tinker's Legacy: Blocks",
+  "itemGroup.tinkerslegacy.parts": "Tinker's Legacy: Parts",
+  "itemGroup.tinkerslegacy.tools": "Tinker's Legacy: Tools"
 }
