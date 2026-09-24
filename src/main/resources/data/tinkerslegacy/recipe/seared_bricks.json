@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "pattern": [
+        "BB",
+        "BB"
+    ],
+    "key": {
+        "B": {
+            "item": "tinkerslegacy:seared_brick"
+        }
+    }, 
+    "result": {
+        "id": "tinkerslegacy:seared_bricks",
+        "count": 1
+    }
+}

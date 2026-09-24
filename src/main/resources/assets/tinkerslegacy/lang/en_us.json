@@ -1,4 +1,9 @@
 {
+  "item.tinkerslegacy.seared_brick": "Seared Brick",
+  
+  "block.tinkerslegacy.grout": "Grout",
+  "block.tinkerslegacy.seared_bricks": "Seared Bricks",
+
   "item.tinkerslegacy.parts.arrow_head": "%s Arrow Head",
   "item.tinkerslegacy.parts.arrow_shaft": "%s Arrow Shaft",
   "item.tinkerslegacy.parts.axe_head": "%s Axe Head",

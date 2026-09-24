@@ -31,6 +31,7 @@ public class TinkersLegacy {
         TLTools.register(modEventBus);
 
         TLDataComponents.register(modEventBus);
+        TLBlocks.register(modEventBus);
         TLItems.register(modEventBus);
 
         TLCreativeTabs.register(modEventBus);

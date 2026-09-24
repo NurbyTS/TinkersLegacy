@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "tinkerslegacy:grout",
+    "ingredients": [
+        { "item": "minecraft:clay_ball" },
+        { "tag": "minecraft:sand" },
+        { "item": "minecraft:gravel" }
+    ],
+    "result": {
+        "id": "tinkerslegacy:grout",
+        "count": 2
+    }
+}
