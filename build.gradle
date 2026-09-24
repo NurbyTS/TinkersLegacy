@@ -19,6 +19,9 @@ sourceSets.main.resources {
 }
 
 repositories {
+    maven {
+        url = "https://maven.blamejared.com/"
+    }
 }
 
 base {
@@ -77,6 +80,7 @@ configurations {
 }
 
 dependencies {
+    compileOnly("mezz.jei:jei-1.21.1-neoforge-api:19.51.0.418")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -110,7 +114,7 @@ publishing {
 
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            url = "https://maven.blamejared.com/"
         }
     }
 }
