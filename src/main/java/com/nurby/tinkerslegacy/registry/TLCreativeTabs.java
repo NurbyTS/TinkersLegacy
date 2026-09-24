@@ -18,7 +18,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -29,15 +28,6 @@ public final class TLCreativeTabs {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(
                         Registries.CREATIVE_MODE_TAB,
                         TinkersLegacy.MODID);
-
-        private static final List<Consumer<CreativeModeTab.Output>> ITEM_PROVIDERS = new ArrayList<>();
-
-        private static DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN;
-
-        public static void addItems(
-                        Consumer<CreativeModeTab.Output> provider) {
-                ITEM_PROVIDERS.add(provider);
-        }
 
         public static void register(IEventBus modBus) {
                 All.register();
