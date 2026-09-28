@@ -12,6 +12,9 @@
   "item.tinkerslegacy.expander_horizontal": "Expander (Horizontal)",
   "tooltip.tinkerslegacy.expander_horizontal": "Don't skip leg day!",
 
+  "item.tinkerslegacy.raw_cobalt": "Raw Cobalt",
+  "item.tinkerslegacy.raw_ardite": "Raw Ardite",
+
   "item.tinkerslegacy.cobalt_nugget": "Cobalt Nugget",
   "item.tinkerslegacy.ardite_nugget": "Ardite Nugget",
   "item.tinkerslegacy.alubrass_nugget": "Alubrass Nugget",
@@ -42,6 +45,12 @@
   "tooltip.tinkerslegacy.mud_brick": "Building blocks for small and big",
   "item.tinkerslegacy.dried_brick": "Dried Brick",
 
+  "block.tinkerslegacy.nether_cobalt_ore": "Nether Cobalt Ore",
+  "block.tinkerslegacy.nether_ardite_ore": "Nether Ardite Ore",
+
+  "block.tinkerslegacy.grout": "Grout",
+  "tooltip.tinkerslegacy.grout": "I am Grout!",
+
   "block.tinkerslegacy.storage_block_cobalt": "Block of Cobalt",
   "tooltip.tinkerslegacy.storage_block_cobalt": "Can be used as a beacon base",
   "block.tinkerslegacy.storage_block_ardite": "Block of Ardite",
@@ -56,9 +65,6 @@
   "tooltip.tinkerslegacy.storage_block_pigiron": "Can be used as a beacon base",
   "block.tinkerslegacy.storage_block_silky_jewel": "Silky Block of Jewel",
   "tooltip.tinkerslegacy.storage_block_silky_jewel": "Can be used as a beacon base",
-
-  "block.tinkerslegacy.grout": "Grout",
-  "tooltip.tinkerslegacy.grout": "I am Grout!",
 
   "block.tinkerslegacy.seared_stone": "Seared Stone",
   "tooltip.tinkerslegacy.seared_stone": "Part of the Smeltery. Safe for decoration.",

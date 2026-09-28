@@ -17,13 +17,33 @@ public final class TLBlocks {
                         TinkersLegacy.MODID);
 
         public static void register(IEventBus modBus) {
-                Intermediary_Blocks.register();
-                Storage_Blocks.register();
-                Seared_Stone.register();
+                OreBlocks.register();
+                IntermediaryBlocks.register();
+                StorageBlocks.register();
+                SearedBlocks.register();
                 BLOCKS.register(modBus);
         }
-        
-        public static final class Intermediary_Blocks {
+
+        public static final class OreBlocks {
+                public static final DeferredHolder<Block, Block> NETHER_COBALT_ORE = register(
+                                "nether_cobalt_ore",
+                                BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_GOLD_ORE));
+
+                public static final DeferredHolder<Block, Block> NETHER_ARDITE_ORE = register(
+                                "nether_ardite_ore",
+                                BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_GOLD_ORE));
+
+                private static void register() {
+                }
+
+                private static DeferredHolder<Block, Block> register(
+                                String name,
+                                BlockBehaviour.Properties properties) {
+                        return BLOCKS.register(name, () -> new Block(properties));
+                }
+        }
+
+        public static final class IntermediaryBlocks {
                 public static final DeferredHolder<Block, Block> GROUT = register(
                                 "grout",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY));
@@ -38,7 +58,7 @@ public final class TLBlocks {
                 }
         }
 
-        public static final class Storage_Blocks {
+        public static final class StorageBlocks {
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_COBALT = register(
                                 "storage_block_cobalt",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
@@ -77,7 +97,7 @@ public final class TLBlocks {
                 }
         }
 
-        public static final class Seared_Stone {
+        public static final class SearedBlocks {
                 public static final DeferredHolder<Block, Block> SEARED_STONE = register(
                                 "seared_stone",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
