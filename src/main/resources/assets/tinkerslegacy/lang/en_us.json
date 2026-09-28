@@ -1,4 +1,12 @@
 {
+  "item.tinkerslegacy.silky_cloth": "Silky Cloth",
+
+  "item.tinkerslegacy.creative_modifier": "Creative Modifier",
+  "item.tinkerslegacy.ball_of_moss": "Ball of Moss",
+  "item.tinkerslegacy.mending_moss": "Mending Moss",
+  "item.tinkerslegacy.expander_vertical": "Expander (Vertical)",
+  "item.tinkerslegacy.expander_horizontal": "Expander (Horizontal)",
+
   "item.tinkerslegacy.cobalt_nugget": "Cobalt Nugget",
   "item.tinkerslegacy.ardite_nugget": "Ardite Nugget",
   "item.tinkerslegacy.alubrass_nugget": "Alubrass Nugget",
@@ -14,11 +22,14 @@
   "item.tinkerslegacy.pigiron_ingot": "Pigiron Ingot",
 
   "item.tinkerslegacy.silky_jewel": "Silky Jewel",
+  "item.tinkerslegacy.green_slime_crystal": "Green Slime Crystal",
+  "item.tinkerslegacy.blue_slime_crystal": "Blue Slime Crystal",
+  "item.tinkerslegacy.magma_slime_crystal": "Magma Slime Crystal",
 
   "item.tinkerslegacy.seared_brick": "Seared Brick",
   "item.tinkerslegacy.mud_brick": "Mud Brick",
   "item.tinkerslegacy.dried_brick": "Dried Brick",
-  
+
   "block.tinkerslegacy.storage_block_cobalt": "Block of Cobalt",
   "block.tinkerslegacy.storage_block_ardite": "Block of Ardite",
   "block.tinkerslegacy.storage_block_alubrass": "Block of Alubrass",

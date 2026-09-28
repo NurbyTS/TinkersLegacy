@@ -49,6 +49,14 @@ public class TLItemModelProvider extends ItemModelProvider {
     }
 
     private void registerItems() {
+        withExistingParent("silky_cloth", mcLoc("item/generated")).texture("layer0", modLoc("item/material/intermediary/silky_cloth"));
+
+        withExistingParent("creative_modifier", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/creative_modifier"));
+        withExistingParent("ball_of_moss", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/ball_of_moss"));
+        withExistingParent("mending_moss", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/mending_moss"));
+        withExistingParent("expander_vertical", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/expander_vertical"));
+        withExistingParent("expander_horizontal", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/expander_horizontal"));
+
         withExistingParent("cobalt_nugget", mcLoc("item/generated")).texture("layer0", modLoc("item/material/nugget/cobalt_nugget"));
         withExistingParent("ardite_nugget", mcLoc("item/generated")).texture("layer0", modLoc("item/material/nugget/ardite_nugget"));
         withExistingParent("alubrass_nugget", mcLoc("item/generated")).texture("layer0", modLoc("item/material/nugget/alubrass_nugget"));
@@ -64,6 +72,9 @@ public class TLItemModelProvider extends ItemModelProvider {
         withExistingParent("pigiron_ingot", mcLoc("item/generated")).texture("layer0", modLoc("item/material/ingot/pigiron_ingot"));
 
         withExistingParent("silky_jewel", mcLoc("item/generated")).texture("layer0", modLoc("item/material/gem/silky_jewel"));
+        withExistingParent("green_slime_crystal", mcLoc("item/generated")).texture("layer0", modLoc("item/material/gem/green_slime_crystal"));
+        withExistingParent("blue_slime_crystal", mcLoc("item/generated")).texture("layer0", modLoc("item/material/gem/blue_slime_crystal"));
+        withExistingParent("magma_slime_crystal", mcLoc("item/generated")).texture("layer0", modLoc("item/material/gem/magma_slime_crystal"));
 
         withExistingParent("seared_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/seared_brick"));
         withExistingParent("mud_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/mud_brick"));

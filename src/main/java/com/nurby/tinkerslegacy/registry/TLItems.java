@@ -40,6 +40,39 @@ public final class TLItems {
         }
 
         public static final class Items {
+                public static final class IntermediaryItems {
+                        public static final DeferredHolder<Item, Item> SILKY_CLOTH = TLItems.ITEMS.register(
+                                        "silky_cloth",
+                                        () -> new Item(new Item.Properties()));
+
+                        private static void register() {
+                        }
+                }
+
+                public static final class Miscellaneous {
+                        public static final DeferredHolder<Item, Item> CREATIVE_MODIFIER = TLItems.ITEMS.register(
+                                        "creative_modifier",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> BALL_OF_MOSS = TLItems.ITEMS.register(
+                                        "ball_of_moss",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> MENDING_MOSS = TLItems.ITEMS.register(
+                                        "mending_moss",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> EXPANDER_VERTICAL = TLItems.ITEMS.register(
+                                        "expander_vertical",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> EXPANDER_HORIZONTAL = TLItems.ITEMS.register(
+                                        "expander_horizontal",
+                                        () -> new Item(new Item.Properties()));
+
+                        private static void register() {
+                        }
+                }
 
                 public static final class Nuggets {
                         public static final DeferredHolder<Item, Item> COBALT_NUGGET = TLItems.ITEMS.register(
@@ -104,6 +137,18 @@ public final class TLItems {
                                         "silky_jewel",
                                         () -> new Item(new Item.Properties()));
 
+                        public static final DeferredHolder<Item, Item> GREEN_SLIME_CRYSTAL = TLItems.ITEMS.register(
+                                        "green_slime_crystal",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> BLUE_SLIME_CRYSTAL = TLItems.ITEMS.register(
+                                        "blue_slime_crystal",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> MAGMA_SLIME_CRYSTAL = TLItems.ITEMS.register(
+                                        "magma_slime_crystal",
+                                        () -> new Item(new Item.Properties()));
+
                         private static void register() {
                         }
                 }
@@ -126,6 +171,8 @@ public final class TLItems {
                 }
 
                 private static void register() {
+                        IntermediaryItems.register();
+                        Miscellaneous.register();
                         Nuggets.register();
                         Ingots.register();
                         Gems.register();

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tinkerslegacy:item/material/gem/green_slime_crystal"
+  }
+}
