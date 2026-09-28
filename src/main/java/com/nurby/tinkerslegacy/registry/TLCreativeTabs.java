@@ -30,7 +30,7 @@ public final class TLCreativeTabs {
                         TinkersLegacy.MODID);
 
         public static void register(IEventBus modBus) {
-                All.register();
+                // All.register();
                 Items.register();
                 Blocks.register();
                 Parts.register();

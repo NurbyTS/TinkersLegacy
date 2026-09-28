@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.Set;
 
-public class TLBlockLoot extends BlockLootSubProvider {
-    public TLBlockLoot(HolderLookup.Provider lookupProvider) {
+public class TLBlockLootProvider extends BlockLootSubProvider {
+    public TLBlockLootProvider(HolderLookup.Provider lookupProvider) {
         super(Set.of(), FeatureFlags.DEFAULT_FLAGS, lookupProvider);
     }
 

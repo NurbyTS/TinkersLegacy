@@ -6,7 +6,7 @@ import com.nurby.tinkerslegacy.client.model.part.DynamicMaterialPartModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.MaterialTextureProvider;
 import com.nurby.tinkerslegacy.client.model.tool.DynamicToolModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.TLBlockStateProvider;
-import com.nurby.tinkerslegacy.datagen.TLBlockLoot;
+import com.nurby.tinkerslegacy.datagen.TLBlockLootProvider;
 
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -39,7 +39,7 @@ public final class ClientEvents {
                                 new LootTableProvider(
                                                 output,
                                                 Set.of(),
-                                                List.of(new LootTableProvider.SubProviderEntry(TLBlockLoot::new,
+                                                List.of(new LootTableProvider.SubProviderEntry(TLBlockLootProvider::new,
                                                                 LootContextParamSets.BLOCK)),
                                                 event.getLookupProvider()));
 
