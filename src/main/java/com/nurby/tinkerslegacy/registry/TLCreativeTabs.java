@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -68,7 +69,7 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "all",
-                                        () -> new ItemStack(TLItems.Blocks.SEARED_BRICKS.get()),
+                                        () -> new ItemStack(TLItems.Blocks.SearedBlocks.SEARED_BRICKS.get()),
                                         All::populate);
                 }
 
@@ -84,28 +85,18 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "items",
-                                        () -> new ItemStack(TLItems.Items.SEARED_BRICK),
+                                        () -> new ItemStack(TLItems.Items.Bricks.SEARED_BRICK.get()),
                                         Items::populate);
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
-                        output.accept(TLItems.Items.COBALT_NUGGET.get());
-                        output.accept(TLItems.Items.ARDITE_NUGGET.get());
-                        output.accept(TLItems.Items.ALUBRASS_NUGGET.get());
-                        output.accept(TLItems.Items.KNIGHTSLIME_NUGGET.get());
-                        output.accept(TLItems.Items.MANYULLYN_NUGGET.get());
-                        output.accept(TLItems.Items.PIGIRON_NUGGET.get());
-
-                        output.accept(TLItems.Items.COBALT_INGOT.get());
-                        output.accept(TLItems.Items.ARDITE_INGOT.get());
-                        output.accept(TLItems.Items.ALUBRASS_INGOT.get());
-                        output.accept(TLItems.Items.KNIGHTSLIME_INGOT.get());
-                        output.accept(TLItems.Items.MANYULLYN_INGOT.get());
-                        output.accept(TLItems.Items.PIGIRON_INGOT.get());
-
-                        output.accept(TLItems.Items.SEARED_BRICK.get());
-                        output.accept(TLItems.Items.MUD_BRICK.get());
-                        output.accept(TLItems.Items.DRIED_BRICK.get());
+                        for (Item item : TLItems.registeredItems()) {
+                                if (!(item instanceof BlockItem)
+                                                && !(item instanceof DynamicPart)
+                                                && !(item instanceof DynamicTool)) {
+                                        output.accept(item);
+                                }
+                        }
                 }
         }
 
@@ -113,33 +104,16 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "blocks",
-                                        () -> new ItemStack(TLItems.Blocks.SEARED_BRICKS),
+                                        () -> new ItemStack(TLItems.Blocks.SearedBlocks.SEARED_BRICKS.get()),
                                         Blocks::populate);
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_COBALT.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_ARDITE.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_ALUBRASS.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_KNIGHTSLIME.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_MANYULLYN.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_PIGIRON.get());
-                        output.accept(TLItems.Blocks.STORAGE_BLOCK_SILKY_JEWEL.get());
-                        
-                        output.accept(TLItems.Blocks.GROUT.get());
-
-                        output.accept(TLItems.Blocks.SEARED_STONE.get());
-                        output.accept(TLItems.Blocks.SEARED_COBBLESTONE.get());
-                        output.accept(TLItems.Blocks.SEARED_PAVER.get());
-                        output.accept(TLItems.Blocks.SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.CRACKED_SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.FANCY_SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.SQUARE_SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.SEARED_ROAD.get());
-                        output.accept(TLItems.Blocks.SEARED_CREEPERFACE.get());
-                        output.accept(TLItems.Blocks.TRIANGLE_SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.SMALL_SEARED_BRICKS.get());
-                        output.accept(TLItems.Blocks.SEARED_TILES.get());
+                        for (Item item : TLItems.registeredItems()) {
+                                if (item instanceof BlockItem) {
+                                        output.accept(item);
+                                }
+                        }
                 }
         }
 

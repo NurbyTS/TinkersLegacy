@@ -7,6 +7,7 @@ import com.nurby.tinkerslegacy.client.datagen.MaterialTextureProvider;
 import com.nurby.tinkerslegacy.client.model.tool.DynamicToolModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.TLBlockStateProvider;
 import com.nurby.tinkerslegacy.datagen.TLBlockLootProvider;
+import com.nurby.tinkerslegacy.datagen.TLRecipeProvider;
 
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -31,8 +32,8 @@ public final class ClientEvents {
                 ExistingFileHelper helper = event.getExistingFileHelper();
 
                 event.getGenerator().addProvider(
-                                event.includeClient(),
-                                new TLBlockStateProvider(output, helper));
+                                event.includeServer(),
+                                new TLRecipeProvider(output, event.getLookupProvider()));
 
                 event.getGenerator().addProvider(
                                 event.includeServer(),
@@ -42,6 +43,10 @@ public final class ClientEvents {
                                                 List.of(new LootTableProvider.SubProviderEntry(TLBlockLootProvider::new,
                                                                 LootContextParamSets.BLOCK)),
                                                 event.getLookupProvider()));
+
+                event.getGenerator().addProvider(
+                                event.includeClient(),
+                                new TLBlockStateProvider(output, helper));
 
                 event.getGenerator().addProvider(
                                 event.includeClient(),

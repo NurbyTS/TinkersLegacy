@@ -63,6 +63,8 @@ public class TLItemModelProvider extends ItemModelProvider {
         withExistingParent("manyullyn_ingot", mcLoc("item/generated")).texture("layer0", modLoc("item/material/ingot/manyullyn_ingot"));
         withExistingParent("pigiron_ingot", mcLoc("item/generated")).texture("layer0", modLoc("item/material/ingot/pigiron_ingot"));
 
+        withExistingParent("silky_jewel", mcLoc("item/generated")).texture("layer0", modLoc("item/material/gem/silky_jewel"));
+
         withExistingParent("seared_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/seared_brick"));
         withExistingParent("mud_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/mud_brick"));
         withExistingParent("dried_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/dried_brick"));

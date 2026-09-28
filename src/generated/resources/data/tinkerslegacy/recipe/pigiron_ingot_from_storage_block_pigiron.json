@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:storage_block_pigiron"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "tinkerslegacy:pigiron_ingot"
+  }
+}

@@ -26,6 +26,11 @@ public final class TLItems {
                         BuiltInRegistries.ITEM,
                         TinkersLegacy.MODID);
 
+        // Read when tab contents are built, after item registration has finished.
+        static java.util.List<Item> registeredItems() {
+                return ITEMS.getEntries().stream().<Item>map(holder -> holder.get()).toList();
+        }
+
         public static void register(IEventBus modBus) {
                 Items.register();
                 Blocks.register();
@@ -35,120 +40,224 @@ public final class TLItems {
         }
 
         public static final class Items {
-                public static final DeferredHolder<Item, Item> COBALT_NUGGET = TLItems.ITEMS.register(
-                                "cobalt_nugget",
-                                () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> ARDITE_NUGGET = TLItems.ITEMS.register(
-                                "ardite_nugget",
-                                () -> new Item(new Item.Properties()));
+                public static final class Nuggets {
+                        public static final DeferredHolder<Item, Item> COBALT_NUGGET = TLItems.ITEMS.register(
+                                        "cobalt_nugget",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> ALUBRASS_NUGGET = TLItems.ITEMS.register(
-                                "alubrass_nugget",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> ARDITE_NUGGET = TLItems.ITEMS.register(
+                                        "ardite_nugget",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> KNIGHTSLIME_NUGGET = TLItems.ITEMS.register(
-                                "knightslime_nugget",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> ALUBRASS_NUGGET = TLItems.ITEMS.register(
+                                        "alubrass_nugget",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> MANYULLYN_NUGGET = TLItems.ITEMS.register(
-                                "manyullyn_nugget",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> KNIGHTSLIME_NUGGET = TLItems.ITEMS.register(
+                                        "knightslime_nugget",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> PIGIRON_NUGGET = TLItems.ITEMS.register(
-                                "pigiron_nugget",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> MANYULLYN_NUGGET = TLItems.ITEMS.register(
+                                        "manyullyn_nugget",
+                                        () -> new Item(new Item.Properties()));
 
+                        public static final DeferredHolder<Item, Item> PIGIRON_NUGGET = TLItems.ITEMS.register(
+                                        "pigiron_nugget",
+                                        () -> new Item(new Item.Properties()));
 
+                        private static void register() {
+                        }
+                }
 
-                public static final DeferredHolder<Item, Item> COBALT_INGOT = TLItems.ITEMS.register(
-                                "cobalt_ingot",
-                                () -> new Item(new Item.Properties()));
+                public static final class Ingots {
+                        public static final DeferredHolder<Item, Item> COBALT_INGOT = TLItems.ITEMS.register(
+                                        "cobalt_ingot",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> ARDITE_INGOT = TLItems.ITEMS.register(
-                                "ardite_ingot",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> ARDITE_INGOT = TLItems.ITEMS.register(
+                                        "ardite_ingot",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> ALUBRASS_INGOT = TLItems.ITEMS.register(
-                                "alubrass_ingot",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> ALUBRASS_INGOT = TLItems.ITEMS.register(
+                                        "alubrass_ingot",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> KNIGHTSLIME_INGOT = TLItems.ITEMS.register(
-                                "knightslime_ingot",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> KNIGHTSLIME_INGOT = TLItems.ITEMS.register(
+                                        "knightslime_ingot",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> MANYULLYN_INGOT = TLItems.ITEMS.register(
-                                "manyullyn_ingot",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> MANYULLYN_INGOT = TLItems.ITEMS.register(
+                                        "manyullyn_ingot",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> PIGIRON_INGOT = TLItems.ITEMS.register(
-                                "pigiron_ingot",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> PIGIRON_INGOT = TLItems.ITEMS.register(
+                                        "pigiron_ingot",
+                                        () -> new Item(new Item.Properties()));
 
+                        private static void register() {
+                        }
+                }
 
+                public static final class Gems {
+                        public static final DeferredHolder<Item, Item> SILKY_JEWEL = TLItems.ITEMS.register(
+                                        "silky_jewel",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> SEARED_BRICK = TLItems.ITEMS.register(
-                                "seared_brick",
-                                () -> new Item(new Item.Properties()));
+                        private static void register() {
+                        }
+                }
 
-                public static final DeferredHolder<Item, Item> MUD_BRICK = TLItems.ITEMS.register(
-                                "mud_brick",
-                                () -> new Item(new Item.Properties()));
+                public static final class Bricks {
+                        public static final DeferredHolder<Item, Item> SEARED_BRICK = TLItems.ITEMS.register(
+                                        "seared_brick",
+                                        () -> new Item(new Item.Properties()));
 
-                public static final DeferredHolder<Item, Item> DRIED_BRICK = TLItems.ITEMS.register(
-                                "dried_brick",
-                                () -> new Item(new Item.Properties()));
+                        public static final DeferredHolder<Item, Item> MUD_BRICK = TLItems.ITEMS.register(
+                                        "mud_brick",
+                                        () -> new Item(new Item.Properties()));
+
+                        public static final DeferredHolder<Item, Item> DRIED_BRICK = TLItems.ITEMS.register(
+                                        "dried_brick",
+                                        () -> new Item(new Item.Properties()));
+
+                        private static void register() {
+                        }
+                }
 
                 private static void register() {
+                        Nuggets.register();
+                        Ingots.register();
+                        Gems.register();
+                        Bricks.register();
                 }
         }
 
         public static final class Blocks {
                 private static final Map<ResourceLocation, DeferredHolder<Item, BlockItem>> ITEMS = new LinkedHashMap<>();
 
-                public static final DeferredHolder<Item, BlockItem> GROUT = register(TLBlocks.Intermediary_Blocks.GROUT);
+                public static final class IntermediaryBlocks {
+                        public static final DeferredHolder<Item, BlockItem> GROUT = register(
+                                        TLBlocks.Intermediary_Blocks.GROUT);
 
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_COBALT = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_COBALT);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ARDITE = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_ARDITE);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ALUBRASS = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_ALUBRASS);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_KNIGHTSLIME = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_KNIGHTSLIME);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_MANYULLYN = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_MANYULLYN);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_PIGIRON = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_PIGIRON);
-                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_SILKY_JEWEL = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_SILKY_JEWEL);
+                        private static void register() {
+                        }
 
-                public static final DeferredHolder<Item, BlockItem> SEARED_STONE = register(TLBlocks.Seared_Stone.SEARED_STONE);
-                public static final DeferredHolder<Item, BlockItem> SEARED_COBBLESTONE = register(TLBlocks.Seared_Stone.SEARED_COBBLESTONE);
-                public static final DeferredHolder<Item, BlockItem> SEARED_PAVER = register(TLBlocks.Seared_Stone.SEARED_PAVER);
-                public static final DeferredHolder<Item, BlockItem> SEARED_BRICKS = register(TLBlocks.Seared_Stone.SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> CRACKED_SEARED_BRICKS = register(TLBlocks.Seared_Stone.CRACKED_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> FANCY_SEARED_BRICKS = register(TLBlocks.Seared_Stone.FANCY_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SQUARE_SEARED_BRICKS = register(TLBlocks.Seared_Stone.SQUARE_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SEARED_ROAD = register(TLBlocks.Seared_Stone.SEARED_ROAD);
-                public static final DeferredHolder<Item, BlockItem> SEARED_CREEPERFACE = register(TLBlocks.Seared_Stone.SEARED_CREEPERFACE);
-                public static final DeferredHolder<Item, BlockItem> TRIANGLE_SEARED_BRICKS = register(TLBlocks.Seared_Stone.TRIANGLE_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SMALL_SEARED_BRICKS = register(TLBlocks.Seared_Stone.SMALL_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SEARED_TILES = register(TLBlocks.Seared_Stone.SEARED_TILES);
+                        private static DeferredHolder<Item, BlockItem> register(
+                                        DeferredHolder<Block, ? extends Block> block) {
+                                DeferredHolder<Item, BlockItem> holder = TLItems.ITEMS.register(
+                                                block.getId().getPath(),
+                                                () -> new BlockItem(block.get(), new Item.Properties()));
+
+                                ITEMS.put(block.getId(), holder);
+                                return holder;
+                        }
+
+                        public static DeferredHolder<Item, BlockItem> get(ResourceLocation id) {
+                                return ITEMS.get(id);
+                        }
+
+                        public static BlockItem get(Block block) {
+                                DeferredHolder<Item, BlockItem> holder = ITEMS
+                                                .get(BuiltInRegistries.BLOCK.getKey(block));
+                                return holder == null ? null : holder.get();
+                        }
+                }
+
+                public static final class StorageBlocks {
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_COBALT = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_COBALT);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ARDITE = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_ARDITE);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ALUBRASS = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_ALUBRASS);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_KNIGHTSLIME = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_KNIGHTSLIME);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_MANYULLYN = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_MANYULLYN);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_PIGIRON = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_PIGIRON);
+                        public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_SILKY_JEWEL = register(
+                                        TLBlocks.Storage_Blocks.STORAGE_BLOCK_SILKY_JEWEL);
+
+                        private static void register() {
+                        }
+
+                        private static DeferredHolder<Item, BlockItem> register(
+                                        DeferredHolder<Block, ? extends Block> block) {
+                                DeferredHolder<Item, BlockItem> holder = TLItems.ITEMS.register(
+                                                block.getId().getPath(),
+                                                () -> new BlockItem(block.get(), new Item.Properties()));
+
+                                ITEMS.put(block.getId(), holder);
+                                return holder;
+                        }
+
+                        public static DeferredHolder<Item, BlockItem> get(ResourceLocation id) {
+                                return ITEMS.get(id);
+                        }
+
+                        public static BlockItem get(Block block) {
+                                DeferredHolder<Item, BlockItem> holder = ITEMS
+                                                .get(BuiltInRegistries.BLOCK.getKey(block));
+                                return holder == null ? null : holder.get();
+                        }
+                }
+
+                public static class SearedBlocks {
+                        public static final DeferredHolder<Item, BlockItem> SEARED_STONE = register(
+                                        TLBlocks.Seared_Stone.SEARED_STONE);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_COBBLESTONE = register(
+                                        TLBlocks.Seared_Stone.SEARED_COBBLESTONE);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_PAVER = register(
+                                        TLBlocks.Seared_Stone.SEARED_PAVER);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> CRACKED_SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.CRACKED_SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> FANCY_SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.FANCY_SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> SQUARE_SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.SQUARE_SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_ROAD = register(
+                                        TLBlocks.Seared_Stone.SEARED_ROAD);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_CREEPERFACE = register(
+                                        TLBlocks.Seared_Stone.SEARED_CREEPERFACE);
+                        public static final DeferredHolder<Item, BlockItem> TRIANGLE_SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.TRIANGLE_SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> SMALL_SEARED_BRICKS = register(
+                                        TLBlocks.Seared_Stone.SMALL_SEARED_BRICKS);
+                        public static final DeferredHolder<Item, BlockItem> SEARED_TILES = register(
+                                        TLBlocks.Seared_Stone.SEARED_TILES);
+
+                        private static void register() {
+                        }
+
+                        private static DeferredHolder<Item, BlockItem> register(
+                                        DeferredHolder<Block, ? extends Block> block) {
+                                DeferredHolder<Item, BlockItem> holder = TLItems.ITEMS.register(
+                                                block.getId().getPath(),
+                                                () -> new BlockItem(block.get(), new Item.Properties()));
+
+                                ITEMS.put(block.getId(), holder);
+                                return holder;
+                        }
+
+                        public static DeferredHolder<Item, BlockItem> get(ResourceLocation id) {
+                                return ITEMS.get(id);
+                        }
+
+                        public static BlockItem get(Block block) {
+                                DeferredHolder<Item, BlockItem> holder = ITEMS
+                                                .get(BuiltInRegistries.BLOCK.getKey(block));
+                                return holder == null ? null : holder.get();
+                        }
+                }
 
                 private static void register() {
-                }
-
-                private static DeferredHolder<Item, BlockItem> register(
-                                DeferredHolder<Block, ? extends Block> block) {
-                        DeferredHolder<Item, BlockItem> holder = TLItems.ITEMS.register(
-                                        block.getId().getPath(),
-                                        () -> new BlockItem(block.get(), new Item.Properties()));
-
-                        ITEMS.put(block.getId(), holder);
-                        return holder;
-                }
-
-                public static DeferredHolder<Item, BlockItem> get(ResourceLocation id) {
-                        return ITEMS.get(id);
-                }
-
-                public static BlockItem get(Block block) {
-                        DeferredHolder<Item, BlockItem> holder = ITEMS.get(BuiltInRegistries.BLOCK.getKey(block));
-                        return holder == null ? null : holder.get();
+                        IntermediaryBlocks.register();
+                        StorageBlocks.register();
+                        SearedBlocks.register();
                 }
         }
 
