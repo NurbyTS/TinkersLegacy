@@ -1,6 +1,6 @@
 # Notice
 
-This project uses assets and concepts primarily derived from [Tinkers' Construct](https://github.com/SlimeKnights/TinkersConstruct), which is licensed under the MIT License and Copyright © SlimeKnights.
+This project uses assets and concepts primarily derived from [Tinkers' Construct](https://github.com/SlimeKnights/TinkersConstruct/tree/1.12), which is licensed under the MIT License and Copyright © SlimeKnights.
 
 The original licenses and copyright notices for these projects remain applicable to their respective assets and code.
 
