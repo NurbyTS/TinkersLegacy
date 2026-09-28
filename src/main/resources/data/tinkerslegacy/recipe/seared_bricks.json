@@ -2,11 +2,11 @@
     "type": "minecraft:crafting_shaped",
     "category": "building",
     "pattern": [
-        "BB",
-        "BB"
+        "AA",
+        "AA"
     ],
     "key": {
-        "B": {
+        "A": {
             "item": "tinkerslegacy:seared_brick"
         }
     }, 

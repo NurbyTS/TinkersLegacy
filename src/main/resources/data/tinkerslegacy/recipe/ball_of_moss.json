@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" },
+    { "tag": "tinkerslegacy:mossy_blocks" }
+  ],
+  "result": {
+    "id": "tinkerslegacy:ball_of_moss",
+    "count": 1
+  }
+}

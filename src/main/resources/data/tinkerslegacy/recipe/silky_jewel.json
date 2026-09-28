@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+        " A ",
+        "ABA",
+        " A "
+    ],
+    "key": {
+        "A": {
+            "item": "tinkerslegacy:silky_cloth"
+        },
+        "B": {
+            "item": "minecraft:emerald"
+        }
+    }, 
+    "result": {
+        "id": "tinkerslegacy:silky_jewel",
+        "count": 1
+    }
+}

@@ -2,6 +2,7 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.item.TooltipItem;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
@@ -52,23 +53,38 @@ public final class TLItems {
                 public static final class Miscellaneous {
                         public static final DeferredHolder<Item, Item> CREATIVE_MODIFIER = TLItems.ITEMS.register(
                                         "creative_modifier",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.creative_modifier"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> BALL_OF_MOSS = TLItems.ITEMS.register(
                                         "ball_of_moss",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.ball_of_moss"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> MENDING_MOSS = TLItems.ITEMS.register(
                                         "mending_moss",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.mending_moss"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> EXPANDER_VERTICAL = TLItems.ITEMS.register(
                                         "expander_vertical",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.expander_vertical"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> EXPANDER_HORIZONTAL = TLItems.ITEMS.register(
                                         "expander_horizontal",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.expander_horizontal"
+                                        ));
 
                         private static void register() {
                         }
@@ -118,7 +134,10 @@ public final class TLItems {
 
                         public static final DeferredHolder<Item, Item> KNIGHTSLIME_INGOT = TLItems.ITEMS.register(
                                         "knightslime_ingot",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.knightslime_ingot"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> MANYULLYN_INGOT = TLItems.ITEMS.register(
                                         "manyullyn_ingot",
@@ -126,7 +145,10 @@ public final class TLItems {
 
                         public static final DeferredHolder<Item, Item> PIGIRON_INGOT = TLItems.ITEMS.register(
                                         "pigiron_ingot",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.pigiron_ingot"
+                                        ));
 
                         private static void register() {
                         }
@@ -135,19 +157,31 @@ public final class TLItems {
                 public static final class Gems {
                         public static final DeferredHolder<Item, Item> SILKY_JEWEL = TLItems.ITEMS.register(
                                         "silky_jewel",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.silky_jewel"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> GREEN_SLIME_CRYSTAL = TLItems.ITEMS.register(
                                         "green_slime_crystal",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.green_slime_crystal"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> BLUE_SLIME_CRYSTAL = TLItems.ITEMS.register(
                                         "blue_slime_crystal",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.blue_slime_crystal"
+                                        ));
 
                         public static final DeferredHolder<Item, Item> MAGMA_SLIME_CRYSTAL = TLItems.ITEMS.register(
                                         "magma_slime_crystal",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.magma_slime_crystal"
+                                        ));
 
                         private static void register() {
                         }
@@ -160,8 +194,10 @@ public final class TLItems {
 
                         public static final DeferredHolder<Item, Item> MUD_BRICK = TLItems.ITEMS.register(
                                         "mud_brick",
-                                        () -> new Item(new Item.Properties()));
-
+                                        () -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.mud_brick"
+                                        ));
                         public static final DeferredHolder<Item, Item> DRIED_BRICK = TLItems.ITEMS.register(
                                         "dried_brick",
                                         () -> new Item(new Item.Properties()));
