@@ -1,0 +1,12 @@
+{
+    "replace": false,
+    "values": [
+        "tinkerslegacy:cobalt_block",
+        "tinkerslegacy:ardite_block",
+        "tinkerslegacy:alubrass_block",
+        "tinkerslegacy:knightslime_block",
+        "tinkerslegacy:manyullyn_block",
+        "tinkerslegacy:pigiron_block",
+        "tinkerslegacy:silky_jewel_block"
+    ]
+}

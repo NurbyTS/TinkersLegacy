@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "tinkerslegacy:seared_bricks"
+        "#tinkerslegacy:seared_blocks",
+        "#tinkerslegacy:storage_blocks"
     ]
 }

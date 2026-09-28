@@ -8,6 +8,7 @@ import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.registry.TLTools;
 import com.nurby.tinkerslegacy.registry.ToolParts;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -21,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class TLItems {
-
         private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
                         BuiltInRegistries.ITEM,
                         TinkersLegacy.MODID);
@@ -106,28 +106,28 @@ public final class TLItems {
         public static final class Blocks {
                 private static final Map<ResourceLocation, DeferredHolder<Item, BlockItem>> ITEMS = new LinkedHashMap<>();
 
-                public static final DeferredHolder<Item, BlockItem> COBALT_BLOCK = register(TLBlocks.COBALT_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> ARDITE_BLOCK = register(TLBlocks.ARDITE_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> ALUBRASS_BLOCK = register(TLBlocks.ALUBRASS_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> KNIGHTSLIME_BLOCK = register(TLBlocks.KNIGHTSLIME_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> MANYULLYN_BLOCK = register(TLBlocks.MANYULLYN_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> PIGIRON_BLOCK = register(TLBlocks.PIGIRON_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> SILKY_JEWEL_BLOCK = register(TLBlocks.SILKY_JEWEL_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> GROUT = register(TLBlocks.Intermediary_Blocks.GROUT);
 
-                public static final DeferredHolder<Item, BlockItem> GROUT = register(TLBlocks.GROUT);
+                public static final DeferredHolder<Item, BlockItem> COBALT_BLOCK = register(TLBlocks.Storage_Blocks.COBALT_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> ARDITE_BLOCK = register(TLBlocks.Storage_Blocks.ARDITE_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> ALUBRASS_BLOCK = register(TLBlocks.Storage_Blocks.ALUBRASS_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> KNIGHTSLIME_BLOCK = register(TLBlocks.Storage_Blocks.KNIGHTSLIME_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> MANYULLYN_BLOCK = register(TLBlocks.Storage_Blocks.MANYULLYN_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> PIGIRON_BLOCK = register(TLBlocks.Storage_Blocks.PIGIRON_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> SILKY_JEWEL_BLOCK = register(TLBlocks.Storage_Blocks.SILKY_JEWEL_BLOCK);
 
-                public static final DeferredHolder<Item, BlockItem> SEARED_STONE = register(TLBlocks.SEARED_STONE);
-                public static final DeferredHolder<Item, BlockItem> SEARED_COBBLESTONE = register(TLBlocks.SEARED_COBBLESTONE);
-                public static final DeferredHolder<Item, BlockItem> SEARED_PAVER = register(TLBlocks.SEARED_PAVER);
-                public static final DeferredHolder<Item, BlockItem> SEARED_BRICKS = register(TLBlocks.SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> CRACKED_SEARED_BRICKS = register(TLBlocks.CRACKED_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> FANCY_SEARED_BRICKS = register(TLBlocks.FANCY_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SQUARE_SEARED_BRICKS = register(TLBlocks.SQUARE_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SEARED_ROAD = register(TLBlocks.SEARED_ROAD);
-                public static final DeferredHolder<Item, BlockItem> SEARED_CREEPERFACE = register(TLBlocks.SEARED_CREEPERFACE);
-                public static final DeferredHolder<Item, BlockItem> TRIANGLE_SEARED_BRICKS = register(TLBlocks.TRIANGLE_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SMALL_SEARED_BRICKS = register(TLBlocks.SMALL_SEARED_BRICKS);
-                public static final DeferredHolder<Item, BlockItem> SEARED_TILES = register(TLBlocks.SEARED_TILES);
+                public static final DeferredHolder<Item, BlockItem> SEARED_STONE = register(TLBlocks.Seared_Stone.SEARED_STONE);
+                public static final DeferredHolder<Item, BlockItem> SEARED_COBBLESTONE = register(TLBlocks.Seared_Stone.SEARED_COBBLESTONE);
+                public static final DeferredHolder<Item, BlockItem> SEARED_PAVER = register(TLBlocks.Seared_Stone.SEARED_PAVER);
+                public static final DeferredHolder<Item, BlockItem> SEARED_BRICKS = register(TLBlocks.Seared_Stone.SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> CRACKED_SEARED_BRICKS = register(TLBlocks.Seared_Stone.CRACKED_SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> FANCY_SEARED_BRICKS = register(TLBlocks.Seared_Stone.FANCY_SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> SQUARE_SEARED_BRICKS = register(TLBlocks.Seared_Stone.SQUARE_SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> SEARED_ROAD = register(TLBlocks.Seared_Stone.SEARED_ROAD);
+                public static final DeferredHolder<Item, BlockItem> SEARED_CREEPERFACE = register(TLBlocks.Seared_Stone.SEARED_CREEPERFACE);
+                public static final DeferredHolder<Item, BlockItem> TRIANGLE_SEARED_BRICKS = register(TLBlocks.Seared_Stone.TRIANGLE_SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> SMALL_SEARED_BRICKS = register(TLBlocks.Seared_Stone.SMALL_SEARED_BRICKS);
+                public static final DeferredHolder<Item, BlockItem> SEARED_TILES = register(TLBlocks.Seared_Stone.SEARED_TILES);
 
                 private static void register() {
                 }
