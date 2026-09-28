@@ -82,7 +82,7 @@ public final class TLBlocks {
                                 "seared_stone",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
-                public static final DeferredHolder<Block, Block> SEARED_COBBLESTONE = register(
+                public static final DeferredHolder<Block, Block> SEARED_COBBLE = register(
                                 "seared_cobble",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
 
@@ -94,15 +94,15 @@ public final class TLBlocks {
                                 "seared_bricks",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
 
-                public static final DeferredHolder<Block, Block> CRACKED_SEARED_BRICKS = register(
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_CRACKED = register(
                                 "seared_brick_cracked",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.CRACKED_STONE_BRICKS));
 
-                public static final DeferredHolder<Block, Block> FANCY_SEARED_BRICKS = register(
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_FANCY = register(
                                 "seared_brick_fancy",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
 
-                public static final DeferredHolder<Block, Block> SQUARE_SEARED_BRICKS = register(
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_SQUARE = register(
                                 "seared_brick_square",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
 
@@ -110,19 +110,19 @@ public final class TLBlocks {
                                 "seared_road",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
 
-                public static final DeferredHolder<Block, Block> SEARED_CREEPERFACE = register(
+                public static final DeferredHolder<Block, Block> SEARED_CREEPER = register(
                                 "seared_creeper",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
 
-                public static final DeferredHolder<Block, Block> TRIANGLE_SEARED_BRICKS = register(
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_TRIANGLE = register(
                                 "seared_brick_triangle",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
 
-                public static final DeferredHolder<Block, Block> SMALL_SEARED_BRICKS = register(
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_SMALL = register(
                                 "seared_brick_small",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
 
-                public static final DeferredHolder<Block, Block> SEARED_TILES = register(
+                public static final DeferredHolder<Block, Block> SEARED_TILE = register(
                                 "seared_tile",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
 
