@@ -108,13 +108,13 @@ public final class TLItems {
 
                 public static final DeferredHolder<Item, BlockItem> GROUT = register(TLBlocks.Intermediary_Blocks.GROUT);
 
-                public static final DeferredHolder<Item, BlockItem> COBALT_BLOCK = register(TLBlocks.Storage_Blocks.COBALT_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> ARDITE_BLOCK = register(TLBlocks.Storage_Blocks.ARDITE_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> ALUBRASS_BLOCK = register(TLBlocks.Storage_Blocks.ALUBRASS_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> KNIGHTSLIME_BLOCK = register(TLBlocks.Storage_Blocks.KNIGHTSLIME_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> MANYULLYN_BLOCK = register(TLBlocks.Storage_Blocks.MANYULLYN_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> PIGIRON_BLOCK = register(TLBlocks.Storage_Blocks.PIGIRON_BLOCK);
-                public static final DeferredHolder<Item, BlockItem> SILKY_JEWEL_BLOCK = register(TLBlocks.Storage_Blocks.SILKY_JEWEL_BLOCK);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_COBALT = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_COBALT);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ARDITE = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_ARDITE);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_ALUBRASS = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_ALUBRASS);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_KNIGHTSLIME = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_KNIGHTSLIME);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_MANYULLYN = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_MANYULLYN);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_PIGIRON = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_PIGIRON);
+                public static final DeferredHolder<Item, BlockItem> STORAGE_BLOCK_SILKY_JEWEL = register(TLBlocks.Storage_Blocks.STORAGE_BLOCK_SILKY_JEWEL);
 
                 public static final DeferredHolder<Item, BlockItem> SEARED_STONE = register(TLBlocks.Seared_Stone.SEARED_STONE);
                 public static final DeferredHolder<Item, BlockItem> SEARED_COBBLESTONE = register(TLBlocks.Seared_Stone.SEARED_COBBLESTONE);

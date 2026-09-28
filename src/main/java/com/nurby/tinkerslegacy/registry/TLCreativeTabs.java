@@ -118,13 +118,13 @@ public final class TLCreativeTabs {
                 }
 
                 private static void populate(CreativeModeTab.Output output) {
-                        output.accept(TLItems.Blocks.COBALT_BLOCK.get());
-                        output.accept(TLItems.Blocks.ARDITE_BLOCK.get());
-                        output.accept(TLItems.Blocks.ALUBRASS_BLOCK.get());
-                        output.accept(TLItems.Blocks.KNIGHTSLIME_BLOCK.get());
-                        output.accept(TLItems.Blocks.MANYULLYN_BLOCK.get());
-                        output.accept(TLItems.Blocks.PIGIRON_BLOCK.get());
-                        output.accept(TLItems.Blocks.SILKY_JEWEL_BLOCK.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_COBALT.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_ARDITE.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_ALUBRASS.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_KNIGHTSLIME.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_MANYULLYN.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_PIGIRON.get());
+                        output.accept(TLItems.Blocks.STORAGE_BLOCK_SILKY_JEWEL.get());
                         
                         output.accept(TLItems.Blocks.GROUT.get());
 

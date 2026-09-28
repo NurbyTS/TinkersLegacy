@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tinkerslegacy:alubrass_block"
+          "name": "tinkerslegacy:storage_block_manyullyn"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "tinkerslegacy:blocks/alubrass_block"
+  "random_sequence": "tinkerslegacy:blocks/storage_block_manyullyn"
 }

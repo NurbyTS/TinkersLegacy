@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tinkerslegacy:silky_jewel_block"
+          "name": "tinkerslegacy:storage_block_silky_jewel"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "tinkerslegacy:blocks/silky_jewel_block"
+  "random_sequence": "tinkerslegacy:blocks/storage_block_silky_jewel"
 }

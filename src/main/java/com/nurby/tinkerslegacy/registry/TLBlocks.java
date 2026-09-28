@@ -22,7 +22,7 @@ public final class TLBlocks {
                 Seared_Stone.register();
                 BLOCKS.register(modBus);
         }
-
+        
         public static final class Intermediary_Blocks {
                 public static final DeferredHolder<Block, Block> GROUT = register(
                                 "grout",
@@ -39,32 +39,32 @@ public final class TLBlocks {
         }
 
         public static final class Storage_Blocks {
-                public static final DeferredHolder<Block, Block> COBALT_BLOCK = register(
-                                "cobalt_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_COBALT = register(
+                                "storage_block_cobalt",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> ARDITE_BLOCK = register(
-                                "ardite_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ARDITE = register(
+                                "storage_block_ardite",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> ALUBRASS_BLOCK = register(
-                                "alubrass_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ALUBRASS = register(
+                                "storage_block_alubrass",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> KNIGHTSLIME_BLOCK = register(
-                                "knightslime_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_KNIGHTSLIME = register(
+                                "storage_block_knightslime",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> MANYULLYN_BLOCK = register(
-                                "manyullyn_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_MANYULLYN = register(
+                                "storage_block_manyullyn",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> PIGIRON_BLOCK = register(
-                                "pigiron_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_PIGIRON = register(
+                                "storage_block_pigiron",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 
-                public static final DeferredHolder<Block, Block> SILKY_JEWEL_BLOCK = register(
-                                "silky_jewel_block",
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_SILKY_JEWEL = register(
+                                "storage_block_silky_jewel",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
 
                 private static void register() {

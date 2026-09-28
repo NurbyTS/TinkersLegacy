@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tinkerslegacy:cobalt_block"
+          "name": "tinkerslegacy:storage_block_knightslime"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "tinkerslegacy:blocks/cobalt_block"
+  "random_sequence": "tinkerslegacy:blocks/storage_block_knightslime"
 }

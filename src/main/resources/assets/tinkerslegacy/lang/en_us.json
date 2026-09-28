@@ -17,13 +17,13 @@
   "item.tinkerslegacy.mud_brick": "Mud Brick",
   "item.tinkerslegacy.dried_brick": "Dried Brick",
   
-  "block.tinkerslegacy.cobalt_block": "Block of Cobalt",
-  "block.tinkerslegacy.ardite_block": "Block of Ardite",
-  "block.tinkerslegacy.alubrass_block": "Block of Alubrass",
-  "block.tinkerslegacy.knightslime_block": "Block of Knightslime",
-  "block.tinkerslegacy.manyullyn_block": "Block of Manyullyn",
-  "block.tinkerslegacy.pigiron_block": "Block of Pigiron",
-  "block.tinkerslegacy.silky_jewel_block": "Silky Block of Jewel",
+  "block.tinkerslegacy.storage_block_cobalt": "Block of Cobalt",
+  "block.tinkerslegacy.storage_block_ardite": "Block of Ardite",
+  "block.tinkerslegacy.storage_block_alubrass": "Block of Alubrass",
+  "block.tinkerslegacy.storage_block_knightslime": "Block of Knightslime",
+  "block.tinkerslegacy.storage_block_manyullyn": "Block of Manyullyn",
+  "block.tinkerslegacy.storage_block_pigiron": "Block of Pigiron",
+  "block.tinkerslegacy.storage_block_silky_jewel": "Silky Block of Jewel",
 
   "block.tinkerslegacy.grout": "Grout",
 

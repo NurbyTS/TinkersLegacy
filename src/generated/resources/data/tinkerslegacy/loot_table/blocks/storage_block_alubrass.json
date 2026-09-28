@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tinkerslegacy:ardite_block"
+          "name": "tinkerslegacy:storage_block_alubrass"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "tinkerslegacy:blocks/ardite_block"
+  "random_sequence": "tinkerslegacy:blocks/storage_block_alubrass"
 }

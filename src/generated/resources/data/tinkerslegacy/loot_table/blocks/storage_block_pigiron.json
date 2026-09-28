@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tinkerslegacy:manyullyn_block"
+          "name": "tinkerslegacy:storage_block_pigiron"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "tinkerslegacy:blocks/manyullyn_block"
+  "random_sequence": "tinkerslegacy:blocks/storage_block_pigiron"
 }
