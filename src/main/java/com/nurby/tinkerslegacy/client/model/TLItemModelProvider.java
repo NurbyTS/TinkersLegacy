@@ -57,8 +57,8 @@ public class TLItemModelProvider extends ItemModelProvider {
         withExistingParent("expander_vertical", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/expander_vertical"));
         withExistingParent("expander_horizontal", mcLoc("item/generated")).texture("layer0", modLoc("item/misc/expander_horizontal"));
 
-        withExistingParent("raw_cobalt", mcLoc("item/generated")).texture("layer0", modLoc("item/material/"));
-        withExistingParent("raw_ardite", mcLoc("item/generated")).texture("layer0", modLoc("item/material/"));
+        withExistingParent("raw_cobalt", mcLoc("item/generated")).texture("layer0", modLoc("item/material/ore/raw_cobalt"));
+        withExistingParent("raw_ardite", mcLoc("item/generated")).texture("layer0", modLoc("item/material/ore/raw_ardite"));
 
         withExistingParent("cobalt_nugget", mcLoc("item/generated")).texture("layer0", modLoc("item/material/nugget/cobalt_nugget"));
         withExistingParent("ardite_nugget", mcLoc("item/generated")).texture("layer0", modLoc("item/material/nugget/ardite_nugget"));

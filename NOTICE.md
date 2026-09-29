@@ -12,3 +12,5 @@ http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1287648-
 
 Slime Sling and Slime Boots graphics by Futureazoo
 https://github.com/SlimeKnights/TinkersConstruct/pull/2156
+
+Raw Cobalt and Raw Ardite graphics by Owen12121212121

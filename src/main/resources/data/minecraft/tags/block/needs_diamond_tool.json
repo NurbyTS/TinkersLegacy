@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#tinkerslegacy:seared_blocks",
-    "#tinkerslegacy:storage_blocks",
     "tinkerslegacy:nether_cobalt_ore",
     "tinkerslegacy:nether_ardite_ore"
   ]

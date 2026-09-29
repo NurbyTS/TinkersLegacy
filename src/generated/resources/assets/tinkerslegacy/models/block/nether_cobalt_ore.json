@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "tinkerslegacy:block/ore_overlay",
   "textures": {
-    "all": "tinkerslegacy:block/nether_cobalt_ore"
+    "base": "minecraft:block/netherrack",
+    "overlay": "tinkerslegacy:block/nether_cobalt_ore"
   }
 }

@@ -1,5 +1,6 @@
 package com.nurby.tinkerslegacy.datagen;
 
+import com.nurby.tinkerslegacy.registry.TLItems;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -15,8 +16,18 @@ public class TLBlockLootProvider extends BlockLootSubProvider {
 
     @Override 
     protected void generate() {
+        Block netherCobaltOre = TLBlocks.OreBlocks.NETHER_COBALT_ORE.get();
+        Block netherArditeOre = TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get();
+
         for (Block block : getKnownBlocks()) {
-            dropSelf(block);
+            if (block == netherCobaltOre) {
+                add(block, createOreDrop(block, TLItems.Items.RawOres.RAW_COBALT.get()));
+            } else if (block == netherArditeOre) {
+                add(block, createOreDrop(block, TLItems.Items.RawOres.RAW_ARDITE.get()));
+            }
+            else {
+                dropSelf(block);
+            }
         }
     }
 
