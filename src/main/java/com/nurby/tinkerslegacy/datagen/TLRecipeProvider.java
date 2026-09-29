@@ -2,6 +2,8 @@ package com.nurby.tinkerslegacy.datagen;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.registry.TLMetalFamilies;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -21,69 +23,25 @@ public class TLRecipeProvider extends RecipeProvider {
 
         @Override
         protected void buildRecipes(RecipeOutput output) {
-                metal(output,
-                                TLItems.Items.Nuggets.COBALT_NUGGET.get(),
-                                TLItems.Items.Ingots.COBALT_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_COBALT.get());
+                for (var family : TLMetalFamilies.ALL) {
+                        metal(output, family.nugget().get(), family.ingot().get(), family.storageBlock().get());
 
-                metal(output,
-                                TLItems.Items.Nuggets.ARDITE_NUGGET.get(),
-                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE.get());
+                        for (var input : family.smeltingInputs()) {
+                                smeltingAndBlasting(output, input.get(), family.ingot().get(), 0.7F, 200);
+                        }
+                }
 
-                metal(output,
-                                TLItems.Items.Nuggets.ALUBRASS_NUGGET.get(),
-                                TLItems.Items.Ingots.ALUBRASS_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ALUBRASS.get());
-
-                metal(output,
-                                TLItems.Items.Nuggets.KNIGHTSLIME_NUGGET.get(),
-                                TLItems.Items.Ingots.KNIGHTSLIME_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_KNIGHTSLIME.get());
-
-                metal(output,
-                                TLItems.Items.Nuggets.MANYULLYN_NUGGET.get(),
-                                TLItems.Items.Ingots.MANYULLYN_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_MANYULLYN.get());
-
-                metal(output,
-                                TLItems.Items.Nuggets.PIGIRON_NUGGET.get(),
-                                TLItems.Items.Ingots.PIGIRON_INGOT.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_PIGIRON.get());
-
-                gem(output,
+                gem(
+                                output,
                                 TLItems.Items.Gems.SILKY_JEWEL.get(),
                                 TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_SILKY_JEWEL.get());
 
-                smelting(output,
+                smelting(
+                                output,
                                 "seared_brick",
                                 TLItems.Blocks.IntermediaryBlocks.GROUT.get(),
                                 TLItems.Items.Bricks.SEARED_BRICK.get(),
                                 0.1F,
-                                200);
-
-                smeltingAndBlasting(output,
-                                TLItems.Items.RawOres.RAW_COBALT.get(),
-                                TLItems.Items.Ingots.COBALT_INGOT.get(),
-                                0.7F,
-                                200);
-
-                smeltingAndBlasting(output,
-                                TLItems.Blocks.OreBlocks.NETHER_COBALT_ORE.get(),
-                                TLItems.Items.Ingots.COBALT_INGOT.get(),
-                                0.7F,
-                                200);
-
-                smeltingAndBlasting(output,
-                                TLItems.Items.RawOres.RAW_ARDITE.get(),
-                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
-                                0.7F,
-                                200);
-
-                smeltingAndBlasting(output,
-                                TLItems.Blocks.OreBlocks.NETHER_ARDITE_ORE.get(),
-                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
-                                0.7F,
                                 200);
         }
 
