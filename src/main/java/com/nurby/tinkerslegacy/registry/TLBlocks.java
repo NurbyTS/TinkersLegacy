@@ -4,6 +4,7 @@ import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.block.CongealedSlimeBlock;
 import com.nurby.tinkerslegacy.block.ColoredSlimeBlock;
 import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,21 +23,12 @@ public final class TLBlocks {
                         BuiltInRegistries.BLOCK,
                         TinkersLegacy.MODID);
 
-        public static void register(IEventBus modBus) {
-                OreBlocks.register();
-                IntermediaryBlocks.register();
-                StorageBlocks.register();
-                SearedBlocks.register();
-                SlimyBlocks.register();
-                BLOCKS.register(modBus);
-        }
-
         public static final class OreBlocks {
-                public static final DeferredHolder<Block, Block> NETHER_COBALT_ORE = register(
+                public static final DeferredHolder<Block, Block> NETHER_COBALT_ORE = TLBlocks.registerBlock(
                                 "nether_cobalt_ore",
                                 netherOreProperties());
 
-                public static final DeferredHolder<Block, Block> NETHER_ARDITE_ORE = register(
+                public static final DeferredHolder<Block, Block> NETHER_ARDITE_ORE = TLBlocks.registerBlock(
                                 "nether_ardite_ore",
                                 netherOreProperties());
 
@@ -50,16 +42,10 @@ public final class TLBlocks {
 
                 private static void register() {
                 }
-
-                private static DeferredHolder<Block, Block> register(
-                                String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new Block(properties));
-                }
         }
 
         public static final class IntermediaryBlocks {
-                public static final DeferredHolder<Block, Block> GROUT = register(
+                public static final DeferredHolder<Block, Block> GROUT = TLBlocks.registerBlock(
                                 "grout",
                                 groutProperties());
 
@@ -73,40 +59,34 @@ public final class TLBlocks {
 
                 private static void register() {
                 }
-
-                private static DeferredHolder<Block, Block> register(
-                                String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new Block(properties));
-                }
         }
 
         public static final class StorageBlocks {
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_COBALT = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_COBALT = TLBlocks.registerBlock(
                                 "storage_block_cobalt",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ARDITE = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ARDITE = TLBlocks.registerBlock(
                                 "storage_block_ardite",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ALUBRASS = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ALUBRASS = TLBlocks.registerBlock(
                                 "storage_block_alubrass",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_KNIGHTSLIME = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_KNIGHTSLIME = TLBlocks.registerBlock(
                                 "storage_block_knightslime",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_MANYULLYN = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_MANYULLYN = TLBlocks.registerBlock(
                                 "storage_block_manyullyn",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_PIGIRON = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_PIGIRON = TLBlocks.registerBlock(
                                 "storage_block_pigiron",
                                 storageBlockProperties());
 
-                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_SILKY_JEWEL = register(
+                public static final DeferredHolder<Block, Block> STORAGE_BLOCK_SILKY_JEWEL = TLBlocks.registerBlock(
                                 "storage_block_silky_jewel",
                                 storageBlockProperties());
 
@@ -120,49 +100,54 @@ public final class TLBlocks {
 
                 private static void register() {
                 }
-
-                private static DeferredHolder<Block, Block> register(
-                                String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new Block(properties));
-                }
         }
 
         public static final class SearedBlocks {
-                public static final DeferredHolder<Block, Block> SEARED_STONE = register(
+                public static final DeferredHolder<Block, Block> SEARED_STONE = TLBlocks.registerBlock(
                                 "seared_stone",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_COBBLE = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_COBBLE = TLBlocks.registerBlock(
                                 "seared_cobble",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_PAVER = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_PAVER = TLBlocks.registerBlock(
                                 "seared_paver",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICKS = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICKS = TLBlocks.registerBlock(
                                 "seared_bricks",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICK_CRACKED = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_CRACKED = TLBlocks.registerBlock(
                                 "seared_brick_cracked",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICK_FANCY = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_FANCY = TLBlocks.registerBlock(
                                 "seared_brick_fancy",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICK_SQUARE = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_SQUARE = TLBlocks.registerBlock(
                                 "seared_brick_square",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_ROAD = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_ROAD = TLBlocks.registerBlock(
                                 "seared_road",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_CREEPER = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_CREEPER = TLBlocks.registerBlock(
                                 "seared_creeper",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICK_TRIANGLE = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_TRIANGLE = TLBlocks.registerBlock(
                                 "seared_brick_triangle",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_BRICK_SMALL = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_BRICK_SMALL = TLBlocks.registerBlock(
                                 "seared_brick_small",
                                 searedProperties());
-                public static final DeferredHolder<Block, Block> SEARED_TILE = register(
+
+                public static final DeferredHolder<Block, Block> SEARED_TILE = TLBlocks.registerBlock(
                                 "seared_tile",
                                 searedProperties());
 
@@ -176,25 +161,19 @@ public final class TLBlocks {
 
                 private static void register() {
                 }
-
-                private static DeferredHolder<Block, Block> register(
-                                String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new Block(properties));
-                }
         }
 
         public static final class SlimyBlocks {
-                public static final DeferredHolder<Block, Block> GREEN_SLIMY_DIRT = register(
+                public static final DeferredHolder<Block, Block> GREEN_SLIMY_DIRT = TLBlocks.registerBlock(
                                 "green_slimy_dirt",
                                 slimyDirtProperties(MapColor.COLOR_GREEN));
-                public static final DeferredHolder<Block, Block> BLUE_SLIMY_DIRT = register(
+                public static final DeferredHolder<Block, Block> BLUE_SLIMY_DIRT = TLBlocks.registerBlock(
                                 "blue_slimy_dirt",
                                 slimyDirtProperties(MapColor.COLOR_CYAN));
-                public static final DeferredHolder<Block, Block> PURPLE_SLIMY_DIRT = register(
+                public static final DeferredHolder<Block, Block> PURPLE_SLIMY_DIRT = TLBlocks.registerBlock(
                                 "purple_slimy_dirt",
                                 slimyDirtProperties(MapColor.COLOR_PURPLE));
-                public static final DeferredHolder<Block, Block> MAGMA_SLIMY_DIRT = register(
+                public static final DeferredHolder<Block, Block> MAGMA_SLIMY_DIRT = TLBlocks.registerBlock(
                                 "magma_slimy_dirt",
                                 slimyDirtProperties(MapColor.COLOR_ORANGE));
 
@@ -242,32 +221,32 @@ public final class TLBlocks {
                 public static final DeferredHolder<Block, Block> MAGMA_SLIMY_MAGMA_GRASS = registerGrass(
                                 "magma_slimy_magma_grass", () -> MAGMA_SLIMY_DIRT.get(), "magma");
 
-                public static final DeferredHolder<Block, Block> GREEN_CONGEALED_SLIME_BLOCK = registerCongealed(
+                public static final DeferredHolder<Block, Block> GREEN_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "green_congealed_slime_block",
                                 congealedSlimeBlockProperties(MapColor.COLOR_GREEN));
-                public static final DeferredHolder<Block, Block> BLUE_CONGEALED_SLIME_BLOCK = registerCongealed(
+                public static final DeferredHolder<Block, Block> BLUE_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blue_congealed_slime_block",
                                 congealedSlimeBlockProperties(MapColor.COLOR_CYAN));
-                public static final DeferredHolder<Block, Block> PURPLE_CONGEALED_SLIME_BLOCK = registerCongealed(
+                public static final DeferredHolder<Block, Block> PURPLE_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "purple_congealed_slime_block",
                                 congealedSlimeBlockProperties(MapColor.COLOR_PURPLE));
-                public static final DeferredHolder<Block, Block> MAGMA_CONGEALED_SLIME_BLOCK = registerCongealed(
+                public static final DeferredHolder<Block, Block> MAGMA_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "magma_congealed_slime_block",
                                 congealedSlimeBlockProperties(MapColor.COLOR_ORANGE));
-                public static final DeferredHolder<Block, Block> BLOOD_CONGEALED_SLIME_BLOCK = registerCongealed(
+                public static final DeferredHolder<Block, Block> BLOOD_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blood_congealed_slime_block",
                                 congealedSlimeBlockProperties(MapColor.COLOR_RED));
 
-                public static final DeferredHolder<Block, Block> BLUE_SLIME_BLOCK = registerSlime(
+                public static final DeferredHolder<Block, Block> BLUE_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blue_slime_block",
                                 slimeBlockProperties(MapColor.COLOR_CYAN));
-                public static final DeferredHolder<Block, Block> PURPLE_SLIME_BLOCK = registerSlime(
+                public static final DeferredHolder<Block, Block> PURPLE_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "purple_slime_block",
                                 slimeBlockProperties(MapColor.COLOR_PURPLE));
-                public static final DeferredHolder<Block, Block> MAGMA_SLIME_BLOCK = registerSlime(
+                public static final DeferredHolder<Block, Block> MAGMA_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "magma_slime_block",
                                 slimeBlockProperties(MapColor.COLOR_ORANGE));
-                public static final DeferredHolder<Block, Block> BLOOD_SLIME_BLOCK = registerSlime(
+                public static final DeferredHolder<Block, Block> BLOOD_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blood_slime_block",
                                 slimeBlockProperties(MapColor.COLOR_RED));
 
@@ -299,25 +278,32 @@ public final class TLBlocks {
                 private static void register() {
                 }
 
-                private static DeferredHolder<Block, Block> register(String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new Block(properties));
-                }
-
-                private static DeferredHolder<Block, Block> registerCongealed(String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new CongealedSlimeBlock(properties));
-                }
-
-                private static DeferredHolder<Block, Block> registerSlime(String name,
-                                BlockBehaviour.Properties properties) {
-                        return BLOCKS.register(name, () -> new ColoredSlimeBlock(properties));
-                }
-
                 private static DeferredHolder<Block, Block> registerGrass(String name, Supplier<Block> soil,
                                 String foliage) {
                         return BLOCKS.register(name,
                                         () -> new SlimyGrassBlock(slimyGrassProperties(), soil.get(), foliage));
                 }
+        }
+
+        public static void register(IEventBus modBus) {
+                OreBlocks.register();
+                IntermediaryBlocks.register();
+                StorageBlocks.register();
+                SearedBlocks.register();
+                SlimyBlocks.register();
+                BLOCKS.register(modBus);
+        }
+
+        public static DeferredHolder<Block, Block> registerBlock(
+                        String name,
+                        BlockBehaviour.Properties properties) {
+                return registerBlock(name, Block::new, properties);
+        }
+
+        private static DeferredHolder<Block, Block> registerBlock(
+                        String name,
+                        Function<BlockBehaviour.Properties, ? extends Block> factory,
+                        BlockBehaviour.Properties properties) {
+                return BLOCKS.register(name, () -> factory.apply(properties));
         }
 }
