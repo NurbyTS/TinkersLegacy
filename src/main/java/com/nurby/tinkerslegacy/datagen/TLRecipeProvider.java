@@ -7,96 +7,174 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.concurrent.CompletableFuture;
 
 public class TLRecipeProvider extends RecipeProvider {
-    public TLRecipeProvider(
-            PackOutput output,
-            CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider);
-    }
+        public TLRecipeProvider(
+                        PackOutput output,
+                        CompletableFuture<HolderLookup.Provider> lookupProvider) {
+                super(output, lookupProvider);
+        }
 
-    @Override
-    protected void buildRecipes(RecipeOutput output) {
-        metal(output,
-                TLItems.Items.Nuggets.COBALT_NUGGET.get(),
-                TLItems.Items.Ingots.COBALT_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_COBALT.get());
+        @Override
+        protected void buildRecipes(RecipeOutput output) {
+                metal(output,
+                                TLItems.Items.Nuggets.COBALT_NUGGET.get(),
+                                TLItems.Items.Ingots.COBALT_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_COBALT.get());
 
-        metal(output,
-                TLItems.Items.Nuggets.ARDITE_NUGGET.get(),
-                TLItems.Items.Ingots.ARDITE_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE.get());
+                metal(output,
+                                TLItems.Items.Nuggets.ARDITE_NUGGET.get(),
+                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE.get());
 
-        metal(output,
-                TLItems.Items.Nuggets.ALUBRASS_NUGGET.get(),
-                TLItems.Items.Ingots.ALUBRASS_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ALUBRASS.get());
+                metal(output,
+                                TLItems.Items.Nuggets.ALUBRASS_NUGGET.get(),
+                                TLItems.Items.Ingots.ALUBRASS_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ALUBRASS.get());
 
-        metal(output,
-                TLItems.Items.Nuggets.KNIGHTSLIME_NUGGET.get(),
-                TLItems.Items.Ingots.KNIGHTSLIME_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_KNIGHTSLIME.get());
+                metal(output,
+                                TLItems.Items.Nuggets.KNIGHTSLIME_NUGGET.get(),
+                                TLItems.Items.Ingots.KNIGHTSLIME_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_KNIGHTSLIME.get());
 
-        metal(output,
-                TLItems.Items.Nuggets.MANYULLYN_NUGGET.get(),
-                TLItems.Items.Ingots.MANYULLYN_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_MANYULLYN.get());
+                metal(output,
+                                TLItems.Items.Nuggets.MANYULLYN_NUGGET.get(),
+                                TLItems.Items.Ingots.MANYULLYN_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_MANYULLYN.get());
 
-        metal(output,
-                TLItems.Items.Nuggets.PIGIRON_NUGGET.get(),
-                TLItems.Items.Ingots.PIGIRON_INGOT.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_PIGIRON.get());
+                metal(output,
+                                TLItems.Items.Nuggets.PIGIRON_NUGGET.get(),
+                                TLItems.Items.Ingots.PIGIRON_INGOT.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_PIGIRON.get());
 
-        gem(output,
-                TLItems.Items.Gems.SILKY_JEWEL.get(),
-                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_SILKY_JEWEL.get());
-    }
+                gem(output,
+                                TLItems.Items.Gems.SILKY_JEWEL.get(),
+                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_SILKY_JEWEL.get());
 
-    private void metal(
-            RecipeOutput output,
-            ItemLike nugget,
-            ItemLike ingot,
-            ItemLike block) {
-        packing(output, nugget, ingot, RecipeCategory.MISC);
-        packing(output, ingot, block, RecipeCategory.BUILDING_BLOCKS);
-    }
+                smelting(output,
+                                "seared_brick",
+                                TLItems.Blocks.IntermediaryBlocks.GROUT.get(),
+                                TLItems.Items.Bricks.SEARED_BRICK.get(),
+                                0.1F,
+                                200);
 
-    private void gem(
-            RecipeOutput output,
-            ItemLike gem,
-            ItemLike block) {
-        packing(output, gem, block, RecipeCategory.BUILDING_BLOCKS);
-    }
+                smeltingAndBlasting(output,
+                                TLItems.Items.RawOres.RAW_COBALT.get(),
+                                TLItems.Items.Ingots.COBALT_INGOT.get(),
+                                0.7F,
+                                200);
 
-    // Generates bidirectional recipes
-    private void packing(
-            RecipeOutput output,
-            ItemLike small,
-            ItemLike packed,
-            RecipeCategory packedCategory) {
-        ShapedRecipeBuilder.shaped(packedCategory, packed)
-                .pattern("###")
-                .pattern("###")
-                .pattern("###")
-                .define('#', small)
-                .unlockedBy("has_ingredient", has(small))
-                .save(output, conversionId(packed, small));
+                smeltingAndBlasting(output,
+                                TLItems.Blocks.OreBlocks.NETHER_COBALT_ORE.get(),
+                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
+                                0.7F,
+                                200);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, small, 9)
-                .requires(packed)
-                .unlockedBy("has_ingredient", has(packed))
-                .save(output, conversionId(small, packed));
-    }
+                smeltingAndBlasting(output,
+                                TLItems.Items.RawOres.RAW_ARDITE.get(),
+                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
+                                0.7F,
+                                200);
 
-    private ResourceLocation conversionId(
-            ItemLike result,
-            ItemLike ingredient) {
-        String resultName = BuiltInRegistries.ITEM.getKey(result.asItem()).getPath();
-        String ingredientName = BuiltInRegistries.ITEM.getKey(ingredient.asItem()).getPath();
+                smeltingAndBlasting(output,
+                                TLItems.Blocks.OreBlocks.NETHER_ARDITE_ORE.get(),
+                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
+                                0.7F,
+                                200);
+        }
 
-        return ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, resultName + "_from_" + ingredientName);
-    }
+        private void smelting(
+                        RecipeOutput output,
+                        String recipeName,
+                        ItemLike input,
+                        ItemLike result,
+                        float experience,
+                        int cookingTime) {
+                SimpleCookingRecipeBuilder.smelting(
+                                Ingredient.of(input),
+                                RecipeCategory.MISC,
+                                result,
+                                experience,
+                                cookingTime)
+                                .unlockedBy("has_ingredient", has(input))
+                                .save(output, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, recipeName));
+        }
+
+        private void blasting(
+                        RecipeOutput output,
+                        String recipeName,
+                        ItemLike input,
+                        ItemLike result,
+                        float experience,
+                        int cookingTime) {
+                SimpleCookingRecipeBuilder.blasting(
+                                Ingredient.of(input),
+                                RecipeCategory.MISC,
+                                result, experience,
+                                cookingTime)
+                                .unlockedBy("has_ingredient", has(input))
+                                .save(output, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, recipeName));
+        }
+
+        private void smeltingAndBlasting(
+                        RecipeOutput output,
+                        ItemLike input,
+                        ItemLike result,
+                        float experience,
+                        int cookingTime) {
+                String baseName = conversionId(result, input).getPath();
+
+                smelting(output, baseName + "_smelting", input, result, experience, cookingTime);
+                blasting(output, baseName + "_blasting", input, result, experience, cookingTime / 2);
+        }
+
+        private void metal(
+                        RecipeOutput output,
+                        ItemLike nugget,
+                        ItemLike ingot,
+                        ItemLike block) {
+                packing(output, nugget, ingot, RecipeCategory.MISC);
+                packing(output, ingot, block, RecipeCategory.BUILDING_BLOCKS);
+        }
+
+        private void gem(
+                        RecipeOutput output,
+                        ItemLike gem,
+                        ItemLike block) {
+                packing(output, gem, block, RecipeCategory.BUILDING_BLOCKS);
+        }
+
+        // Generates bidirectional recipes
+        private void packing(
+                        RecipeOutput output,
+                        ItemLike small,
+                        ItemLike packed,
+                        RecipeCategory packedCategory) {
+                ShapedRecipeBuilder.shaped(packedCategory, packed)
+                                .pattern("###")
+                                .pattern("###")
+                                .pattern("###")
+                                .define('#', small)
+                                .unlockedBy("has_ingredient", has(small))
+                                .save(output, conversionId(packed, small));
+
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, small, 9)
+                                .requires(packed)
+                                .unlockedBy("has_ingredient", has(packed))
+                                .save(output, conversionId(small, packed));
+        }
+
+        private ResourceLocation conversionId(
+                        ItemLike result,
+                        ItemLike ingredient) {
+                String resultName = BuiltInRegistries.ITEM.getKey(result.asItem()).getPath();
+                String ingredientName = BuiltInRegistries.ITEM.getKey(ingredient.asItem()).getPath();
+
+                return ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID,
+                                resultName + "_from_" + ingredientName);
+        }
 }
