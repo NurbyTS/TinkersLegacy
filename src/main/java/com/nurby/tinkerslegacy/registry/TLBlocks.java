@@ -271,8 +271,6 @@ public final class TLBlocks {
                                 "blood_slime_block",
                                 slimeBlockProperties(MapColor.COLOR_RED));
 
-                // Each call returns fresh mutable properties. Colors share behavior, not
-                // instances.
                 private static BlockBehaviour.Properties slimyDirtProperties(MapColor color) {
                         return BlockBehaviour.Properties.of()
                                         .mapColor(color)

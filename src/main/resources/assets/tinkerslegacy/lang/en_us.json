@@ -34,11 +34,10 @@
   "item.tinkerslegacy.silky_jewel": "Silky Jewel",
   "tooltip.tinkerslegacy.silky_jewel": "Silktouch Modifier",
   "item.tinkerslegacy.green_slime_crystal": "Green Slime Crystal",
-  "tooltip.tinkerslegacy.green_slime_crystal": "Used to craft Slime Tools",
   "item.tinkerslegacy.blue_slime_crystal": "Blue Slime Crystal",
-  "tooltip.tinkerslegacy.blue_slime_crystal": "Used to craft Slime Tools",
   "item.tinkerslegacy.magma_slime_crystal": "Magma Slime Crystal",
-  "tooltip.tinkerslegacy.magma_slime_crystal": "Used to craft Slime Tools",
+  
+  "tooltip.tinkerslegacy.slime_crystal": "Used to craft Slime Tools",
 
   "item.tinkerslegacy.seared_brick": "Seared Brick",
   "item.tinkerslegacy.mud_brick": "Mud Brick",
@@ -46,8 +45,11 @@
   "item.tinkerslegacy.dried_brick": "Dried Brick",
 
   "item.tinkerslegacy.blue_slimeball": "Blue Slimeball",
+  "tooltip.tinkerslegacy.blue_slimeball": "Slowness \nJump Boost",
   "item.tinkerslegacy.purple_slimeball": "Purple Slimeball",
+  "tooltip.tinkerslegacy.purple_slimeball": "Bad Luck \nLuck",
   "item.tinkerslegacy.magma_slimeball": "Magma Slimeball",
+  "tooltip.tinkerslegacy.magma_slimeball": "Weakness \nWither \nFire Resistance",
 
   "block.tinkerslegacy.nether_cobalt_ore": "Nether Cobalt Ore",
   "block.tinkerslegacy.nether_ardite_ore": "Nether Ardite Ore",

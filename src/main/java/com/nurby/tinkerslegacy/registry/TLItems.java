@@ -172,19 +172,19 @@ public final class TLItems {
                                         "green_slime_crystal",
                                         () -> new TooltipItem(
                                                         new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.green_slime_crystal"));
+                                                        "tooltip.tinkerslegacy.slime_crystal"));
 
                         public static final DeferredHolder<Item, Item> BLUE_SLIME_CRYSTAL = TLItems.ITEMS.register(
                                         "blue_slime_crystal",
                                         () -> new TooltipItem(
                                                         new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.blue_slime_crystal"));
+                                                        "tooltip.tinkerslegacy.slime_crystal"));
 
                         public static final DeferredHolder<Item, Item> MAGMA_SLIME_CRYSTAL = TLItems.ITEMS.register(
                                         "magma_slime_crystal",
                                         () -> new TooltipItem(
                                                         new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.magma_slime_crystal"));
+                                                        "tooltip.tinkerslegacy.slime_crystal"));
 
                         private static void register() {
                         }
@@ -211,15 +211,21 @@ public final class TLItems {
                 public static final class Slimeballs {
                         public static final DeferredHolder<Item, Item> BLUE_SLIMEBALL = TLItems.ITEMS.register(
                                         "blue_slimeball",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                        new Item.Properties(),
+                                                        "tooltip.tinkerslegacy.blue_slimeball"));
 
                         public static final DeferredHolder<Item, Item> PURPLE_SLIMEBALL = TLItems.ITEMS.register(
                                         "purple_slimeball",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                        new Item.Properties(),
+                                                        "tooltip.tinkerslegacy.purple_slimeball"));
 
                         public static final DeferredHolder<Item, Item> MAGMA_SLIMEBALL = TLItems.ITEMS.register(
                                         "magma_slimeball",
-                                        () -> new Item(new Item.Properties()));
+                                        () -> new TooltipItem(
+                                                        new Item.Properties(),
+                                                        "tooltip.tinkerslegacy.magma_slimeball"));
 
                         private static void register() {
                         }
