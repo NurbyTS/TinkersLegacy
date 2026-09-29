@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tinkerslegacy:ardite_ingot_from_nether_cobalt_ore_blasting"
+        "recipe": "tinkerslegacy:cobalt_ingot_from_nether_cobalt_ore_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tinkerslegacy:ardite_ingot_from_nether_cobalt_ore_blasting"
+      "tinkerslegacy:cobalt_ingot_from_nether_cobalt_ore_smelting"
     ]
   }
 }

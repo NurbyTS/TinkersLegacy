@@ -5,30 +5,47 @@ import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
+import com.nurby.tinkerslegacy.registry.TLBlocks;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @JeiPlugin
 public class TLJeiPlugin implements IModPlugin {
-    @Override 
+    @Override
+    public void registerRecipes(IRecipeRegistration registration) {
+        Component description = Component.translatable("jei.tinkerslegacy.nether_ore_generation");
+
+        registration.addIngredientInfo(
+                TLBlocks.OreBlocks.NETHER_COBALT_ORE.get(),
+                description);
+
+        registration.addIngredientInfo(
+                TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get(),
+                description);
+    }
+
+    @Override
     public ResourceLocation getPluginUid() {
         return ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "jei");
     }
 
-    @Override 
+    @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
-        MaterialSubtypeInterpreter interpreter = 
-            new MaterialSubtypeInterpreter();
+        MaterialSubtypeInterpreter interpreter = new MaterialSubtypeInterpreter();
 
         for (Item item : BuiltInRegistries.ITEM) {
             if (item instanceof DynamicTool || item instanceof DynamicPart) {
@@ -38,7 +55,7 @@ public class TLJeiPlugin implements IModPlugin {
     }
 
     private static final class MaterialSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
-        @Override 
+        @Override
         public Object getSubtypeData(ItemStack stack, UidContext context) {
             List<MaterialLayer> layers = stack.get(TLDataComponents.MATERIALS);
 
@@ -49,14 +66,16 @@ public class TLJeiPlugin implements IModPlugin {
             return List.copyOf(layers);
         }
 
-        @Override public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
+        @Override
+        public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
             List<MaterialLayer> layers = stack.get(TLDataComponents.MATERIALS);
 
             if (layers == null || layers.isEmpty()) {
                 return "";
             }
 
-            return layers.stream().map(layer -> layer.statType() + "=" + layer.material()).collect(Collectors.joining(";"));
+            return layers.stream().map(layer -> layer.statType() + "=" + layer.material())
+                    .collect(Collectors.joining(";"));
         }
     }
 }

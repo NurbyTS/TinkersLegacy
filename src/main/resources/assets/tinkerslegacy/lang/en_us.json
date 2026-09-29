@@ -170,5 +170,7 @@
   "itemGroup.tinkerslegacy.items": "Tinker's Legacy: Items",
   "itemGroup.tinkerslegacy.blocks": "Tinker's Legacy: Blocks",
   "itemGroup.tinkerslegacy.parts": "Tinker's Legacy: Parts",
-  "itemGroup.tinkerslegacy.tools": "Tinker's Legacy: Tools"
+  "itemGroup.tinkerslegacy.tools": "Tinker's Legacy: Tools",
+
+  "jei.tinkerslegacy.nether_ore_generation": "Generates in netherrack throughout Nether biomes. Placement attempts span Y0-127, with extra attempts at Y32-95. Each ore has 20 attempts per chunk and a configured vein size of 5. Actual ore amounts depend on terrain."
 }

@@ -70,7 +70,7 @@ public class TLRecipeProvider extends RecipeProvider {
 
                 smeltingAndBlasting(output,
                                 TLItems.Blocks.OreBlocks.NETHER_COBALT_ORE.get(),
-                                TLItems.Items.Ingots.ARDITE_INGOT.get(),
+                                TLItems.Items.Ingots.COBALT_INGOT.get(),
                                 0.7F,
                                 200);
 

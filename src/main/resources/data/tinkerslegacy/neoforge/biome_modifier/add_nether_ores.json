@@ -1,0 +1,11 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": [
+    "tinkerslegacy:nether_cobalt_ore_middle",
+    "tinkerslegacy:nether_cobalt_ore_full",
+    "tinkerslegacy:nether_ardite_ore_middle",
+    "tinkerslegacy:nether_ardite_ore_full"
+  ],
+  "step": "underground_ores"
+}
