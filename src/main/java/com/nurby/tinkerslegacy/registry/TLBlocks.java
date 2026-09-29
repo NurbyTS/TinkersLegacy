@@ -6,6 +6,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.MapColor;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -100,51 +102,59 @@ public final class TLBlocks {
         public static final class SearedBlocks {
                 public static final DeferredHolder<Block, Block> SEARED_STONE = register(
                                 "seared_stone",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_COBBLE = register(
                                 "seared_cobble",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_PAVER = register(
                                 "seared_paver",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICKS = register(
                                 "seared_bricks",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICK_CRACKED = register(
                                 "seared_brick_cracked",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.CRACKED_STONE_BRICKS));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICK_FANCY = register(
                                 "seared_brick_fancy",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICK_SQUARE = register(
                                 "seared_brick_square",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_ROAD = register(
                                 "seared_road",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_CREEPER = register(
                                 "seared_creeper",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICK_TRIANGLE = register(
                                 "seared_brick_triangle",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_BRICK_SMALL = register(
                                 "seared_brick_small",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.BRICK_WALL));
+                                searedProperties());
 
                 public static final DeferredHolder<Block, Block> SEARED_TILE = register(
                                 "seared_tile",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE));
+                                searedProperties());
+
+                private static BlockBehaviour.Properties searedProperties() {
+                        return BlockBehaviour.Properties.of()
+                                .mapColor(MapColor.STONE)
+                                .strength(3.0F, 12.0F)
+                                .sound(SoundType.METAL)
+                                .requiresCorrectToolForDrops();
+                }
 
                 private static void register() {
                 }
