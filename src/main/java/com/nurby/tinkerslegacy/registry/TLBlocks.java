@@ -35,6 +35,14 @@ public final class TLBlocks {
                                 "nether_ardite_ore",
                                 BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_GOLD_ORE));
 
+                private static BlockBehaviour.Properties netherOreProperties() {
+                        return BlockBehaviour.Properties.of()
+                                        .mapColor(MapColor.STONE)
+                                        .strength(10.0F, 10.0F)
+                                        .sound(SoundType.STONE)
+                                        .requiresCorrectToolForDrops();
+                }
+
                 private static void register() {
                 }
 
@@ -48,7 +56,15 @@ public final class TLBlocks {
         public static final class IntermediaryBlocks {
                 public static final DeferredHolder<Block, Block> GROUT = register(
                                 "grout",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY));
+                                groutProperties());
+
+                private static BlockBehaviour.Properties groutProperties() {
+                        return BlockBehaviour.Properties.of()
+                                        .mapColor(MapColor.SAND)
+                                        .strength(3.0F, 3.0F)
+                                        .sound(SoundType.SAND)
+                                        .friction(0.8F);
+                }
 
                 private static void register() {
                 }
@@ -63,31 +79,39 @@ public final class TLBlocks {
         public static final class StorageBlocks {
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_COBALT = register(
                                 "storage_block_cobalt",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ARDITE = register(
                                 "storage_block_ardite",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_ALUBRASS = register(
                                 "storage_block_alubrass",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_KNIGHTSLIME = register(
                                 "storage_block_knightslime",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_MANYULLYN = register(
                                 "storage_block_manyullyn",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_PIGIRON = register(
                                 "storage_block_pigiron",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+                                storageBlockProperties());
 
                 public static final DeferredHolder<Block, Block> STORAGE_BLOCK_SILKY_JEWEL = register(
                                 "storage_block_silky_jewel",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.EMERALD_BLOCK));
+                                storageBlockProperties());
+
+                private static BlockBehaviour.Properties storageBlockProperties() {
+                        return BlockBehaviour.Properties.of()
+                                        .mapColor(MapColor.METAL)
+                                        .strength(5.0F, 5.0F)
+                                        .sound(SoundType.STONE)
+                                        .requiresCorrectToolForDrops();
+                }
 
                 private static void register() {
                 }
@@ -150,10 +174,10 @@ public final class TLBlocks {
 
                 private static BlockBehaviour.Properties searedProperties() {
                         return BlockBehaviour.Properties.of()
-                                .mapColor(MapColor.STONE)
-                                .strength(3.0F, 12.0F)
-                                .sound(SoundType.METAL)
-                                .requiresCorrectToolForDrops();
+                                        .mapColor(MapColor.STONE)
+                                        .strength(3.0F, 12.0F)
+                                        .sound(SoundType.METAL)
+                                        .requiresCorrectToolForDrops();
                 }
 
                 private static void register() {
