@@ -1,6 +1,7 @@
 {
-    "replace": false,
-    "values": [
-        "tinkerslegacy:grout"
-    ]
+  "replace": false,
+  "values": [
+    "tinkerslegacy:grout",
+    "#tinkerslegacy:slimy_ground"
+  ]
 }

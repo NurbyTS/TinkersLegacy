@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/grass_block",
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "bottom": "minecraft:block/dirt",
+    "overlay": "tinkerslegacy:block/slime/slimegrass_overlay",
+    "particle": "minecraft:block/dirt",
+    "side": "minecraft:block/dirt",
+    "top": "tinkerslegacy:block/slime/slimegrass_top"
+  }
+}

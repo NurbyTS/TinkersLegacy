@@ -1,0 +1,7 @@
+{
+  "parent": "tinkerslegacy:block/slime_cube",
+  "textures": {
+    "inner": "tinkerslegacy:block/slime/blood_slime_block",
+    "texture": "tinkerslegacy:block/slime/blood_slime_block"
+  }
+}

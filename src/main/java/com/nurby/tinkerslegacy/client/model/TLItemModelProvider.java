@@ -82,6 +82,10 @@ public class TLItemModelProvider extends ItemModelProvider {
         withExistingParent("seared_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/seared_brick"));
         withExistingParent("mud_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/mud_brick"));
         withExistingParent("dried_brick", mcLoc("item/generated")).texture("layer0", modLoc("item/material/brick/dried_brick"));
+
+        withExistingParent("blue_slimeball", mcLoc("item/generated")).texture("layer0", modLoc("item/slime/blue_slimeball"));
+        withExistingParent("purple_slimeball", mcLoc("item/generated")).texture("layer0", modLoc("item/slime/purple_slimeball"));
+        withExistingParent("magma_slimeball", mcLoc("item/generated")).texture("layer0", modLoc("item/slime/magma_slimeball"));
     }
 
     private void registerParts() {

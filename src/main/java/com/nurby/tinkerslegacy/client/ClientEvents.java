@@ -1,6 +1,9 @@
 package com.nurby.tinkerslegacy.client;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
+import com.nurby.tinkerslegacy.registry.TLBlocks;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import com.nurby.tinkerslegacy.client.model.TLItemModelProvider;
 import com.nurby.tinkerslegacy.client.model.part.DynamicMaterialPartModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.MaterialTextureProvider;
@@ -25,6 +28,24 @@ import java.util.Set;
 
 @EventBusSubscriber(modid = TinkersLegacy.MODID, value = Dist.CLIENT)
 public final class ClientEvents {
+        @SubscribeEvent
+        public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+                for (var holder : TLBlocks.BLOCKS.getEntries()) {
+                        if (holder.get() instanceof SlimyGrassBlock grass) {
+                                event.register((state, level, pos, tint) -> tint == 0 ? grass.foliageColor() : -1, grass);
+                        }
+                }
+        }
+
+        @SubscribeEvent
+        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+                for (var holder : TLBlocks.BLOCKS.getEntries()) {
+                        if (holder.get() instanceof SlimyGrassBlock grass) {
+                                event.register((stack, tint) -> tint == 0 ? grass.foliageColor() : -1, grass.asItem());
+                        }
+                }
+        }
+
 
         @SubscribeEvent
         public static void gatherData(GatherDataEvent event) {

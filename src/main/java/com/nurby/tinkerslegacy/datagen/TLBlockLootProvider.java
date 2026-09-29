@@ -1,6 +1,7 @@
 package com.nurby.tinkerslegacy.datagen;
 
 import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -25,7 +26,9 @@ public class TLBlockLootProvider extends BlockLootSubProvider {
             } else if (block == netherArditeOre) {
                 add(block, createOreDrop(block, TLItems.Items.RawOres.RAW_ARDITE.get()));
             }
-            else {
+            else if (block instanceof SlimyGrassBlock grass) {
+                add(block, createSingleItemTableWithSilkTouch(block, grass.soil()));
+            } else {
                 dropSelf(block);
             }
         }

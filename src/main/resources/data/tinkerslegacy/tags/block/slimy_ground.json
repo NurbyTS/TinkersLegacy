@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "tinkerslegacy:green_slimy_dirt",
+    "tinkerslegacy:blue_slimy_dirt",
+    "tinkerslegacy:purple_slimy_dirt",
+    "tinkerslegacy:magma_slimy_dirt",
+    "tinkerslegacy:dirt_slimy_green_grass",
+    "tinkerslegacy:green_slimy_green_grass",
+    "tinkerslegacy:blue_slimy_green_grass",
+    "tinkerslegacy:purple_slimy_green_grass",
+    "tinkerslegacy:magma_slimy_green_grass",
+    "tinkerslegacy:dirt_slimy_blue_grass",
+    "tinkerslegacy:green_slimy_blue_grass",
+    "tinkerslegacy:blue_slimy_blue_grass",
+    "tinkerslegacy:purple_slimy_blue_grass",
+    "tinkerslegacy:magma_slimy_blue_grass",
+    "tinkerslegacy:dirt_slimy_purple_grass",
+    "tinkerslegacy:green_slimy_purple_grass",
+    "tinkerslegacy:blue_slimy_purple_grass",
+    "tinkerslegacy:purple_slimy_purple_grass",
+    "tinkerslegacy:magma_slimy_purple_grass",
+    "tinkerslegacy:dirt_slimy_magma_grass",
+    "tinkerslegacy:green_slimy_magma_grass",
+    "tinkerslegacy:blue_slimy_magma_grass",
+    "tinkerslegacy:purple_slimy_magma_grass",
+    "tinkerslegacy:magma_slimy_magma_grass"
+  ]
+}

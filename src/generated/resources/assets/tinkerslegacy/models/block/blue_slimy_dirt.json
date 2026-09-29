@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "tinkerslegacy:block/slime/blue_slimy_dirt"
+  }
+}

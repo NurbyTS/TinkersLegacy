@@ -45,6 +45,10 @@
   "tooltip.tinkerslegacy.mud_brick": "Building blocks for small and big",
   "item.tinkerslegacy.dried_brick": "Dried Brick",
 
+  "item.tinkerslegacy.blue_slimeball": "Blue Slimeball",
+  "item.tinkerslegacy.purple_slimeball": "Purple Slimeball",
+  "item.tinkerslegacy.magma_slimeball": "Magma Slimeball",
+
   "block.tinkerslegacy.nether_cobalt_ore": "Nether Cobalt Ore",
   "block.tinkerslegacy.nether_ardite_ore": "Nether Ardite Ore",
 
@@ -67,29 +71,66 @@
   "tooltip.tinkerslegacy.storage_block_silky_jewel": "Can be used as a beacon base",
 
   "block.tinkerslegacy.seared_stone": "Seared Stone",
-  "tooltip.tinkerslegacy.seared_stone": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_cobble": "Seared Cobblestone",
-  "tooltip.tinkerslegacy.seared_cobble": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_paver": "Seared Paver",
-  "tooltip.tinkerslegacy.seared_paver": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_bricks": "Seared Bricks",
-  "tooltip.tinkerslegacy.seared_bricks": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_brick_cracked": "Cracked Seared Bricks",
-  "tooltip.tinkerslegacy.seared_brick_cracked": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_brick_fancy": "Fancy Seared Bricks",
-  "tooltip.tinkerslegacy.seared_brick_fancy": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_brick_square": "Square Seared Bricks",
-  "tooltip.tinkerslegacy.seared_brick_square": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_road": "Seared Road",
-  "tooltip.tinkerslegacy.seared_road": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_creeper": "Seared Creeperface",
-  "tooltip.tinkerslegacy.seared_creeper": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_brick_triangle": "Triangle Seared Bricks",
-  "tooltip.tinkerslegacy.seared_brick_triangle": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_brick_small": "Small Seared Bricks",
-  "tooltip.tinkerslegacy.seared_brick_small": "Part of the Smeltery. Safe for decoration.",
   "block.tinkerslegacy.seared_tile": "Seared Tiles",
-  "tooltip.tinkerslegacy.seared_tile": "Part of the Smeltery. Safe for decoration.",
+
+  "tooltip.tinkerslegacy.seared_block": "Part of the Smeltery. Safe for decoration.",
+
+  "block.tinkerslegacy.green_slimy_dirt": "Green Slimy Dirt",
+  "block.tinkerslegacy.blue_slimy_dirt": "Blue Slimy Dirt",
+  "block.tinkerslegacy.purple_slimy_dirt": "Purple Slimy Dirt",
+  "block.tinkerslegacy.magma_slimy_dirt": "Magma Slimy Dirt",
+
+  "block.tinkerslegacy.dirt_slimy_green_grass": "Slimy Grass (Dirt)",
+  "block.tinkerslegacy.green_slimy_green_grass": "Green Slimy Grass (Green Slimy Dirt)",
+  "block.tinkerslegacy.blue_slimy_green_grass": "Blue Slimy Grass (Blue Slimy Dirt)",
+  "block.tinkerslegacy.purple_slimy_green_grass": "Purple Slimy Grass (Purple Slimy Dirt)",
+  "block.tinkerslegacy.magma_slimy_green_grass": "Magma Slimy Grass (Magma Slimy Dirt)",
+
+  "block.tinkerslegacy.dirt_slimy_blue_grass": "Blue Slimy Grass (Dirt)",
+  "block.tinkerslegacy.green_slimy_blue_grass": "Blue Slimy Grass (Green Slimy Dirt)",
+  "block.tinkerslegacy.blue_slimy_blue_grass": "Blue Slimy Grass (Blue Slimy Dirt)",
+  "block.tinkerslegacy.purple_slimy_blue_grass": "Blue Slimy Grass (Purple Slimy Dirt)",
+  "block.tinkerslegacy.magma_slimy_blue_grass": "Blue Slimy Grass (Magma Slimy Dirt)",
+
+  "block.tinkerslegacy.dirt_slimy_purple_grass": "Purple Slimy Grass (Dirt)",
+  "block.tinkerslegacy.green_slimy_purple_grass": "Purple Slimy Grass (Green Slimy Dirt)",
+  "block.tinkerslegacy.blue_slimy_purple_grass": "Purple Slimy Grass (Blue Slimy Dirt)",
+  "block.tinkerslegacy.purple_slimy_purple_grass": "Purple Slimy Grass (Purple Slimy Dirt)",
+  "block.tinkerslegacy.magma_slimy_purple_grass": "Purple Slimy Grass (Magma Slimy Dirt)",
+
+  "block.tinkerslegacy.dirt_slimy_magma_grass": "Magma Slimy Grass (Dirt)",
+  "block.tinkerslegacy.green_slimy_magma_grass": "Magma Slimy Grass (Green Slimy Dirt)",
+  "block.tinkerslegacy.blue_slimy_magma_grass": "Magma Slimy Grass (Blue Slimy Dirt)",
+  "block.tinkerslegacy.purple_slimy_magma_grass": "Magma Slimy Grass (Purple Slimy Dirt)",
+  "block.tinkerslegacy.magma_slimy_magma_grass": "Magma Slimy Grass (Magma Slimy Dirt)",
+
+  "tooltip.tinkerslegacy.slimy_dirt": "Slimy, but lets you jump higher",
+  "tooltip.tinkerslegacy.slimy_grass": "Soft and springy. Lets you jump a little higher.",
+
+  "block.tinkerslegacy.green_congealed_slime_block": "Green Congealed Slime Block",
+  "block.tinkerslegacy.blue_congealed_slime_block": "Blue Congealed Slime Block",
+  "block.tinkerslegacy.purple_congealed_slime_block": "Purple Congealed Slime Block",
+  "block.tinkerslegacy.magma_congealed_slime_block": "Magma Congealed Slime Block",
+  "block.tinkerslegacy.blood_congealed_slime_block": "Blood Congealed Slime Block",
+
+  "tooltip.tinkerslegacy.congealed_slime_block": "Lets you jump really high!",
+
+  "block.tinkerslegacy.blue_slime_block": "Blue Slime Block",
+  "block.tinkerslegacy.purple_slime_block": "Purple Slime Block",
+  "block.tinkerslegacy.magma_slime_block": "Magma Slime Block",
+  "block.tinkerslegacy.blood_slime_block": "Blood Slime Block",
+
+  "tooltip.tinkerslegacy.slime_block": "Works with pistons!",
 
   "item.tinkerslegacy.parts.arrow_head": "%s Arrow Head",
   "item.tinkerslegacy.parts.arrow_shaft": "%s Arrow Shaft",

@@ -1,0 +1,7 @@
+{
+  "parent": "tinkerslegacy:block/slime_cube",
+  "textures": {
+    "inner": "minecraft:block/lava_still",
+    "texture": "tinkerslegacy:block/slime/magma_slime_block"
+  }
+}
