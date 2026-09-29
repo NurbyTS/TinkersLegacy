@@ -29,11 +29,11 @@ public final class TLBlocks {
         public static final class OreBlocks {
                 public static final DeferredHolder<Block, Block> NETHER_COBALT_ORE = register(
                                 "nether_cobalt_ore",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_GOLD_ORE));
+                                netherOreProperties());
 
                 public static final DeferredHolder<Block, Block> NETHER_ARDITE_ORE = register(
                                 "nether_ardite_ore",
-                                BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_GOLD_ORE));
+                                netherOreProperties());
 
                 private static BlockBehaviour.Properties netherOreProperties() {
                         return BlockBehaviour.Properties.of()
