@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "tinkerslegacy:nether_cobalt_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:ardite_ingot"
+  }
+}

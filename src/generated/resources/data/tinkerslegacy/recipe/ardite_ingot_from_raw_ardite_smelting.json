@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "tinkerslegacy:raw_ardite"
+  },
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:ardite_ingot"
+  }
+}
