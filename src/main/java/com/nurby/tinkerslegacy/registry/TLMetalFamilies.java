@@ -14,7 +14,7 @@ public final class TLMetalFamilies {
     public record MetalFamily(
             Supplier<? extends Item> nugget,
             Supplier<? extends Item> ingot,
-            Supplier<? extends Item> storageBlock,
+            Supplier<? extends Block> storageBlock,
             List<Supplier<? extends ItemLike>> smeltingInputs) {
     }
 
@@ -22,40 +22,40 @@ public final class TLMetalFamilies {
             new MetalFamily(
                     TLItems.Items.Nuggets.COBALT_NUGGET,
                     TLItems.Items.Ingots.COBALT_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_COBALT,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_COBALT,
                     List.of(
                             TLItems.Items.RawOres.RAW_COBALT,
-                            TLItems.Blocks.OreBlocks.NETHER_COBALT_ORE)),
+                            TLBlocks.OreBlocks.NETHER_COBALT_ORE)),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.ARDITE_NUGGET,
                     TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
                     List.of(
                             TLItems.Items.RawOres.RAW_ARDITE,
-                            TLItems.Blocks.OreBlocks.NETHER_ARDITE_ORE)),
+                            TLBlocks.OreBlocks.NETHER_ARDITE_ORE)),
 
             new MetalFamily(
-                    TLItems.Items.Nuggets.ARDITE_NUGGET,
-                    TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLItems.Items.Nuggets.ALUBRASS_NUGGET,
+                    TLItems.Items.Ingots.ALUBRASS_INGOT,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_ALUBRASS,
                     List.of()),
 
             new MetalFamily(
-                    TLItems.Items.Nuggets.ARDITE_NUGGET,
-                    TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLItems.Items.Nuggets.KNIGHTSLIME_NUGGET,
+                    TLItems.Items.Ingots.KNIGHTSLIME_INGOT,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_KNIGHTSLIME,
                     List.of()),
 
             new MetalFamily(
-                    TLItems.Items.Nuggets.ARDITE_NUGGET,
-                    TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLItems.Items.Nuggets.MANYULLYN_NUGGET,
+                    TLItems.Items.Ingots.MANYULLYN_INGOT,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_MANYULLYN,
                     List.of()),
 
             new MetalFamily(
-                    TLItems.Items.Nuggets.ARDITE_NUGGET,
-                    TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLItems.Items.Nuggets.PIGIRON_NUGGET,
+                    TLItems.Items.Ingots.PIGIRON_INGOT,
+                    TLBlocks.StorageBlocks.STORAGE_BLOCK_PIGIRON,
                     List.of()));
 }

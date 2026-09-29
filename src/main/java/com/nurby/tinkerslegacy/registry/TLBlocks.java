@@ -223,31 +223,40 @@ public final class TLBlocks {
 
                 public static final DeferredHolder<Block, Block> GREEN_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "green_congealed_slime_block",
+                                CongealedSlimeBlock::new,
                                 congealedSlimeBlockProperties(MapColor.COLOR_GREEN));
                 public static final DeferredHolder<Block, Block> BLUE_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blue_congealed_slime_block",
+                                CongealedSlimeBlock::new,
                                 congealedSlimeBlockProperties(MapColor.COLOR_CYAN));
                 public static final DeferredHolder<Block, Block> PURPLE_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "purple_congealed_slime_block",
+                                CongealedSlimeBlock::new,
                                 congealedSlimeBlockProperties(MapColor.COLOR_PURPLE));
                 public static final DeferredHolder<Block, Block> MAGMA_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "magma_congealed_slime_block",
+                                CongealedSlimeBlock::new,
                                 congealedSlimeBlockProperties(MapColor.COLOR_ORANGE));
                 public static final DeferredHolder<Block, Block> BLOOD_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blood_congealed_slime_block",
+                                CongealedSlimeBlock::new,
                                 congealedSlimeBlockProperties(MapColor.COLOR_RED));
 
                 public static final DeferredHolder<Block, Block> BLUE_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blue_slime_block",
+                                ColoredSlimeBlock::new,
                                 slimeBlockProperties(MapColor.COLOR_CYAN));
                 public static final DeferredHolder<Block, Block> PURPLE_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "purple_slime_block",
+                                ColoredSlimeBlock::new,
                                 slimeBlockProperties(MapColor.COLOR_PURPLE));
                 public static final DeferredHolder<Block, Block> MAGMA_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "magma_slime_block",
+                                ColoredSlimeBlock::new,
                                 slimeBlockProperties(MapColor.COLOR_ORANGE));
                 public static final DeferredHolder<Block, Block> BLOOD_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "blood_slime_block",
+                                ColoredSlimeBlock::new,
                                 slimeBlockProperties(MapColor.COLOR_RED));
 
                 private static BlockBehaviour.Properties slimyDirtProperties(MapColor color) {
