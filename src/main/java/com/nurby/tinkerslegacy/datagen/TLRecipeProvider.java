@@ -34,14 +34,14 @@ public class TLRecipeProvider extends RecipeProvider {
 
                 gem(
                                 output,
-                                TLItems.Items.Gems.SILKY_JEWEL.get(),
+                                TLItems.item(TLItems.Items.Gems.Type.SILKY_JEWEL),
                                 TLBlocks.block(TLBlocks.StorageBlocks.Type.SILKY_JEWEL));
 
                 smelting(
                                 output,
                                 "seared_brick",
                                 TLBlocks.block(TLBlocks.IntermediaryBlocks.Type.GROUT),
-                                TLItems.Items.Bricks.SEARED_BRICK.get(),
+                                TLItems.item(TLItems.Items.Bricks.Type.SEARED),
                                 0.1F,
                                 200);
         }

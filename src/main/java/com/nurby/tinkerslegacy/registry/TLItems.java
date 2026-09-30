@@ -1,4 +1,3 @@
-
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
@@ -21,6 +20,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.List;
+import java.util.Locale;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -30,203 +34,300 @@ public final class TLItems {
                         TinkersLegacy.MODID);
 
         // Read when tab contents are built, after item registration has finished.
-        static java.util.List<Item> registeredItems() {
+        static List<Item> registeredItems() {
                 return ITEMS.getEntries().stream().<Item>map(holder -> holder.get()).toList();
-        }
-
-        public static void register(IEventBus modBus) {
-                Items.register();
-                Blocks.register();
-                Tools.register();
-                Parts.register();
-                ITEMS.register(modBus);
         }
 
         public static final class Items {
                 public static final class IntermediaryItems {
-                        public static final DeferredHolder<Item, Item> SILKY_CLOTH = TLItems.ITEMS.register(
-                                        "silky_cloth",
-                                        () -> new Item(new Item.Properties()));
+                        public enum Type {
+                                SILKY_CLOTH;
+
+                                private final Supplier<? extends Item> factory;
+
+                                Type() {
+                                        this(() -> new Item(new Item.Properties()));
+                                }
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        TLItems::variantName,
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Miscellaneous {
-                        public static final DeferredHolder<Item, Item> CREATIVE_MODIFIER = TLItems.ITEMS.register(
-                                        "creative_modifier",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.creative_modifier"));
+                        public enum Type {
+                                CREATIVE_MODIFIER(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.creative_modifier")),
 
-                        public static final DeferredHolder<Item, Item> BALL_OF_MOSS = TLItems.ITEMS.register(
-                                        "ball_of_moss",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.ball_of_moss"));
+                                BALL_OF_MOSS(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.ball_of_moss")),
 
-                        public static final DeferredHolder<Item, Item> MENDING_MOSS = TLItems.ITEMS.register(
-                                        "mending_moss",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.mending_moss"));
+                                MENDING_MOSS(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.mending_moss")),
 
-                        public static final DeferredHolder<Item, Item> EXPANDER_VERTICAL = TLItems.ITEMS.register(
-                                        "expander_vertical",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.expander_vertical"));
+                                EXPANDER_VERTICAL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.expander_vertical")),
 
-                        public static final DeferredHolder<Item, Item> EXPANDER_HORIZONTAL = TLItems.ITEMS.register(
-                                        "expander_horizontal",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.expander_horizontal"));
+                                EXPANDER_HORIZONTAL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.expander_horizontal"));
+
+                                private final Supplier<? extends Item> factory;
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        TLItems::variantName,
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class RawOres {
-                        public static final DeferredHolder<Item, Item> RAW_COBALT = TLItems.ITEMS.register(
-                                        "raw_cobalt",
-                                        () -> new Item(new Item.Properties()));
+                        public enum Type {
+                                COBALT,
+                                ARDITE;
 
-                        public static final DeferredHolder<Item, Item> RAW_ARDITE = TLItems.ITEMS.register(
-                                        "raw_ardite",
-                                        () -> new Item(new Item.Properties()));
+                                private final Supplier<? extends Item> factory;
+
+                                Type() {
+                                        this(() -> new Item(new Item.Properties()));
+                                }
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        type -> "raw_" + variantName(type),
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Nuggets {
-                        public static final DeferredHolder<Item, Item> COBALT_NUGGET = TLItems.ITEMS.register(
-                                        "cobalt_nugget",
-                                        () -> new Item(new Item.Properties()));
+                        public enum Type {
+                                COBALT,
+                                ARDITE,
+                                ALUBRASS,
+                                KNIGHTSLIME,
+                                MANYULLYN,
+                                PIGIRON;
 
-                        public static final DeferredHolder<Item, Item> ARDITE_NUGGET = TLItems.ITEMS.register(
-                                        "ardite_nugget",
-                                        () -> new Item(new Item.Properties()));
+                                private final Supplier<? extends Item> factory;
 
-                        public static final DeferredHolder<Item, Item> ALUBRASS_NUGGET = TLItems.ITEMS.register(
-                                        "alubrass_nugget",
-                                        () -> new Item(new Item.Properties()));
+                                Type() {
+                                        this(() -> new Item(new Item.Properties()));
+                                }
 
-                        public static final DeferredHolder<Item, Item> KNIGHTSLIME_NUGGET = TLItems.ITEMS.register(
-                                        "knightslime_nugget",
-                                        () -> new Item(new Item.Properties()));
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
 
-                        public static final DeferredHolder<Item, Item> MANYULLYN_NUGGET = TLItems.ITEMS.register(
-                                        "manyullyn_nugget",
-                                        () -> new Item(new Item.Properties()));
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        type -> variantName(type) + "_nugget",
+                                        type -> type.factory.get());
 
-                        public static final DeferredHolder<Item, Item> PIGIRON_NUGGET = TLItems.ITEMS.register(
-                                        "pigiron_nugget",
-                                        () -> new Item(new Item.Properties()));
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Ingots {
-                        public static final DeferredHolder<Item, Item> COBALT_INGOT = TLItems.ITEMS.register(
-                                        "cobalt_ingot",
-                                        () -> new Item(new Item.Properties()));
+                        public enum Type {
+                                COBALT,
+                                ARDITE,
+                                ALUBRASS,
 
-                        public static final DeferredHolder<Item, Item> ARDITE_INGOT = TLItems.ITEMS.register(
-                                        "ardite_ingot",
-                                        () -> new Item(new Item.Properties()));
+                                KNIGHTSLIME(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.knightslime_ingot")),
 
-                        public static final DeferredHolder<Item, Item> ALUBRASS_INGOT = TLItems.ITEMS.register(
-                                        "alubrass_ingot",
-                                        () -> new Item(new Item.Properties()));
+                                MANYULLYN,
 
-                        public static final DeferredHolder<Item, Item> KNIGHTSLIME_INGOT = TLItems.ITEMS.register(
-                                        "knightslime_ingot",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.knightslime_ingot"));
+                                PIGIRON(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.pigiron_ingot"));
 
-                        public static final DeferredHolder<Item, Item> MANYULLYN_INGOT = TLItems.ITEMS.register(
-                                        "manyullyn_ingot",
-                                        () -> new Item(new Item.Properties()));
+                                private final Supplier<? extends Item> factory;
 
-                        public static final DeferredHolder<Item, Item> PIGIRON_INGOT = TLItems.ITEMS.register(
-                                        "pigiron_ingot",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.pigiron_ingot"));
+                                Type() {
+                                        this(() -> new Item(new Item.Properties()));
+                                }
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        type -> variantName(type) + "_ingot",
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Gems {
-                        public static final DeferredHolder<Item, Item> SILKY_JEWEL = TLItems.ITEMS.register(
-                                        "silky_jewel",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.silky_jewel"));
+                        public enum Type {
+                                SILKY_JEWEL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.silky_jewel")),
 
-                        public static final DeferredHolder<Item, Item> GREEN_SLIME_CRYSTAL = TLItems.ITEMS.register(
-                                        "green_slime_crystal",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.slime_crystal"));
+                                GREEN_SLIME_CRYSTAL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.slime_crystal")),
 
-                        public static final DeferredHolder<Item, Item> BLUE_SLIME_CRYSTAL = TLItems.ITEMS.register(
-                                        "blue_slime_crystal",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.slime_crystal"));
+                                BLUE_SLIME_CRYSTAL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.slime_crystal")),
 
-                        public static final DeferredHolder<Item, Item> MAGMA_SLIME_CRYSTAL = TLItems.ITEMS.register(
-                                        "magma_slime_crystal",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.slime_crystal"));
+                                MAGMA_SLIME_CRYSTAL(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.slime_crystal"));
+
+                                private final Supplier<? extends Item> factory;
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        TLItems::variantName,
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Bricks {
-                        public static final DeferredHolder<Item, Item> SEARED_BRICK = TLItems.ITEMS.register(
-                                        "seared_brick",
-                                        () -> new Item(new Item.Properties()));
+                        public enum Type {
+                                SEARED,
 
-                        public static final DeferredHolder<Item, Item> MUD_BRICK = TLItems.ITEMS.register(
-                                        "mud_brick",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.mud_brick"));
-                        public static final DeferredHolder<Item, Item> DRIED_BRICK = TLItems.ITEMS.register(
-                                        "dried_brick",
-                                        () -> new Item(new Item.Properties()));
+                                MUD(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.mud_brick")),
+
+                                DRIED;
+
+                                private final Supplier<? extends Item> factory;
+
+                                Type() {
+                                        this(() -> new Item(new Item.Properties()));
+                                }
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        type -> variantName(type) + "_brick",
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
                 }
 
                 public static final class Slimeballs {
-                        public static final DeferredHolder<Item, Item> BLUE_SLIMEBALL = TLItems.ITEMS.register(
-                                        "blue_slimeball",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.blue_slimeball"));
+                        public enum Type {
+                                BLUE(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.blue_slimeball")),
 
-                        public static final DeferredHolder<Item, Item> PURPLE_SLIMEBALL = TLItems.ITEMS.register(
-                                        "purple_slimeball",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.purple_slimeball"));
+                                PURPLE(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.purple_slimeball")),
 
-                        public static final DeferredHolder<Item, Item> MAGMA_SLIMEBALL = TLItems.ITEMS.register(
-                                        "magma_slimeball",
-                                        () -> new TooltipItem(
-                                                        new Item.Properties(),
-                                                        "tooltip.tinkerslegacy.magma_slimeball"));
+                                MAGMA(() -> new TooltipItem(
+                                                new Item.Properties(),
+                                                "tooltip.tinkerslegacy.magma_slimeball"));
+
+                                private final Supplier<? extends Item> factory;
+
+                                Type(Supplier<? extends Item> factory) {
+                                        this.factory = factory;
+                                }
+                        }
+
+                        private static final Map<Type, DeferredHolder<Item, Item>> VARIANTS = registerVariants(
+                                        Type.values(),
+                                        type -> variantName(type) + "_slimeball",
+                                        type -> type.factory.get());
+
+                        public static final List<DeferredHolder<Item, Item>> ALL = List.copyOf(VARIANTS.values());
+
+                        public static DeferredHolder<Item, Item> get(Type type) {
+                                return VARIANTS.get(type);
+                        }
 
                         private static void register() {
                         }
@@ -375,7 +476,7 @@ public final class TLItems {
                 private static DeferredHolder<Item, BlockItem> registerBlockItem(
                                 DeferredHolder<Block, ? extends Block> block,
                                 String tooltipKey) {
-                        DeferredHolder<Item, BlockItem> holder = TLItems.ITEMS.register(
+                        DeferredHolder<Item, BlockItem> holder = TLItems.add(
                                         block.getId().getPath(), () -> tooltipKey == null
                                                         ? new BlockItem(block.get(), new Item.Properties())
                                                         : new TooltipBlockItem(block.get(), new Item.Properties(),
@@ -461,7 +562,7 @@ public final class TLItems {
 
                 private static DeferredHolder<Item, DynamicPart> register(
                                 DeferredHolder<PartDefinition, PartDefinition> definition) {
-                        DeferredHolder<Item, DynamicPart> holder = TLItems.ITEMS.register(
+                        DeferredHolder<Item, DynamicPart> holder = TLItems.add(
                                         definition.getId().getPath(),
                                         () -> new DynamicPart(definition));
 
@@ -503,7 +604,7 @@ public final class TLItems {
 
                 private static DeferredHolder<Item, DynamicTool> register(
                                 DeferredHolder<ToolDefinition, ToolDefinition> definition) {
-                        DeferredHolder<Item, DynamicTool> holder = TLItems.ITEMS.register(
+                        DeferredHolder<Item, DynamicTool> holder = TLItems.add(
                                         definition.getId().getPath(),
                                         () -> new DynamicTool(definition));
 
@@ -521,4 +622,108 @@ public final class TLItems {
                 }
         }
 
+        // Adders
+        public static <T extends Item> DeferredHolder<Item, T> add(
+                        String name,
+                        Supplier<T> factory) {
+                return ITEMS.register(name, factory);
+        }
+
+        // Getters
+        public static DeferredHolder<Item, Item> get(Items.IntermediaryItems.Type type) {
+                return Items.IntermediaryItems.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Miscellaneous.Type type) {
+                return Items.Miscellaneous.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.RawOres.Type type) {
+                return Items.RawOres.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Nuggets.Type type) {
+                return Items.Nuggets.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Ingots.Type type) {
+                return Items.Ingots.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Gems.Type type) {
+                return Items.Gems.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Bricks.Type type) {
+                return Items.Bricks.get(type);
+        }
+
+        public static DeferredHolder<Item, Item> get(Items.Slimeballs.Type type) {
+                return Items.Slimeballs.get(type);
+        }
+
+        public static Item item(Items.IntermediaryItems.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Miscellaneous.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.RawOres.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Nuggets.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Ingots.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Gems.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Bricks.Type type) {
+                return get(type).get();
+        }
+
+        public static Item item(Items.Slimeballs.Type type) {
+                return get(type).get();
+        }
+
+        // Registration
+        public static void register(IEventBus modBus) {
+                Items.register();
+                Blocks.register();
+                Tools.register();
+                Parts.register();
+                ITEMS.register(modBus);
+        }
+
+        private static <E extends Enum<E>> Map<E, DeferredHolder<Item, Item>> registerVariants(
+                        E[] variants,
+                        Function<E, String> idFactory,
+                        Function<E, ? extends Item> itemFactory) {
+                Map<E, DeferredHolder<Item, Item>> result = new LinkedHashMap<>();
+
+                for (E variant : variants) {
+                        String id = idFactory.apply(variant);
+
+                        DeferredHolder<Item, Item> holder = TLItems.add(
+                                        id,
+                                        () -> itemFactory.apply(variant));
+
+                        result.put(variant, holder);
+                }
+
+                return Collections.unmodifiableMap(result);
+        }
+
+        // Variants
+        private static String variantName(Enum<?> variant) {
+                return variant.name().toLowerCase(Locale.ROOT);
+        }
 }

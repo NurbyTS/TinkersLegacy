@@ -22,9 +22,9 @@ public class TLBlockLootProvider extends BlockLootSubProvider {
 
         for (Block block : getKnownBlocks()) {
             if (block == netherCobaltOre) {
-                add(block, createOreDrop(block, TLItems.Items.RawOres.RAW_COBALT.get()));
+                add(block, createOreDrop(block, TLItems.item(TLItems.Items.RawOres.Type.COBALT)));
             } else if (block == netherArditeOre) {
-                add(block, createOreDrop(block, TLItems.Items.RawOres.RAW_ARDITE.get()));
+                add(block, createOreDrop(block, TLItems.item(TLItems.Items.RawOres.Type.ARDITE)));
             }
             else if (block instanceof SlimyGrassBlock grass) {
                 add(block, createSingleItemTableWithSilkTouch(block, grass.soil()));

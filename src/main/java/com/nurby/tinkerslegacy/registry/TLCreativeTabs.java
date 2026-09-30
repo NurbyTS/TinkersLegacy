@@ -85,7 +85,7 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "items",
-                                        () -> new ItemStack(TLItems.Items.Bricks.SEARED_BRICK.get()),
+                                        () -> new ItemStack(TLItems.item(TLItems.Items.Bricks.Type.SEARED)),
                                         Items::populate);
                 }
 
