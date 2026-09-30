@@ -17,8 +17,8 @@ public class TLBlockLootProvider extends BlockLootSubProvider {
 
     @Override 
     protected void generate() {
-        Block netherCobaltOre = TLBlocks.OreBlocks.NETHER_COBALT_ORE.get();
-        Block netherArditeOre = TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get();
+        Block netherCobaltOre = TLBlocks.block(TLBlocks.OreBlocks.Type.COBALT);
+        Block netherArditeOre = TLBlocks.block(TLBlocks.OreBlocks.Type.ARDITE);
 
         for (Block block : getKnownBlocks()) {
             if (block == netherCobaltOre) {

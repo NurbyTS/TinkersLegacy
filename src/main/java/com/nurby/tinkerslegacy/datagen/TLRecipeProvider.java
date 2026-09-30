@@ -2,6 +2,7 @@ package com.nurby.tinkerslegacy.datagen;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.registry.TLBlocks;
 import com.nurby.tinkerslegacy.registry.TLMetalFamilies;
 
 import net.minecraft.core.HolderLookup;
@@ -34,12 +35,12 @@ public class TLRecipeProvider extends RecipeProvider {
                 gem(
                                 output,
                                 TLItems.Items.Gems.SILKY_JEWEL.get(),
-                                TLItems.Blocks.StorageBlocks.STORAGE_BLOCK_SILKY_JEWEL.get());
+                                TLBlocks.block(TLBlocks.StorageBlocks.Type.SILKY_JEWEL));
 
                 smelting(
                                 output,
                                 "seared_brick",
-                                TLItems.Blocks.IntermediaryBlocks.GROUT.get(),
+                                TLBlocks.block(TLBlocks.IntermediaryBlocks.Type.GROUT),
                                 TLItems.Items.Bricks.SEARED_BRICK.get(),
                                 0.1F,
                                 200);

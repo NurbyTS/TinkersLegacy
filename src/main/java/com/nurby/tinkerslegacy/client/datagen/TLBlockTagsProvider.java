@@ -1,8 +1,11 @@
 package com.nurby.tinkerslegacy.client.datagen;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.registry.TLBlocks;
 import com.nurby.tinkerslegacy.registry.TLMetalFamilies;
+
+import com.nurby.tinkerslegacy.registry.TLBlocks;
+import com.nurby.tinkerslegacy.registry.TLBlocks.OreBlocks;
+import com.nurby.tinkerslegacy.registry.TLBlocks.StorageBlocks;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -39,7 +42,7 @@ public class TLBlockTagsProvider extends BlockTagsProvider {
         }
 
         // Silky jewel is not in metal family
-        storage.add(TLBlocks.StorageBlocks.STORAGE_BLOCK_SILKY_JEWEL.get());
+        storage.add(TLBlocks.block(StorageBlocks.Type.SILKY_JEWEL));
 
         tag(BlockTags.BEACON_BASE_BLOCKS)
                 .addTag(STORAGE_BLOCKS);
@@ -48,18 +51,18 @@ public class TLBlockTagsProvider extends BlockTagsProvider {
                 .addTag(STORAGE_BLOCKS)
                 .addTag(SEARED_BLOCKS)
                 .add(
-                        TLBlocks.OreBlocks.NETHER_COBALT_ORE.get(),
-                        TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get());
+                        TLBlocks.block(OreBlocks.Type.COBALT),
+                        TLBlocks.block(OreBlocks.Type.ARDITE));
 
         tag(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(
-                        TLBlocks.OreBlocks.NETHER_COBALT_ORE.get(),
-                        TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get());
+                        TLBlocks.block(OreBlocks.Type.COBALT),
+                        TLBlocks.block(OreBlocks.Type.ARDITE));
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL)
                 .addTag(SLIMY_GROUND)
                 .add(
-                        TLBlocks.IntermediaryBlocks.GROUT.get());
+                        TLBlocks.block(TLBlocks.IntermediaryBlocks.Type.GROUT));
     }
 
     private static TagKey<Block> modTag(String name) {

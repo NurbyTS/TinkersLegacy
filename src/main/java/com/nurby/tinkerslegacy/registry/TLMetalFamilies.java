@@ -22,40 +22,40 @@ public final class TLMetalFamilies {
             new MetalFamily(
                     TLItems.Items.Nuggets.COBALT_NUGGET,
                     TLItems.Items.Ingots.COBALT_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_COBALT,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.COBALT),
                     List.of(
                             TLItems.Items.RawOres.RAW_COBALT,
-                            TLBlocks.OreBlocks.NETHER_COBALT_ORE)),
+                            TLBlocks.get(TLBlocks.OreBlocks.Type.COBALT))),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.ARDITE_NUGGET,
                     TLItems.Items.Ingots.ARDITE_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_ARDITE,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.ARDITE),
                     List.of(
                             TLItems.Items.RawOres.RAW_ARDITE,
-                            TLBlocks.OreBlocks.NETHER_ARDITE_ORE)),
+                            TLBlocks.get(TLBlocks.OreBlocks.Type.ARDITE))),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.ALUBRASS_NUGGET,
                     TLItems.Items.Ingots.ALUBRASS_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_ALUBRASS,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.ALUBRASS),
                     List.of()),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.KNIGHTSLIME_NUGGET,
                     TLItems.Items.Ingots.KNIGHTSLIME_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_KNIGHTSLIME,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.KNIGHTSLIME),
                     List.of()),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.MANYULLYN_NUGGET,
                     TLItems.Items.Ingots.MANYULLYN_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_MANYULLYN,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.MANYULLYN),
                     List.of()),
 
             new MetalFamily(
                     TLItems.Items.Nuggets.PIGIRON_NUGGET,
                     TLItems.Items.Ingots.PIGIRON_INGOT,
-                    TLBlocks.StorageBlocks.STORAGE_BLOCK_PIGIRON,
+                    TLBlocks.get(TLBlocks.StorageBlocks.Type.PIGIRON),
                     List.of()));
 }

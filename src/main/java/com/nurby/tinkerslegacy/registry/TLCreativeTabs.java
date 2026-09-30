@@ -69,7 +69,7 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "all",
-                                        () -> new ItemStack(TLItems.Blocks.SearedBlocks.SEARED_BRICKS.get()),
+                                        () -> new ItemStack(TLBlocks.block(TLBlocks.SearedBlocks.Type.BRICKS)),
                                         All::populate);
                 }
 
@@ -104,7 +104,7 @@ public final class TLCreativeTabs {
                 private static void register() {
                         registerTab(
                                         "blocks",
-                                        () -> new ItemStack(TLItems.Blocks.SearedBlocks.SEARED_BRICKS.get()),
+                                        () -> new ItemStack(TLBlocks.block(TLBlocks.SearedBlocks.Type.BRICKS)),
                                         Blocks::populate);
                 }
 

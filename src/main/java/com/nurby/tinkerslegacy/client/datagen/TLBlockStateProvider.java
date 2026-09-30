@@ -14,9 +14,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class TLBlockStateProvider extends BlockStateProvider {
     public TLBlockStateProvider(
-        PackOutput output,
-        ExistingFileHelper helper
-    ) {
+            PackOutput output,
+            ExistingFileHelper helper) {
         super(output, TinkersLegacy.MODID, helper);
     }
 
@@ -24,7 +23,9 @@ public class TLBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         for (var holder : TLBlocks.BLOCKS.getEntries()) {
             Block block = holder.get();
-            if (block == TLBlocks.OreBlocks.NETHER_COBALT_ORE.get() || block == TLBlocks.OreBlocks.NETHER_ARDITE_ORE.get()) {
+
+            if (block == TLBlocks.block(TLBlocks.OreBlocks.Type.COBALT)
+                    || block == TLBlocks.block(TLBlocks.OreBlocks.Type.ARDITE)) {
                 // The template draws netherrack first, then the transparent ore layer.
                 simpleBlockWithItem(block, models()
                         .withExistingParent(holder.getId().getPath(), modLoc("block/ore_overlay"))
@@ -33,20 +34,25 @@ public class TLBlockStateProvider extends BlockStateProvider {
             } else if (block instanceof SlimyGrassBlock grass) {
                 var soil = grass.soil() == Blocks.DIRT ? mcLoc("block/dirt")
                         : modLoc("block/slime/" + BuiltInRegistries.BLOCK.getKey(grass.soil()).getPath());
-                simpleBlockWithItem(block, models().withExistingParent(holder.getId().getPath(), mcLoc("block/grass_block"))
-                        .texture("bottom", soil).texture("side", soil).texture("particle", soil)
-                        .texture("top", modLoc("block/slime/slimegrass_top"))
-                        .texture("overlay", modLoc("block/slime/slimegrass_overlay")).renderType("cutout_mipped"));
+                simpleBlockWithItem(block,
+                        models().withExistingParent(holder.getId().getPath(), mcLoc("block/grass_block"))
+                                .texture("bottom", soil).texture("side", soil).texture("particle", soil)
+                                .texture("top", modLoc("block/slime/slimegrass_top"))
+                                .texture("overlay", modLoc("block/slime/slimegrass_overlay"))
+                                .renderType("cutout_mipped"));
             } else if (block instanceof ColoredSlimeBlock) {
                 String name = holder.getId().getPath();
                 var model = models().withExistingParent(name, modLoc("block/slime_cube"))
                         .texture("texture", modLoc("block/slime/" + name))
-                        .texture("inner", name.equals("magma_slime_block") ? mcLoc("block/lava_still") : modLoc("block/slime/" + name));
+                        .texture("inner", name.equals("magma_slime_block") ? mcLoc("block/lava_still")
+                                : modLoc("block/slime/" + name));
                 simpleBlockWithItem(block, model);
             } else if (block instanceof CongealedSlimeBlock) {
-                simpleBlockWithItem(block, models().cubeAll(holder.getId().getPath(), modLoc("block/slime/" + holder.getId().getPath())));
+                simpleBlockWithItem(block,
+                        models().cubeAll(holder.getId().getPath(), modLoc("block/slime/" + holder.getId().getPath())));
             } else if (holder.getId().getPath().endsWith("_slimy_dirt")) {
-                simpleBlockWithItem(block, models().cubeAll(holder.getId().getPath(), modLoc("block/slime/" + holder.getId().getPath())));
+                simpleBlockWithItem(block,
+                        models().cubeAll(holder.getId().getPath(), modLoc("block/slime/" + holder.getId().getPath())));
             } else {
                 simpleBlockWithItem(block, cubeAll(block));
             }
