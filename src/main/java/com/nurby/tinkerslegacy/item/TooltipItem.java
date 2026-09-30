@@ -25,8 +25,10 @@ public class TooltipItem extends Item {
     ) {
         super.appendHoverText(stack, context, tooltip, flag);
 
-        tooltip.add(
-            Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY)
-        );
+        String translated = Component.translatable(tooltipKey).getString();
+
+        for (String line : translated.split("\\R", -1)) {
+            tooltip.add(Component.literal(line).withStyle(ChatFormatting.GRAY));
+        }
     }
 }

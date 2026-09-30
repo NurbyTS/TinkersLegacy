@@ -4,8 +4,7 @@ import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.block.CongealedSlimeBlock;
 import com.nurby.tinkerslegacy.block.ColoredSlimeBlock;
 import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import com.nurby.tinkerslegacy.block.SlimeFoliage;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -17,6 +16,9 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class TLBlocks {
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(
@@ -178,48 +180,48 @@ public final class TLBlocks {
                                 slimyDirtProperties(MapColor.COLOR_ORANGE));
 
                 public static final DeferredHolder<Block, Block> DIRT_SLIMY_GREEN_GRASS = registerGrass(
-                                "dirt_slimy_green_grass", () -> Blocks.DIRT, "green");
+                                "dirt_slimy_green_grass", () -> Blocks.DIRT, SlimeFoliage.GREEN);
                 public static final DeferredHolder<Block, Block> GREEN_SLIMY_GREEN_GRASS = registerGrass(
-                                "green_slimy_green_grass", () -> GREEN_SLIMY_DIRT.get(), "green");
+                                "green_slimy_green_grass", () -> GREEN_SLIMY_DIRT.get(), SlimeFoliage.GREEN);
                 public static final DeferredHolder<Block, Block> BLUE_SLIMY_GREEN_GRASS = registerGrass(
-                                "blue_slimy_green_grass", () -> BLUE_SLIMY_DIRT.get(), "green");
+                                "blue_slimy_green_grass", () -> BLUE_SLIMY_DIRT.get(), SlimeFoliage.GREEN);
                 public static final DeferredHolder<Block, Block> PURPLE_SLIMY_GREEN_GRASS = registerGrass(
-                                "purple_slimy_green_grass", () -> PURPLE_SLIMY_DIRT.get(), "green");
+                                "purple_slimy_green_grass", () -> PURPLE_SLIMY_DIRT.get(), SlimeFoliage.GREEN);
                 public static final DeferredHolder<Block, Block> MAGMA_SLIMY_GREEN_GRASS = registerGrass(
-                                "magma_slimy_green_grass", () -> MAGMA_SLIMY_DIRT.get(), "green");
+                                "magma_slimy_green_grass", () -> MAGMA_SLIMY_DIRT.get(), SlimeFoliage.GREEN);
 
                 public static final DeferredHolder<Block, Block> DIRT_SLIMY_BLUE_GRASS = registerGrass(
-                                "dirt_slimy_blue_grass", () -> Blocks.DIRT, "blue");
+                                "dirt_slimy_blue_grass", () -> Blocks.DIRT, SlimeFoliage.BLUE);
                 public static final DeferredHolder<Block, Block> GREEN_SLIMY_BLUE_GRASS = registerGrass(
-                                "green_slimy_blue_grass", () -> GREEN_SLIMY_DIRT.get(), "blue");
+                                "green_slimy_blue_grass", () -> GREEN_SLIMY_DIRT.get(), SlimeFoliage.BLUE);
                 public static final DeferredHolder<Block, Block> BLUE_SLIMY_BLUE_GRASS = registerGrass(
-                                "blue_slimy_blue_grass", () -> BLUE_SLIMY_DIRT.get(), "blue");
+                                "blue_slimy_blue_grass", () -> BLUE_SLIMY_DIRT.get(), SlimeFoliage.BLUE);
                 public static final DeferredHolder<Block, Block> PURPLE_SLIMY_BLUE_GRASS = registerGrass(
-                                "purple_slimy_blue_grass", () -> PURPLE_SLIMY_DIRT.get(), "blue");
+                                "purple_slimy_blue_grass", () -> PURPLE_SLIMY_DIRT.get(), SlimeFoliage.BLUE);
                 public static final DeferredHolder<Block, Block> MAGMA_SLIMY_BLUE_GRASS = registerGrass(
-                                "magma_slimy_blue_grass", () -> MAGMA_SLIMY_DIRT.get(), "blue");
+                                "magma_slimy_blue_grass", () -> MAGMA_SLIMY_DIRT.get(), SlimeFoliage.BLUE);
 
                 public static final DeferredHolder<Block, Block> DIRT_SLIMY_PURPLE_GRASS = registerGrass(
-                                "dirt_slimy_purple_grass", () -> Blocks.DIRT, "purple");
+                                "dirt_slimy_purple_grass", () -> Blocks.DIRT, SlimeFoliage.PURPLE);
                 public static final DeferredHolder<Block, Block> GREEN_SLIMY_PURPLE_GRASS = registerGrass(
-                                "green_slimy_purple_grass", () -> GREEN_SLIMY_DIRT.get(), "purple");
+                                "green_slimy_purple_grass", () -> GREEN_SLIMY_DIRT.get(), SlimeFoliage.PURPLE);
                 public static final DeferredHolder<Block, Block> BLUE_SLIMY_PURPLE_GRASS = registerGrass(
-                                "blue_slimy_purple_grass", () -> BLUE_SLIMY_DIRT.get(), "purple");
+                                "blue_slimy_purple_grass", () -> BLUE_SLIMY_DIRT.get(), SlimeFoliage.PURPLE);
                 public static final DeferredHolder<Block, Block> PURPLE_SLIMY_PURPLE_GRASS = registerGrass(
-                                "purple_slimy_purple_grass", () -> PURPLE_SLIMY_DIRT.get(), "purple");
+                                "purple_slimy_purple_grass", () -> PURPLE_SLIMY_DIRT.get(), SlimeFoliage.PURPLE);
                 public static final DeferredHolder<Block, Block> MAGMA_SLIMY_PURPLE_GRASS = registerGrass(
-                                "magma_slimy_purple_grass", () -> MAGMA_SLIMY_DIRT.get(), "purple");
+                                "magma_slimy_purple_grass", () -> MAGMA_SLIMY_DIRT.get(), SlimeFoliage.PURPLE);
 
                 public static final DeferredHolder<Block, Block> DIRT_SLIMY_MAGMA_GRASS = registerGrass(
-                                "dirt_slimy_magma_grass", () -> Blocks.DIRT, "magma");
+                                "dirt_slimy_magma_grass", () -> Blocks.DIRT, SlimeFoliage.MAGMA);
                 public static final DeferredHolder<Block, Block> GREEN_SLIMY_MAGMA_GRASS = registerGrass(
-                                "green_slimy_magma_grass", () -> GREEN_SLIMY_DIRT.get(), "magma");
+                                "green_slimy_magma_grass", () -> GREEN_SLIMY_DIRT.get(), SlimeFoliage.MAGMA);
                 public static final DeferredHolder<Block, Block> BLUE_SLIMY_MAGMA_GRASS = registerGrass(
-                                "blue_slimy_magma_grass", () -> BLUE_SLIMY_DIRT.get(), "magma");
+                                "blue_slimy_magma_grass", () -> BLUE_SLIMY_DIRT.get(), SlimeFoliage.MAGMA);
                 public static final DeferredHolder<Block, Block> PURPLE_SLIMY_MAGMA_GRASS = registerGrass(
-                                "purple_slimy_magma_grass", () -> PURPLE_SLIMY_DIRT.get(), "magma");
+                                "purple_slimy_magma_grass", () -> PURPLE_SLIMY_DIRT.get(), SlimeFoliage.MAGMA);
                 public static final DeferredHolder<Block, Block> MAGMA_SLIMY_MAGMA_GRASS = registerGrass(
-                                "magma_slimy_magma_grass", () -> MAGMA_SLIMY_DIRT.get(), "magma");
+                                "magma_slimy_magma_grass", () -> MAGMA_SLIMY_DIRT.get(), SlimeFoliage.MAGMA);
 
                 public static final DeferredHolder<Block, Block> GREEN_CONGEALED_SLIME_BLOCK = TLBlocks.registerBlock(
                                 "green_congealed_slime_block",
@@ -287,10 +289,17 @@ public final class TLBlocks {
                 private static void register() {
                 }
 
-                private static DeferredHolder<Block, Block> registerGrass(String name, Supplier<Block> soil,
-                                String foliage) {
-                        return BLOCKS.register(name,
-                                        () -> new SlimyGrassBlock(slimyGrassProperties(), soil.get(), foliage));
+                private static DeferredHolder<Block, Block> registerGrass(
+                                String name,
+                                Supplier<Block> soil,
+                                SlimeFoliage foliage) {
+                        return BLOCKS.register(
+                                        name,
+                                        () -> SlimyGrassBlock.registerVariant(
+                                                        new SlimyGrassBlock(
+                                                                        slimyGrassProperties(),
+                                                                        soil.get(),
+                                                                        foliage)));
                 }
         }
 
