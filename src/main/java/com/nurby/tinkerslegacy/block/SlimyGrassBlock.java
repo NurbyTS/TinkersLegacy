@@ -17,13 +17,13 @@ public class SlimyGrassBlock extends Block {
     public static final MapCodec<SlimyGrassBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             propertiesCodec(),
             BuiltInRegistries.BLOCK.byNameCodec().fieldOf("soil").forGetter(SlimyGrassBlock::soil),
-            SlimeFoliage.CODEC.fieldOf("foliage").forGetter(SlimyGrassBlock::foliage))
+            SlimyFoliage.CODEC.fieldOf("foliage").forGetter(SlimyGrassBlock::foliage))
             .apply(instance, SlimyGrassBlock::new));
 
     private final Block soil;
-    private final SlimeFoliage foliage;
+    private final SlimyFoliage foliage;
 
-    public SlimyGrassBlock(Properties properties, Block soil, SlimeFoliage foliage) {
+    public SlimyGrassBlock(Properties properties, Block soil, SlimyFoliage foliage) {
         super(properties);
         this.soil = soil;
         this.foliage = foliage;
@@ -38,7 +38,7 @@ public class SlimyGrassBlock extends Block {
         return soil;
     }
 
-    public SlimeFoliage foliage() {
+    public SlimyFoliage foliage() {
         return foliage;
     }
 
@@ -50,7 +50,7 @@ public class SlimyGrassBlock extends Block {
         return foliage.color();
     }
 
-    private record GrassKey(Block soil, SlimeFoliage foliage) {
+    private record GrassKey(Block soil, SlimyFoliage foliage) {
     }
 
     private static final Map<GrassKey, SlimyGrassBlock> VARIANTS = new HashMap<>();
@@ -67,7 +67,7 @@ public class SlimyGrassBlock extends Block {
 
     public static SlimyGrassBlock findVariant(
             Block soil,
-            SlimeFoliage foliage) {
+            SlimyFoliage foliage) {
         return VARIANTS.get(new GrassKey(soil, foliage));
     }
 

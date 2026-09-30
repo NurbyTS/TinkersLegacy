@@ -8,12 +8,15 @@ import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.block.SlimyFoliage;
+import com.nurby.tinkerslegacy.registry.TLBlocks.SlimyBlocks.Soil;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -370,125 +373,43 @@ public final class TLItems {
                 }
 
                 public static class SlimyBlocks {
-                        public static final DeferredHolder<Item, BlockItem> GREEN_SLIMY_DIRT = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.GREEN_SLIMY_DIRT,
+                        static {
+                                registerSlimySoilItems();
+                                registerSlimyGrassItems();
+                        }
+
+                        private static void registerSlimySoilItems() {
+                                for (Soil soil : Soil.values()) {
+                                        if (soil == Soil.DIRT)
+                                                continue;
+
+                                        TLItems.Blocks.registerBlockItem(
+                                                        TLBlocks.SlimyBlocks.slimySoil(soil),
                                                         "tooltip.tinkerslegacy.slimy_dirt");
+                                }
+                        }
 
-                        public static final DeferredHolder<Item, BlockItem> BLUE_SLIMY_DIRT = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.BLUE_SLIMY_DIRT,
-                                                        "tooltip.tinkerslegacy.slimy_dirt");
+                        private static void registerSlimyGrassItems() {
+                                for (SlimyFoliage foliage : SlimyFoliage.values()) {
+                                        for (Soil soil : Soil.values()) {
+                                                TLItems.Blocks.registerBlockItem(
+                                                                TLBlocks.SlimyBlocks.slimyGrass(soil, foliage),
+                                                                "tooltip.tinkerslegacy.slimy_grass");
+                                        }
+                                }
+                        }
 
-                        public static final DeferredHolder<Item, BlockItem> PURPLE_SLIMY_DIRT = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.PURPLE_SLIMY_DIRT,
-                                                        "tooltip.tinkerslegacy.slimy_dirt");
+                        public static final DeferredHolder<Item, BlockItem> slimyDirt(Soil soil) {
+                                return TLItems.Blocks.get(
+                                                TLBlocks.SlimyBlocks.slimySoil(soil).getId());
+                        }
 
-                        public static final DeferredHolder<Item, BlockItem> MAGMA_SLIMY_DIRT = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.MAGMA_SLIMY_DIRT,
-                                                        "tooltip.tinkerslegacy.slimy_dirt");
-
-                        public static final DeferredHolder<Item, BlockItem> DIRT_SLIMY_GREEN_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.DIRT_SLIMY_GREEN_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> GREEN_SLIMY_GREEN_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.GREEN_SLIMY_GREEN_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> BLUE_SLIMY_GREEN_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.BLUE_SLIMY_GREEN_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> PURPLE_SLIMY_GREEN_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.PURPLE_SLIMY_GREEN_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> MAGMA_SLIMY_GREEN_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.MAGMA_SLIMY_GREEN_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> DIRT_SLIMY_BLUE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.DIRT_SLIMY_BLUE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> GREEN_SLIMY_BLUE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.GREEN_SLIMY_BLUE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> BLUE_SLIMY_BLUE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.BLUE_SLIMY_BLUE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> PURPLE_SLIMY_BLUE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.PURPLE_SLIMY_BLUE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> MAGMA_SLIMY_BLUE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.MAGMA_SLIMY_BLUE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> DIRT_SLIMY_PURPLE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.DIRT_SLIMY_PURPLE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> GREEN_SLIMY_PURPLE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.GREEN_SLIMY_PURPLE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> BLUE_SLIMY_PURPLE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.BLUE_SLIMY_PURPLE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> PURPLE_SLIMY_PURPLE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.PURPLE_SLIMY_PURPLE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> MAGMA_SLIMY_PURPLE_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.MAGMA_SLIMY_PURPLE_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> DIRT_SLIMY_MAGMA_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.DIRT_SLIMY_MAGMA_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> GREEN_SLIMY_MAGMA_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.GREEN_SLIMY_MAGMA_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> BLUE_SLIMY_MAGMA_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.BLUE_SLIMY_MAGMA_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> PURPLE_SLIMY_MAGMA_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.PURPLE_SLIMY_MAGMA_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
-
-                        public static final DeferredHolder<Item, BlockItem> MAGMA_SLIMY_MAGMA_GRASS = TLItems.Blocks
-                                        .registerBlockItem(
-                                                        TLBlocks.SlimyBlocks.MAGMA_SLIMY_MAGMA_GRASS,
-                                                        "tooltip.tinkerslegacy.slimy_grass");
+                        public static final DeferredHolder<Item, BlockItem> slimyGrass(
+                                        Soil soil,
+                                        SlimyFoliage foliage) {
+                                return TLItems.Blocks.get(
+                                                TLBlocks.SlimyBlocks.slimyGrass(soil, foliage).getId());
+                        }
 
                         public static final DeferredHolder<Item, BlockItem> GREEN_CONGEALED_SLIME_BLOCK = TLItems.Blocks
                                         .registerBlockItem(
