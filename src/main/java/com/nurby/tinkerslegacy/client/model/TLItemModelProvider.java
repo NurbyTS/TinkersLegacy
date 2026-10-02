@@ -3,6 +3,7 @@ package com.nurby.tinkerslegacy.client.model;
 import com.google.gson.JsonObject;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.registry.TLItems;
 import com.nurby.tinkerslegacy.registry.TLTools;
@@ -65,36 +66,13 @@ public class TLItemModelProvider extends ItemModelProvider {
         }
 
         private void registerParts() {
-                registerPart(ToolParts.PICKAXE_HEAD);
-                registerPart(ToolParts.AXE_HEAD);
-                registerPart(ToolParts.SHOVEL_HEAD);
-                registerPart(ToolParts.KAMA_HEAD);
-                registerPart(ToolParts.SWORD_BLADE);
-                registerPart(ToolParts.HAMMER_HEAD);
-                registerPart(ToolParts.BROAD_AXE_HEAD);
-                registerPart(ToolParts.LARGE_SWORD_BLADE);
-                registerPart(ToolParts.EXCAVATOR_HEAD);
-                registerPart(ToolParts.SCYTHE_HEAD);
-                registerPart(ToolParts.PAN_HEAD);
-                registerPart(ToolParts.SIGN_HEAD);
-                registerPart(ToolParts.LARGE_PLATE);
-                registerPart(ToolParts.KNIFE_BLADE);
-                registerPart(ToolParts.BOW_LIMB);
-                registerPart(ToolParts.BOW_STRING);
-                registerPart(ToolParts.ARROW_HEAD);
-                registerPart(ToolParts.ARROW_SHAFT);
-                registerPart(ToolParts.FLETCHING);
-                registerPart(ToolParts.TOOL_ROD);
-                registerPart(ToolParts.TOUGH_TOOL_ROD);
-                registerPart(ToolParts.BINDING);
-                registerPart(ToolParts.TOUGH_BINDING);
-                registerPart(ToolParts.WIDE_GUARD);
-                registerPart(ToolParts.CROSS_GUARD);
-                registerPart(ToolParts.BOLT_CORE);
+                for (DeferredHolder<PartDefinition, ? extends PartDefinition> holder : ToolParts.PARTS.getEntries()) {
+                        registerPart(holder);
+                }
         }
 
         private void registerPart(
-                        DeferredHolder<?, ?> partHolder) {
+                        DeferredHolder<PartDefinition, ? extends PartDefinition> partHolder) {
                 ResourceLocation id = partHolder.getId();
 
                 ItemModelBuilder builder = getBuilder(id.getPath())
@@ -107,10 +85,7 @@ public class TLItemModelProvider extends ItemModelProvider {
 
                 loader.part(id);
 
-                if (id.equals(
-                                ResourceLocation.fromNamespaceAndPath(
-                                                TinkersLegacy.MODID,
-                                                "bolt_core"))) {
+                if (id.equals(ToolParts.BOLT_CORE.getId())) {
                         loader.texture(
                                         "layer0",
                                         ResourceLocation.fromNamespaceAndPath(
