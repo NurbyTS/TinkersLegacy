@@ -22,17 +22,43 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbility;
+import com.nurby.tinkerslegacy.registry.TLItems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Defines the structure and behavior of a Tinkers Legacy tool type.
+ *
+ * <p>Every tool definition must also have its corresponding item manually
+ * registered in {@link TLItems}.</p>
+ *
+ * <p>The order of {@link ToolPart}s is significant. Parts are assigned to
+ * material layers by index, and the datagen system uses the same order when
+ * generating the tool's texture layers. Therefore, the texture at
+ * {@code textures/item/tool_templates/<tool id>/layer0} must correspond to
+ * the first {@code ToolPart}, {@code layer1} to the second, and so on.</p>
+ *
+ * <p>For example, if the first part is a tool rod, {@code layer0} must contain
+ * the tool rod texture. If a part uses a head stat type, its texture template
+ * must also provide the corresponding broken variant where required.</p>
+ *
+ * <p>When adding a new tool, make sure to:</p>
+ * <ul>
+ *     <li>Define the tool and its parts in a {@code ToolDefinition} subclass.</li>
+ *     <li>Manually register the tool item in {@link TLItems}.</li>
+ *     <li>Keep the {@code ToolPart} order synchronized with the texture layer
+ *     order used by datagen.</li>
+ *     <li>Provide all required texture variants for each part, including
+ *     broken variants for head parts.</li>
+ * </ul>
+ */
 public abstract class ToolDefinition {
 
     private final ResourceLocation id;
     private final List<ToolPart> parts;
-
     protected ToolDefinition(
             ResourceLocation id,
             List<ToolPart> parts

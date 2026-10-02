@@ -54,6 +54,11 @@ public final class TLTools {
             RapierDefinition::new
     );
 
+    public static final DeferredHolder<ToolDefinition, ToolDefinition> FRYPAN = TOOLS.register(
+            "frypan",
+            FrypanDefinition::new
+    );
+
     private TLTools() {}
 
     public static void register(IEventBus bus) {

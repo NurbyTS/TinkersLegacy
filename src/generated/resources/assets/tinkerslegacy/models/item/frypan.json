@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tools/frypan/layer0",
+    "layer1": "tinkerslegacy:item/tools/frypan/layer1"
+  },
+  "tool": "tinkerslegacy:frypan"
+}

@@ -12,6 +12,9 @@ import com.nurby.tinkerslegacy.registry.TLBlocks.SlimyBlocks.Soil;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -300,15 +303,37 @@ public final class TLItems {
                 public static final class Slimeballs {
                         public enum Type {
                                 BLUE(() -> new TooltipItem(
-                                                new Item.Properties(),
+                                                new Item.Properties().food(
+                                                        new FoodProperties.Builder()
+                                                                .nutrition(0)
+                                                                .saturationModifier(0)
+                                                                .alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 900, 2), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.JUMP, 1200, 2), 1.0F)
+                                                                .build()),
                                                 "tooltip.tinkerslegacy.blue_slimeball")),
 
                                 PURPLE(() -> new TooltipItem(
-                                                new Item.Properties(),
+                                                new Item.Properties().food(
+                                                        new FoodProperties.Builder()
+                                                                .nutrition(0)
+                                                                .saturationModifier(0)
+                                                                .alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.UNLUCK, 900, 0), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.LUCK, 1200, 0), 1.0F)
+                                                                .build()),
                                                 "tooltip.tinkerslegacy.purple_slimeball")),
 
                                 MAGMA(() -> new TooltipItem(
-                                                new Item.Properties(),
+                                                new Item.Properties().food(
+                                                        new FoodProperties.Builder()
+                                                                .nutrition(0)
+                                                                .saturationModifier(0)
+                                                                .alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.WEAKNESS, 900, 0), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.WITHER, 300, 0), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0), 1.0F)
+                                                                .build()),
                                                 "tooltip.tinkerslegacy.magma_slimeball"));
 
                                 private final Supplier<? extends Item> factory;
@@ -556,6 +581,8 @@ public final class TLItems {
                 public static final DeferredHolder<Item, DynamicTool> LONGSWORD = register(TLTools.LONGSWORD);
 
                 public static final DeferredHolder<Item, DynamicTool> RAPIER = register(TLTools.RAPIER);
+
+                public static final DeferredHolder<Item, DynamicTool> FRYPAN = register(TLTools.FRYPAN);
 
                 private static void register() {
                 }
