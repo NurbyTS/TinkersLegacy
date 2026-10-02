@@ -34,13 +34,13 @@ public final class TLBlocks {
 
         public static final class OreBlocks {
                 public enum Type {
-                        COBALT,
-                        ARDITE
+                        NETHER_COBALT,
+                        NETHER_ARDITE
                 }
 
                 private static final Map<Type, DeferredHolder<Block, Block>> NETHER_VARIANTS = registerVariants(
                                 Type.values(),
-                                type -> "nether_" + variantName(type) + "_ore",
+                                type -> variantName(type) + "_ore",
                                 type -> new Block(netherOreProperties()));
 
                 public static final List<DeferredHolder<Block, Block>> ALL = List.copyOf(NETHER_VARIANTS.values());

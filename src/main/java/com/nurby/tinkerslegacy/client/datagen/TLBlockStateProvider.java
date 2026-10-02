@@ -24,8 +24,8 @@ public class TLBlockStateProvider extends BlockStateProvider {
         for (var holder : TLBlocks.BLOCKS.getEntries()) {
             Block block = holder.get();
 
-            if (block == TLBlocks.block(TLBlocks.OreBlocks.Type.COBALT)
-                    || block == TLBlocks.block(TLBlocks.OreBlocks.Type.ARDITE)) {
+            if (block == TLBlocks.block(TLBlocks.OreBlocks.Type.NETHER_COBALT)
+                    || block == TLBlocks.block(TLBlocks.OreBlocks.Type.NETHER_ARDITE)) {
                 // The template draws netherrack first, then the transparent ore layer.
                 simpleBlockWithItem(block, models()
                         .withExistingParent(holder.getId().getPath(), modLoc("block/ore_overlay"))

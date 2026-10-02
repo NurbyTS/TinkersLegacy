@@ -26,10 +26,6 @@ public class TLRecipeProvider extends RecipeProvider {
         protected void buildRecipes(RecipeOutput output) {
                 for (var family : TLMetalFamilies.ALL) {
                         metal(output, family.nugget().get(), family.ingot().get(), family.storageBlock().get());
-
-                        for (var input : family.smeltingInputs()) {
-                                smeltingAndBlasting(output, input.get(), family.ingot().get(), 0.7F, 200);
-                        }
                 }
 
                 gem(
@@ -37,60 +33,36 @@ public class TLRecipeProvider extends RecipeProvider {
                                 TLItems.item(TLItems.Items.Gems.Type.SILKY_JEWEL),
                                 TLBlocks.block(TLBlocks.StorageBlocks.Type.SILKY_JEWEL));
 
-                smelting(
-                                output,
-                                "seared_brick",
-                                TLBlocks.block(TLBlocks.IntermediaryBlocks.Type.GROUT),
-                                TLItems.item(TLItems.Items.Bricks.Type.SEARED),
-                                0.1F,
-                                200);
+                for (var recipe : TLCookingRecipes.ALL) {
+                        cooking(output, recipe);
+                }
         }
 
-        private void smelting(
+        // Cooking
+        private void cooking(
                         RecipeOutput output,
-                        String recipeName,
-                        ItemLike input,
-                        ItemLike result,
-                        float experience,
-                        int cookingTime) {
-                SimpleCookingRecipeBuilder.smelting(
-                                Ingredient.of(input),
-                                RecipeCategory.MISC,
-                                result,
-                                experience,
-                                cookingTime)
-                                .unlockedBy("has_ingredient", has(input))
-                                .save(output, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, recipeName));
-        }
-
-        private void blasting(
-                        RecipeOutput output,
-                        String recipeName,
-                        ItemLike input,
-                        ItemLike result,
-                        float experience,
-                        int cookingTime) {
-                SimpleCookingRecipeBuilder.blasting(
-                                Ingredient.of(input),
-                                RecipeCategory.MISC,
-                                result, experience,
-                                cookingTime)
-                                .unlockedBy("has_ingredient", has(input))
-                                .save(output, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, recipeName));
-        }
-
-        private void smeltingAndBlasting(
-                        RecipeOutput output,
-                        ItemLike input,
-                        ItemLike result,
-                        float experience,
-                        int cookingTime) {
+                        TLCookingRecipes.CookingRecipe recipe) {
+                ItemLike input = recipe.input().get();
+                ItemLike result = recipe.result().get();
                 String baseName = conversionId(result, input).getPath();
 
-                smelting(output, baseName + "_smelting", input, result, experience, cookingTime);
-                blasting(output, baseName + "_blasting", input, result, experience, cookingTime / 2);
+                for (var method : recipe.methods()) {
+                        String name = method.recipeName() == null
+                                        ? baseName + "_" + method.type().suffix()
+                                        : method.recipeName();
+
+                        method.type().builder(
+                                        Ingredient.of(input),
+                                        recipe.category(),
+                                        result,
+                                        recipe.experience(),
+                                        method.cookingTime())
+                                        .unlockedBy("has_ingredient", has(input))
+                                        .save(output, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, name));
+                }
         }
 
+        // Crafting
         private void metal(
                         RecipeOutput output,
                         ItemLike nugget,

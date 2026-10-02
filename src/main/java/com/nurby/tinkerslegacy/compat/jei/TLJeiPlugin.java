@@ -30,11 +30,11 @@ public class TLJeiPlugin implements IModPlugin {
         Component description = Component.translatable("jei.tinkerslegacy.nether_ore_generation");
 
         registration.addIngredientInfo(
-                TLBlocks.block(TLBlocks.OreBlocks.Type.COBALT),
+                TLBlocks.block(TLBlocks.OreBlocks.Type.NETHER_COBALT),
                 description);
 
         registration.addIngredientInfo(
-                TLBlocks.block(TLBlocks.OreBlocks.Type.ARDITE),
+                TLBlocks.block(TLBlocks.OreBlocks.Type.NETHER_ARDITE),
                 description);
     }
 
