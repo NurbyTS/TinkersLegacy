@@ -188,6 +188,8 @@ public final class TLBlocks {
 
                 private static final Map<Soil, DeferredHolder<Block, Block>> SLIMY_SOIL = registerSoilVariants();
 
+                public static final List<DeferredHolder<Block, Block>> SOILS = List.copyOf(SLIMY_SOIL.values());
+
                 private static Map<Soil, DeferredHolder<Block, Block>> registerSoilVariants() {
                         Map<Soil, DeferredHolder<Block, Block>> variants = new EnumMap<>(Soil.class);
 
@@ -219,9 +221,10 @@ public final class TLBlocks {
 
                 private static final Map<GrassVariant, DeferredHolder<Block, Block>> SLIMY_GRASS = registerGrassVariants();
 
+                public static final List<DeferredHolder<Block, Block>> GRASSES = List.copyOf(SLIMY_GRASS.values());
+
                 private static Map<GrassVariant, DeferredHolder<Block, Block>> registerGrassVariants() {
                         Map<GrassVariant, DeferredHolder<Block, Block>> variants = new LinkedHashMap<>();
-                        new LinkedHashMap<>();
 
                         for (SlimyFoliage foliage : SlimyFoliage.values()) {
                                 for (Soil soil : Soil.values()) {

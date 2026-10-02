@@ -47,43 +47,21 @@ public class TLItemModelProvider extends ItemModelProvider {
         }
 
         private void registerItems() {
-                flatItem(TLItems.get(TLItems.Items.IntermediaryItems.Type.SILKY_CLOTH), "item/material/intermediary");
+                flatItems(TLItems.Items.IntermediaryItems.ALL, "item/material/intermediary");
 
-                flatItem(TLItems.get(TLItems.Items.Miscellaneous.Type.CREATIVE_MODIFIER), "item/misc");
-                flatItem(TLItems.get(TLItems.Items.Miscellaneous.Type.BALL_OF_MOSS), "item/misc");
-                flatItem(TLItems.get(TLItems.Items.Miscellaneous.Type.MENDING_MOSS), "item/misc");
-                flatItem(TLItems.get(TLItems.Items.Miscellaneous.Type.EXPANDER_VERTICAL), "item/misc");
-                flatItem(TLItems.get(TLItems.Items.Miscellaneous.Type.EXPANDER_HORIZONTAL), "item/misc");
+                flatItems(TLItems.Items.Miscellaneous.ALL, "item/misc");
 
-                flatItem(TLItems.get(TLItems.Items.RawOres.Type.COBALT), "item/material/ore");
-                flatItem(TLItems.get(TLItems.Items.RawOres.Type.ARDITE), "item/material/ore");
+                flatItems(TLItems.Items.RawOres.ALL, "item/material/ore");
 
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.COBALT), "item/material/nugget");
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.ARDITE), "item/material/nugget");
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.ALUBRASS), "item/material/nugget");
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.KNIGHTSLIME), "item/material/nugget");
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.MANYULLYN), "item/material/nugget");
-                flatItem(TLItems.get(TLItems.Items.Nuggets.Type.PIGIRON), "item/material/nugget");
+                flatItems(TLItems.Items.Nuggets.ALL, "item/material/nugget");
 
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.COBALT), "item/material/ingot");
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.ARDITE), "item/material/ingot");
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.ALUBRASS), "item/material/ingot");
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.KNIGHTSLIME), "item/material/ingot");
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.MANYULLYN), "item/material/ingot");
-                flatItem(TLItems.get(TLItems.Items.Ingots.Type.PIGIRON), "item/material/ingot");
+                flatItems(TLItems.Items.Ingots.ALL, "item/material/ingot");
 
-                flatItem(TLItems.get(TLItems.Items.Gems.Type.SILKY_JEWEL), "item/material/gem");
-                flatItem(TLItems.get(TLItems.Items.Gems.Type.GREEN_SLIME_CRYSTAL), "item/material/gem");
-                flatItem(TLItems.get(TLItems.Items.Gems.Type.BLUE_SLIME_CRYSTAL), "item/material/gem");
-                flatItem(TLItems.get(TLItems.Items.Gems.Type.MAGMA_SLIME_CRYSTAL), "item/material/gem");
+                flatItems(TLItems.Items.Gems.ALL, "item/material/gem");
 
-                flatItem(TLItems.get(TLItems.Items.Bricks.Type.SEARED), "item/material/brick");
-                flatItem(TLItems.get(TLItems.Items.Bricks.Type.MUD), "item/material/brick");
-                flatItem(TLItems.get(TLItems.Items.Bricks.Type.DRIED), "item/material/brick");
+                flatItems(TLItems.Items.Bricks.ALL, "item/material/brick");
 
-                flatItem(TLItems.get(TLItems.Items.Slimeballs.Type.BLUE), "item/slime");
-                flatItem(TLItems.get(TLItems.Items.Slimeballs.Type.PURPLE), "item/slime");
-                flatItem(TLItems.get(TLItems.Items.Slimeballs.Type.MAGMA), "item/slime");
+                flatItems(TLItems.Items.Slimeballs.ALL, "item/slime");
         }
 
         private void registerParts() {
@@ -189,6 +167,14 @@ public class TLItemModelProvider extends ItemModelProvider {
                                                                         + id.getPath()
                                                                         + "/layer"
                                                                         + index));
+                }
+        }
+
+        private void flatItems(
+                        Iterable<? extends DeferredHolder<Item, ? extends Item>> items,
+                        String folder) {
+                for (var item : items) {
+                        flatItem(item, folder);
                 }
         }
 
