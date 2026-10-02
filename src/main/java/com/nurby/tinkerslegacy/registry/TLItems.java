@@ -501,61 +501,11 @@ public final class TLItems {
         public static final class Parts {
                 private static final Map<ResourceLocation, DeferredHolder<Item, DynamicPart>> ITEMS = new LinkedHashMap<>();
 
-                public static final DeferredHolder<Item, DynamicPart> PICKAXE_HEAD = register(ToolParts.PICKAXE_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> AXE_HEAD = register(ToolParts.AXE_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> SHOVEL_HEAD = register(ToolParts.SHOVEL_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> KAMA_HEAD = register(ToolParts.KAMA_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> SWORD_BLADE = register(ToolParts.SWORD_BLADE);
-
-                public static final DeferredHolder<Item, DynamicPart> HAMMER_HEAD = register(ToolParts.HAMMER_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> BROAD_AXE_HEAD = register(
-                                ToolParts.BROAD_AXE_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> LARGE_SWORD_BLADE = register(
-                                ToolParts.LARGE_SWORD_BLADE);
-
-                public static final DeferredHolder<Item, DynamicPart> EXCAVATOR_HEAD = register(
-                                ToolParts.EXCAVATOR_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> SCYTHE_HEAD = register(ToolParts.SCYTHE_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> PAN_HEAD = register(ToolParts.PAN_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> SIGN_HEAD = register(ToolParts.SIGN_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> LARGE_PLATE = register(ToolParts.LARGE_PLATE);
-
-                public static final DeferredHolder<Item, DynamicPart> KNIFE_BLADE = register(ToolParts.KNIFE_BLADE);
-
-                public static final DeferredHolder<Item, DynamicPart> BOW_LIMB = register(ToolParts.BOW_LIMB);
-
-                public static final DeferredHolder<Item, DynamicPart> BOW_STRING = register(ToolParts.BOW_STRING);
-
-                public static final DeferredHolder<Item, DynamicPart> ARROW_HEAD = register(ToolParts.ARROW_HEAD);
-
-                public static final DeferredHolder<Item, DynamicPart> ARROW_SHAFT = register(ToolParts.ARROW_SHAFT);
-
-                public static final DeferredHolder<Item, DynamicPart> FLETCHING = register(ToolParts.FLETCHING);
-
-                public static final DeferredHolder<Item, DynamicPart> TOOL_ROD = register(ToolParts.TOOL_ROD);
-
-                public static final DeferredHolder<Item, DynamicPart> TOUGH_TOOL_ROD = register(
-                                ToolParts.TOUGH_TOOL_ROD);
-
-                public static final DeferredHolder<Item, DynamicPart> BINDING = register(ToolParts.BINDING);
-
-                public static final DeferredHolder<Item, DynamicPart> TOUGH_BINDING = register(ToolParts.TOUGH_BINDING);
-
-                public static final DeferredHolder<Item, DynamicPart> WIDE_GUARD = register(ToolParts.WIDE_GUARD);
-
-                public static final DeferredHolder<Item, DynamicPart> CROSS_GUARD = register(ToolParts.CROSS_GUARD);
-
-                public static final DeferredHolder<Item, DynamicPart> BOLT_CORE = register(ToolParts.BOLT_CORE);
+                static {
+                        for (var part : ToolParts.ALL) {
+                                register(part);
+                        }
+                }
 
                 private static void register() {
                 }
@@ -568,6 +518,14 @@ public final class TLItems {
 
                         ITEMS.put(definition.getId(), holder);
                         return holder;
+                }
+
+                public static DeferredHolder<Item, DynamicPart> get(ToolParts.Type type) {
+                        return get(ToolParts.get(type).getId());
+                }
+
+                public static DynamicPart item(ToolParts.Type type) {
+                        return get(type).get();
                 }
 
                 public static DeferredHolder<Item, DynamicPart> get(ResourceLocation id) {

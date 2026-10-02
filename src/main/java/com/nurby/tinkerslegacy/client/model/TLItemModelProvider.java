@@ -85,7 +85,7 @@ public class TLItemModelProvider extends ItemModelProvider {
 
                 loader.part(id);
 
-                if (id.equals(ToolParts.BOLT_CORE.getId())) {
+                if (id.equals(ToolParts.get(ToolParts.Type.BOLT_CORE).getId())) {
                         loader.texture(
                                         "layer0",
                                         ResourceLocation.fromNamespaceAndPath(

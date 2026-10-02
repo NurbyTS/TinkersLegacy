@@ -126,8 +126,8 @@ public final class TLCreativeTabs {
                 }
 
                 private static ItemStack createIcon() {
-                        PartDefinition part = ToolParts.BINDING.get();
-                        ItemStack stack = new ItemStack(TLItems.Parts.BINDING.get());
+                        PartDefinition part = ToolParts.part(ToolParts.Type.BINDING);
+                        ItemStack stack = new ItemStack(TLItems.Parts.item(ToolParts.Type.BINDING));
                         stack.set(
                                         TLDataComponents.MATERIALS,
                                         part.statTypes().stream()
@@ -151,7 +151,7 @@ public final class TLCreativeTabs {
 
                                 PartDefinition part = entry.getValue();
 
-                                if (ToolParts.BOLT_CORE.is(part.id())) {
+                                if (ToolParts.get(ToolParts.Type.BOLT_CORE).is(part.id())) {
                                         continue;
                                 }
 
@@ -190,8 +190,7 @@ public final class TLCreativeTabs {
 
                 private static void addBolts(
                                 CreativeModeTab.Output output) {
-                        DeferredHolder<Item, DynamicPart> item = TLItems.Parts.get(
-                                        ToolParts.BOLT_CORE.getId());
+                        DeferredHolder<Item, DynamicPart> item = TLItems.Parts.get(ToolParts.Type.BOLT_CORE);
 
                         if (item == null) {
                                 return;
