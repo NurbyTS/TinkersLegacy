@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -41,8 +42,17 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
                     "bolt_core"
             );
 
-    private final Map<String, BakedModel> models =
-            new HashMap<>();
+    private static final int MIXED_CACHE_LIMIT = 512;
+
+    private final Map<String, BakedModel> baseCache = new HashMap<>();
+
+    private final Map<String, BakedModel> mixedCache =
+            new LinkedHashMap<>(64, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<String, BakedModel> eldest) {
+                    return size() > MIXED_CACHE_LIMIT;
+                }
+            };
 
     private final ItemOverrides nested;
     private final ModelBaker baker;
@@ -103,13 +113,21 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
 
         String cacheKey = createCacheKey(materials);
 
-        BakedModel model = models.get(cacheKey);
+        BakedModel baseCached = baseCache.get(cacheKey);
 
-        if (model != null) {
-            return model;
+        if (baseCached != null) {
+            return baseCached;
         }
 
-        return bakeRuntimeModel(materials);
+        BakedModel mixedCached = mixedCache.get(cacheKey);
+
+        if (mixedCached != null) {
+            return mixedCached;
+        }
+
+        BakedModel baked = bakeRuntimeModel(materials, cacheKey);
+
+        return baked != null ? baked : originalModel;
     }
 
     private void bakeModels(
@@ -156,7 +174,7 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
                     ))
                     .toList();
 
-            bakeModel(
+            bakePrebakedModel(
                     baker,
                     modelState,
                     baseModel,
@@ -199,7 +217,7 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
                     )
             );
 
-            bakeModel(
+            bakePrebakedModel(
                     baker,
                     modelState,
                     baseModel,
@@ -209,7 +227,11 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
         }
     }
 
-    private BakedModel bakeRuntimeModel(
+    private void bakePrebakedModel(
+            ModelBaker baker,
+            ModelState modelState,
+            BlockModel baseModel,
+            ResourceLocation part,
             List<MaterialLayer> materials
     ) {
         BakedModel baked = bakeModel(
@@ -220,10 +242,41 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
                 materials
         );
 
-        models.put(
-                createCacheKey(materials),
-                baked
+        if (baked == null) {
+            LOGGER.warn(
+                    "Failed to prebake dynamic part model for {} with materials {}",
+                    part,
+                    materials
+            );
+            return;
+        }
+
+        baseCache.put(createCacheKey(materials), baked);
+    }
+
+    @Nullable
+    private BakedModel bakeRuntimeModel(
+            List<MaterialLayer> materials,
+            String cacheKey
+    ) {
+        BakedModel baked = bakeModel(
+                baker,
+                modelState,
+                baseModel,
+                part,
+                materials
         );
+
+        if (baked == null) {
+            LOGGER.warn(
+                    "Failed to bake dynamic part model for {} with materials {}",
+                    part,
+                    materials
+            );
+            return null;
+        }
+
+        mixedCache.put(cacheKey, baked);
 
         return baked;
     }

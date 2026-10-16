@@ -18,12 +18,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class DynamicToolOverrideHandler extends ItemOverrides {
+    private static final int MIXED_CACHE_LIMIT = 512;
 
     private final ItemOverrides parent;
     private final ModelBaker baker;
@@ -34,8 +36,15 @@ public class DynamicToolOverrideHandler extends ItemOverrides {
     private final BlockModel baseModel;
     private final Function<Material, TextureAtlasSprite> spriteGetter;
 
-    private final Map<String, BakedModel> cache =
-            new LinkedHashMap<>();
+    private final Map<String, BakedModel> baseCache = new HashMap<>();
+
+    private final Map<String, BakedModel> mixedCache =
+            new LinkedHashMap<>(64, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<String, BakedModel> eldest) {
+                    return size() > MIXED_CACHE_LIMIT;
+                }
+            };
 
     public DynamicToolOverrideHandler(
             ItemOverrides parent,
@@ -83,7 +92,7 @@ public class DynamicToolOverrideHandler extends ItemOverrides {
             BakedModel model = bakeModel(layers);
 
             if (model != null) {
-                cache.put(createCacheKey(layers), model);
+                baseCache.put(createCacheKey(layers), model);
             }
         }
     }
@@ -181,10 +190,16 @@ public class DynamicToolOverrideHandler extends ItemOverrides {
 
         String key = createCacheKey(layers);
 
-        BakedModel cached = cache.get(key);
+        BakedModel baseCached = baseCache.get(key);
 
-        if (cached != null) {
-            return cached;
+        if (baseCached != null) {
+            return baseCached;
+        }
+
+        BakedModel mixedCached = mixedCache.get(key);
+
+        if (mixedCached != null) {
+            return mixedCached;
         }
 
         BakedModel baked = bakeModel(layers);
@@ -193,7 +208,7 @@ public class DynamicToolOverrideHandler extends ItemOverrides {
             return parentModel;
         }
 
-        cache.put(key, baked);
+        mixedCache.put(key, baked);
 
         return baked;
     }
