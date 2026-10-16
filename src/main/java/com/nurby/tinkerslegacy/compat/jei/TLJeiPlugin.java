@@ -3,7 +3,6 @@ package com.nurby.tinkerslegacy.compat.jei;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
 
@@ -57,24 +56,25 @@ public class TLJeiPlugin implements IModPlugin {
     private static final class MaterialSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
         @Override
         public Object getSubtypeData(ItemStack stack, UidContext context) {
-            List<MaterialLayer> layers = stack.get(TLDataComponents.MATERIALS);
+            List<ResourceLocation> materials = stack.get(TLDataComponents.MATERIALS);
 
-            if (layers == null || layers.isEmpty()) {
+            if (materials == null || materials.isEmpty()) {
                 return null;
             }
 
-            return List.copyOf(layers);
+            return List.copyOf(materials);
         }
 
         @Override
         public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
-            List<MaterialLayer> layers = stack.get(TLDataComponents.MATERIALS);
+            List<ResourceLocation> materials = stack.get(TLDataComponents.MATERIALS);
 
-            if (layers == null || layers.isEmpty()) {
+            if (materials == null || materials.isEmpty()) {
                 return "";
             }
 
-            return layers.stream().map(layer -> layer.statType() + "=" + layer.material())
+            return materials.stream()
+                    .map(ResourceLocation::toString)
                     .collect(Collectors.joining(";"));
         }
     }

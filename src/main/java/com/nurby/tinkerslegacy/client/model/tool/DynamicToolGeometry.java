@@ -89,6 +89,11 @@ public final class DynamicToolGeometry
             implements IGeometryLoader<DynamicToolGeometry> {
 
         public static final Loader INSTANCE = new Loader();
+        public static final ResourceLocation ID =
+                ResourceLocation.fromNamespaceAndPath(
+                        TinkersLegacy.MODID,
+                        "dynamic_tool"
+                );
 
         private Loader() {
         }

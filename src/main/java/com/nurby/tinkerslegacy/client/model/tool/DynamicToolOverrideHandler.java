@@ -1,53 +1,31 @@
 package com.nurby.tinkerslegacy.client.model.tool;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.client.model.AbstractDynamicModelHandler;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
-public class DynamicToolOverrideHandler extends ItemOverrides {
-    private static final int MIXED_CACHE_LIMIT = 512;
-
-    private final ItemOverrides parent;
-    private final ModelBaker baker;
-    private final IGeometryBakingContext context;
-    private final ModelState modelState;
-
+public class DynamicToolOverrideHandler extends AbstractDynamicModelHandler {
     private final ResourceLocation toolId;
-    private final BlockModel baseModel;
-    private final Function<Material, TextureAtlasSprite> spriteGetter;
-
-    private final Map<String, BakedModel> baseCache = new HashMap<>();
-
-    private final Map<String, BakedModel> mixedCache =
-            new LinkedHashMap<>(64, 0.75f, true) {
-                @Override
-                protected boolean removeEldestEntry(Map.Entry<String, BakedModel> eldest) {
-                    return size() > MIXED_CACHE_LIMIT;
-                }
-            };
 
     public DynamicToolOverrideHandler(
-            ItemOverrides parent,
+            ItemOverrides nested,
             ModelBaker baker,
             IGeometryBakingContext context,
             ModelState modelState,
@@ -55,176 +33,96 @@ public class DynamicToolOverrideHandler extends ItemOverrides {
             BlockModel baseModel,
             Function<Material, TextureAtlasSprite> spriteGetter
     ) {
-        this.parent = parent;
-        this.baker = baker;
-        this.context = context;
-        this.modelState = modelState;
+        super(nested, baker, modelState, baseModel, spriteGetter);
         this.toolId = toolId;
-        this.baseModel = baseModel;
-        this.spriteGetter = spriteGetter;
 
         prebakeEqualMaterialModels();
     }
 
     private void prebakeEqualMaterialModels() {
         ToolDefinition tool = TLRegistries.TOOLS.get(toolId);
+        if (tool == null) return;
 
-        if (tool == null) {
-            return;
-        }
+        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> entry : TLRegistries.MATERIALS.entrySet()) {
+            MaterialDefinition material = entry.getValue();
+            if (!tool.supports(material)) continue;
 
-        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> materialEntry : TLRegistries.MATERIALS.entrySet()) {
-            MaterialDefinition material = materialEntry.getValue();
-
-            if (!tool.supports(material)) {
-                continue;
-            }
-
-            List<MaterialLayer> layers =
-                    tool.parts()
-                            .stream()
-                            .map(part -> new MaterialLayer(
-                                    part.statType(),
-                                    material.id()
-                            ))
-                            .toList();
-
-            BakedModel model = bakeModel(layers);
-
-            if (model != null) {
-                baseCache.put(createCacheKey(layers), model);
-            }
-        }
-    }
-
-    private BakedModel bakeModel(
-            List<MaterialLayer> layers
-    ) {
-        return baker.bakeUncached(
-                baseModel,
-                modelState,
-                material -> resolveTexture(
-                        material,
-                        layers
-                )
-        );
-    }
-
-    private TextureAtlasSprite resolveTexture(
-            Material template,
-            List<MaterialLayer> layers
-    ) {
-        ResourceLocation texture = template.texture();
-
-        String path = texture.getPath();
-
-        if (!path.startsWith("item/tools/")) {
-            return spriteGetter.apply(template);
-        }
-
-        String layerName =
-                path.substring(path.lastIndexOf('/') + 1);
-
-        if (!layerName.startsWith("layer")) {
-            return spriteGetter.apply(template);
-        }
-
-        int index;
-
-        try {
-            index = Integer.parseInt(
-                    layerName.substring("layer".length())
-            );
-        } catch (NumberFormatException ignored) {
-            return spriteGetter.apply(template);
-        }
-
-        if (index < 0 || index >= layers.size()) {
-            return spriteGetter.apply(template);
-        }
-
-        MaterialLayer layer = layers.get(index);
-
-        ResourceLocation generatedTexture =
-                ResourceLocation.fromNamespaceAndPath(
+            List<ResourceLocation> textureLocations = new ArrayList<>();
+            for (int i = 0; i < tool.parts().size(); i++) {
+                textureLocations.add(ResourceLocation.fromNamespaceAndPath(
                         TinkersLegacy.MODID,
-                        "item/tools/"
-                                + toolId.getPath()
-                                + "/"
-                                + layer.material().getPath()
-                                + "/layer"
-                                + index
-                );
+                        "item/tools/" + toolId.getPath() + "/" + material.id().getPath() + "/layer" + i
+                ));
+            }
 
-        return spriteGetter.apply(
-                new Material(
-                        template.atlasLocation(),
-                        generatedTexture
-                )
-        );
+            BakedModel baked = bakeModel(textureLocations);
+            if (baked != null) {
+                baseCache.put(textureLocations, baked);
+            }
+        }
     }
 
     @Override
-    public BakedModel resolve(
-            BakedModel original,
-            ItemStack stack,
-            net.minecraft.client.multiplayer.ClientLevel level,
-            net.minecraft.world.entity.LivingEntity entity,
-            int seed
-    ) {
-        BakedModel parentModel =
-                parent.resolve(
-                        original,
-                        stack,
-                        level,
-                        entity,
-                        seed
-                );
+    protected List<ResourceLocation> resolveTextureLocations(ItemStack stack) {
+        ToolDefinition toolDef = TLRegistries.TOOLS.get(toolId);
+        if (toolDef == null) return null;
 
-        List<MaterialLayer> layers =
-                stack.get(TLDataComponents.MATERIALS);
+        List<ResourceLocation> materials = stack.get(TLDataComponents.MATERIALS);
+        List<ResourceLocation> finalTextures = new ArrayList<>();
 
-        if (layers == null || layers.isEmpty()) {
-            return parentModel;
+        // Unassembled / empty stack fallback -> render template "unknown" textures
+        if (materials == null || materials.isEmpty()) {
+            for (int i = 0; i < toolDef.parts().size(); i++) {
+                finalTextures.add(ResourceLocation.fromNamespaceAndPath(
+                        TinkersLegacy.MODID,
+                        "item/tools/" + toolId.getPath() + "/unknown/layer" + i
+                ));
+            }
+            return finalTextures;
         }
 
-        String key = createCacheKey(layers);
-
-        BakedModel baseCached = baseCache.get(key);
-
-        if (baseCached != null) {
-            return baseCached;
+        // Warning on stack component length mismatch
+        if (materials.size() != toolDef.parts().size()) {
+            LOGGER.warn("Material count mismatch on tool stack {}: expected {}, got {}", toolId, toolDef.parts().size(), materials.size());
         }
 
-        BakedModel mixedCached = mixedCache.get(key);
+        // 1. Base materials rendered strictly by ToolDefinition positional order
+        for (int i = 0; i < toolDef.parts().size(); i++) {
+            // Checked bounds AND null element safety for partial stacks
+            ResourceLocation matId = (i < materials.size() && materials.get(i) != null)
+                    ? materials.get(i)
+                    : UNKNOWN_MATERIAL;
 
-        if (mixedCached != null) {
-            return mixedCached;
+            finalTextures.add(ResourceLocation.fromNamespaceAndPath(
+                    TinkersLegacy.MODID,
+                    "item/tools/" + toolId.getPath() + "/" + matId.getPath() + "/layer" + i
+            ));
         }
 
-        BakedModel baked = bakeModel(layers);
+        // 2. Modifiers gathered, priority-sorted, and appended
+        // TODO: Re-enable when modifier registry goes live
+        /*List<ResourceLocation> modifierIds = stack.get(TLDataComponents.MODIFIERS);
+        if (modifierIds != null && !modifierIds.isEmpty()) {
+            List<RenderLayer> modifierLayers = new ArrayList<>();
 
-        if (baked == null) {
-            return parentModel;
-        }
+            for (ResourceLocation modId : modifierIds) {
+                ModifierDefinition modifier = TLRegistries.MODIFIERS.get(modId);
+                if (modifier != null && modifier.hasTexture()) {
+                    ResourceLocation modTexture = ResourceLocation.fromNamespaceAndPath(
+                            TinkersLegacy.MODID,
+                            "item/tools/" + toolId.getPath() + "/modifiers/" + modId.getPath()
+                    );
+                    modifierLayers.add(new RenderLayer(modTexture, modifier.renderPriority()));
+                }
+            }
 
-        mixedCache.put(key, baked);
+            Collections.sort(modifierLayers);
 
-        return baked;
-    }
+            for (RenderLayer layer : modifierLayers) {
+                finalTextures.add(layer.texture());
+            }
+        }*/
 
-    private String createCacheKey(
-            List<MaterialLayer> layers
-    ) {
-        StringBuilder key = new StringBuilder();
-
-        for (MaterialLayer layer : layers) {
-            key.append(layer.statType())
-                    .append('=')
-                    .append(layer.material())
-                    .append(';');
-        }
-
-        return key.toString();
+        return finalTextures;
     }
 }

@@ -68,7 +68,8 @@ public final class DynamicMaterialPartGeometry
                         itemContext,
                         modelState,
                         part,
-                        baseModel
+                        baseModel,
+                        spriteGetter
                 );
 
         return CompositeModel.Baked.builder(

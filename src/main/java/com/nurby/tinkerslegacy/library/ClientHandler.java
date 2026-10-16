@@ -1,12 +1,15 @@
 package com.nurby.tinkerslegacy.library;
 
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
+import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
+import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
+import com.nurby.tinkerslegacy.registry.TLRegistries;
 import com.nurby.tinkerslegacy.util.TinkersUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -24,7 +27,7 @@ public class ClientHandler {
             List<Component> tooltipComponents,
             TooltipFlag tooltipFlag
     ) {
-        List<MaterialLayer> materials =
+        List<ResourceLocation> materials =
                 stack.get(TLDataComponents.MATERIALS);
 
         // TODO: Display traits, add a blank component, and only then show the following text.
@@ -32,13 +35,22 @@ public class ClientHandler {
         boolean first = true;
         if (Screen.hasShiftDown()) {
             if (materials != null && !materials.isEmpty()) {
-                for (MaterialLayer layer : materials) {
-                    if (!first) {
-                        tooltipComponents.add(Component.empty());
+                if (stack.getItem() instanceof DynamicPart partItem) {
+                    PartDefinition partDef = partItem.definition();
+                    for (int i = 0; i < materials.size(); i++) {
+                        if (!first) {
+                            tooltipComponents.add(Component.empty());
+                        }
+                        first = false;
+                        ResourceLocation materialId = materials.get(i);
+                        ResourceLocation statType = i < partDef.statTypes().size() 
+                                ? partDef.statTypes().get(i) 
+                                : partDef.statTypes().isEmpty() ? null : partDef.statTypes().get(0);
+                        if (statType != null) {
+                            List<Component> stats = TinkersUtils.getStatsForLayer(materialId, statType);
+                            tooltipComponents.addAll(stats);
+                        }
                     }
-                    first = false;
-                    List<Component> stats = TinkersUtils.getStatsForLayer(layer);
-                    tooltipComponents.addAll(stats);
                 }
             }
         }

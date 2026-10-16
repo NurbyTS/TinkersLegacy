@@ -2,10 +2,10 @@ package com.nurby.tinkerslegacy.item.dynamic;
 
 import com.nurby.tinkerslegacy.library.ClientHandler;
 import com.nurby.tinkerslegacy.util.TinkersUtils;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,7 +28,7 @@ public class DynamicPart extends Item {
 
     @Override
     public Component getName(ItemStack stack) {
-        List<MaterialLayer> materials =
+        List<ResourceLocation> materials =
                 stack.get(TLDataComponents.MATERIALS);
 
         return TinkersUtils.getMaterialPartName(

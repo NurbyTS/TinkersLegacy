@@ -3,7 +3,6 @@ package com.nurby.tinkerslegacy.util;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStat;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStatMap;
 import com.nurby.tinkerslegacy.library.material.stat.PartStatDefinition;
@@ -53,18 +52,19 @@ public final class TinkersUtils {
     }
 
     public static List<Component> getStatsForLayer(
-            MaterialLayer layer,
+            ResourceLocation materialId,
+            ResourceLocation statType,
             Component heading
     ) {
         List<Component> components = new ArrayList<>();
 
         MaterialDefinition material =
-                TLRegistries.MATERIALS.get(layer.material());
+                TLRegistries.MATERIALS.get(materialId);
 
         if (material == null) {
             components.add(
                     Component.literal(
-                            "Unknown material: " + layer.material()
+                            "Unknown material: " + materialId
                     ).withStyle(ChatFormatting.UNDERLINE)
             );
 
@@ -75,7 +75,7 @@ public final class TinkersUtils {
                 heading.copy().withStyle(ChatFormatting.UNDERLINE)
         );
 
-        MaterialStat stat = material.stats().get(layer.statType());
+        MaterialStat stat = material.stats().get(statType);
 
         if (stat != null) {
             stat.statMap().values().forEach(
@@ -87,16 +87,16 @@ public final class TinkersUtils {
     }
 
     public static List<Component> getStatsForLayer(
-            MaterialLayer layer
+            ResourceLocation materialId,
+            ResourceLocation statType
     ) {
-        ResourceLocation statType = layer.statType();
-
         String key = statType.getNamespace()
                 + ".material_stat_type."
                 + statType.getPath();
 
         return getStatsForLayer(
-                layer,
+                materialId,
+                statType,
                 translationOrFallback(key)
         );
     }
@@ -106,7 +106,7 @@ public final class TinkersUtils {
             ItemStack stack,
             List<Component> tooltipComponents
     ) {
-        List<MaterialLayer> materials =
+        List<ResourceLocation> materials =
                 stack.get(TLDataComponents.MATERIALS);
 
         if (materials == null || materials.isEmpty()) {
@@ -115,23 +115,20 @@ public final class TinkersUtils {
 
         boolean first = true;
 
-        for (ToolPart part : definition.parts()) {
-            MaterialLayer layer = findMaterialForStatType(
-                    materials,
-                    part.statType()
-            );
-
-            if (layer == null) {
+        for (int i = 0; i < definition.parts().size(); i++) {
+            ToolPart part = definition.parts().get(i);
+            if (i >= materials.size()) {
                 continue;
             }
 
+            ResourceLocation materialId = materials.get(i);
             MaterialDefinition material =
-                    TLRegistries.MATERIALS.get(layer.material());
+                    TLRegistries.MATERIALS.get(materialId);
 
             MutableComponent partName =
                     getMaterialPartName(
                             part.part(),
-                            List.of(layer)
+                            List.of(materialId)
                     ).withColor(
                             material == null
                                     ? 0xFFFFFF
@@ -145,19 +142,9 @@ public final class TinkersUtils {
             first = false;
 
             tooltipComponents.addAll(
-                    getStatsForLayer(layer, partName)
+                    getStatsForLayer(materialId, part.statType(), partName)
             );
         }
-    }
-
-    private static MaterialLayer findMaterialForStatType(
-            List<MaterialLayer> materials,
-            ResourceLocation statType
-    ) {
-        return materials.stream()
-                .filter(layer -> layer.statType().equals(statType))
-                .findFirst()
-                .orElse(null);
     }
 
     public static void addStat(
@@ -253,7 +240,7 @@ public final class TinkersUtils {
     }
 
     public static Component formatMaterialName(
-            List<MaterialLayer> materials
+            List<ResourceLocation> materials
     ) {
         if (materials == null || materials.isEmpty()) {
             return translationOrFallback(
@@ -262,7 +249,6 @@ public final class TinkersUtils {
         }
 
         List<MutableComponent> materialNames = materials.stream()
-                .map(MaterialLayer::material)
                 .distinct()
                 .map(material -> translationOrFallback(
                         material.getNamespace()
@@ -284,7 +270,7 @@ public final class TinkersUtils {
 
     public static MutableComponent getMaterialPartName(
             ResourceLocation part,
-            List<MaterialLayer> materials
+            List<ResourceLocation> materials
     ) {
         String key = "item."
                 + part.getNamespace()
@@ -305,7 +291,7 @@ public final class TinkersUtils {
 
     public static Component getToolName(
             ToolDefinition tool,
-            List<MaterialLayer> materials
+            List<ResourceLocation> materials
     ) {
         String toolKey = "item."
                 + tool.id().getNamespace()

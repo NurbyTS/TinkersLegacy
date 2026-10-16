@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
@@ -133,7 +132,7 @@ public final class ToolCommand {
             return 0;
         }
 
-        List<MaterialLayer> layers =
+        List<ResourceLocation> materials =
                 new ArrayList<>();
 
         for (int i = 0; i < expected; i++) {
@@ -173,12 +172,7 @@ public final class ToolCommand {
                 return 0;
             }
 
-            layers.add(
-                    new MaterialLayer(
-                            part.statType(),
-                            material.id()
-                    )
-            );
+            materials.add(material.id());
         }
 
         DynamicTool item = TLItems.Tools.get(definition);
@@ -199,7 +193,7 @@ public final class ToolCommand {
 
         stack.set(
                 TLDataComponents.MATERIALS,
-                List.copyOf(layers)
+                List.copyOf(materials)
         );
 
         item.calculateStats(stack);

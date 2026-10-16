@@ -1,7 +1,6 @@
 package com.nurby.tinkerslegacy.tools;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStatMap;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolPart;
@@ -71,25 +70,25 @@ public class MattockDefinition extends ToolDefinition {
 
     @Override
     protected int calculateHarvestLevel(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         return -1;
     }
 
     @Override
     protected void calculateSpecialStats(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             Map<String, Number> stats
     ) {
         MaterialStatMap axeHead =
                 getPartStats(
-                        layers,
+                        materials,
                         id("axe_head")
                 ).statMap();
 
         MaterialStatMap shovelHead =
                 getPartStats(
-                        layers,
+                        materials,
                         id("shovel_head")
                 ).statMap();
 

@@ -2,11 +2,11 @@ package com.nurby.tinkerslegacy.client;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
+import com.nurby.tinkerslegacy.client.model.tool.DynamicToolGeometry;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
 import com.nurby.tinkerslegacy.client.model.TLItemModelProvider;
 import com.nurby.tinkerslegacy.client.model.part.DynamicMaterialPartModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.MaterialTextureProvider;
-import com.nurby.tinkerslegacy.client.model.tool.DynamicToolModelLoader;
 import com.nurby.tinkerslegacy.client.datagen.TLBlockStateProvider;
 import com.nurby.tinkerslegacy.datagen.TLBlockLootProvider;
 import com.nurby.tinkerslegacy.datagen.TLRecipeProvider;
@@ -93,9 +93,8 @@ public final class ClientEvents {
                                 DynamicMaterialPartModelLoader.INSTANCE);
 
                 event.register(
-                                ResourceLocation.fromNamespaceAndPath(
-                                                TinkersLegacy.MODID,
-                                                "dynamic_tool"),
-                                DynamicToolModelLoader.INSTANCE);
+                        DynamicToolGeometry.Loader.ID,
+                        DynamicToolGeometry.Loader.INSTANCE
+                );
         }
 }

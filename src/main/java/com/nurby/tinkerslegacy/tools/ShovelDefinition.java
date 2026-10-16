@@ -1,7 +1,6 @@
 package com.nurby.tinkerslegacy.tools;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStatMap;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolPart;

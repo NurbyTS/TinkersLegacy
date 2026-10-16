@@ -2,7 +2,6 @@ package com.nurby.tinkerslegacy.registry;
 
 import com.mojang.serialization.Codec;
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -58,13 +57,13 @@ public final class TLDataComponents {
 
     public static final DeferredHolder<
             DataComponentType<?>,
-            DataComponentType<List<MaterialLayer>>
+            DataComponentType<List<ResourceLocation>>
             > MATERIALS = COMPONENTS.register(
             "materials",
-            id -> DataComponentType.<List<MaterialLayer>>builder()
-                    .persistent(MaterialLayer.CODEC.listOf())
+            id -> DataComponentType.<List<ResourceLocation>>builder()
+                    .persistent(ResourceLocation.CODEC.listOf())
                     .networkSynchronized(
-                            MaterialLayer.STREAM_CODEC.apply(
+                            ResourceLocation.STREAM_CODEC.apply(
                                     ByteBufCodecs.list()
                             )
                     )

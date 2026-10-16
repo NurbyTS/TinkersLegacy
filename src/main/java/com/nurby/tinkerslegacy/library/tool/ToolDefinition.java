@@ -2,7 +2,6 @@ package com.nurby.tinkerslegacy.library.tool;
 
 import com.nurby.tinkerslegacy.TLConfig;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStat;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import com.nurby.tinkerslegacy.registry.ToolStatTypes;
@@ -106,13 +105,13 @@ public abstract class ToolDefinition {
     }
 
     public final Map<String, Number> calculateStats(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         Map<String, Number> stats = new HashMap<>();
 
         stats.put(
                 "attack_damage",
-                calculateAttackDamage(layers)
+                calculateAttackDamage(materials)
         );
 
         stats.put(
@@ -122,15 +121,15 @@ public abstract class ToolDefinition {
 
         stats.put(
                 "durability",
-                calculateDurability(layers)
+                calculateDurability(materials)
         );
 
         stats.put(
                 "mining_speed",
-                calculateMiningSpeed(layers)
+                calculateMiningSpeed(materials)
         );
 
-        int harvestLevel = calculateHarvestLevel(layers);
+        int harvestLevel = calculateHarvestLevel(materials);
 
         if (harvestLevel != -1) {
             stats.put(
@@ -144,40 +143,40 @@ public abstract class ToolDefinition {
                 TLConfig.NEW_TOOL_MIN_MODIFIERS.getAsInt()
         );
 
-        calculateSpecialStats(layers, stats);
+        calculateSpecialStats(materials, stats);
 
         return Map.copyOf(stats);
     }
 
     protected double calculateAttackDamage(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         return getStatAverage(
-                layers,
+                materials,
                 ToolStatTypes.HEAD.getId(),
                 "attack_damage"
         );
     }
 
     protected double calculateDurability(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         double durability =
                 getStatSum(
-                        layers,
+                        materials,
                         ToolStatTypes.HEAD.getId(),
                         "durability"
                 );
 
         durability += getStatSum(
-                layers,
+                materials,
                 ToolStatTypes.EXTRA.getId(),
                 "durability"
         );
 
         List<MaterialStat> handles =
                 getStats(
-                        layers,
+                        materials,
                         ToolStatTypes.HANDLE.getId()
                 );
 
@@ -187,7 +186,7 @@ public abstract class ToolDefinition {
         }
 
         durability += getStatSum(
-                layers,
+                materials,
                 ToolStatTypes.HANDLE.getId(),
                 "durability"
         );
@@ -196,10 +195,10 @@ public abstract class ToolDefinition {
     }
 
     protected double calculateMiningSpeed(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         return getStatAverage(
-                layers,
+                materials,
                 ToolStatTypes.HEAD.getId(),
                 "mining_speed"
         ) * miningSpeedModifier();
@@ -207,27 +206,27 @@ public abstract class ToolDefinition {
 
     // This is intentionally overridable for tools such as the mattock.
     protected int calculateHarvestLevel(
-            List<MaterialLayer> layers
+            List<ResourceLocation> materials
     ) {
         return getStatMax(
-                layers,
+                materials,
                 ToolStatTypes.HEAD.getId(),
                 "harvest_level"
         );
     }
 
     protected void calculateSpecialStats(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             Map<String, Number> stats
     ) {
     }
 
     protected double getStatSum(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType,
             String field
     ) {
-        return getStats(layers, statType).stream()
+        return getStats(materials, statType).stream()
                 .mapToDouble(stat ->
                         stat.statMap().getFloat(field)
                 )
@@ -235,11 +234,11 @@ public abstract class ToolDefinition {
     }
 
     protected double getStatAverage(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType,
             String field
     ) {
-        return getStats(layers, statType).stream()
+        return getStats(materials, statType).stream()
                 .mapToDouble(stat ->
                         stat.statMap().getFloat(field)
                 )
@@ -248,11 +247,11 @@ public abstract class ToolDefinition {
     }
 
     protected double getStatMin(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType,
             String field
     ) {
-        return getStats(layers, statType).stream()
+        return getStats(materials, statType).stream()
                 .mapToDouble(stat ->
                         stat.statMap().getFloat(field)
                 )
@@ -261,11 +260,11 @@ public abstract class ToolDefinition {
     }
 
     protected double getStatMaxValue(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType,
             String field
     ) {
-        return getStats(layers, statType).stream()
+        return getStats(materials, statType).stream()
                 .mapToDouble(stat ->
                         stat.statMap().getFloat(field)
                 )
@@ -274,12 +273,12 @@ public abstract class ToolDefinition {
     }
 
     protected int getStatMax(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType,
             String field
     ) {
         List<MaterialStat> stats =
-                getStats(layers, statType);
+                getStats(materials, statType);
 
         if (stats.isEmpty()) {
             return -1;
@@ -294,32 +293,23 @@ public abstract class ToolDefinition {
     }
 
     protected MaterialStat getPartStats(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation partId
     ) {
         int partIndex =
                 getPartIndex(
-                        layers,
+                        materials,
                         partId
                 );
 
-        MaterialLayer layer =
-                layers.get(partIndex);
+        ResourceLocation materialId =
+                materials.get(partIndex);
 
         ToolPart part =
                 parts.get(partIndex);
 
-        if (!layer.statType().equals(part.statType())) {
-            throw new IllegalArgumentException(
-                    "Material layer at index "
-                            + partIndex
-                            + " does not match tool part: "
-                            + partId
-            );
-        }
-
         MaterialDefinition material =
-                getMaterial(layer);
+                getMaterial(materialId);
 
         MaterialStat stat =
                 material.stats().get(part.statType());
@@ -327,7 +317,7 @@ public abstract class ToolDefinition {
         if (stat == null) {
             throw new IllegalArgumentException(
                     "Material "
-                            + layer.material()
+                            + materialId
                             + " has no stat for type: "
                             + part.statType()
             );
@@ -337,7 +327,7 @@ public abstract class ToolDefinition {
     }
 
     private int getPartIndex(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation partId
     ) {
         for (int i = 0; i < parts.size(); i++) {
@@ -345,9 +335,9 @@ public abstract class ToolDefinition {
                 continue;
             }
 
-            if (i >= layers.size()) {
+            if (i >= materials.size()) {
                 throw new IllegalArgumentException(
-                        "Missing material layer for part: "
+                        "Missing material for part: "
                                 + partId
                 );
             }
@@ -361,19 +351,21 @@ public abstract class ToolDefinition {
     }
 
     public List<MaterialStat> getStats(
-            List<MaterialLayer> layers,
+            List<ResourceLocation> materials,
             ResourceLocation statType
     ) {
         List<MaterialStat> stats =
                 new ArrayList<>();
 
-        for (MaterialLayer layer : layers) {
-            if (!layer.statType().equals(statType)) {
+        for (int i = 0; i < materials.size(); i++) {
+            ToolPart part = parts.get(i);
+            if (!part.statType().equals(statType)) {
                 continue;
             }
 
+            ResourceLocation materialId = materials.get(i);
             MaterialDefinition material =
-                    getMaterial(layer);
+                    getMaterial(materialId);
 
             MaterialStat stat =
                     material.stats().get(statType);
@@ -381,7 +373,7 @@ public abstract class ToolDefinition {
             if (stat == null) {
                 throw new IllegalArgumentException(
                         "Material "
-                                + layer.material()
+                                + materialId
                                 + " has no stat for type: "
                                 + statType
                 );
@@ -394,15 +386,15 @@ public abstract class ToolDefinition {
     }
 
     private MaterialDefinition getMaterial(
-            MaterialLayer layer
+            ResourceLocation materialId
     ) {
         MaterialDefinition material =
-                TLRegistries.MATERIALS.get(layer.material());
+                TLRegistries.MATERIALS.get(materialId);
 
         if (material == null) {
             throw new IllegalArgumentException(
                     "Unknown material: "
-                            + layer.material()
+                            + materialId
             );
         }
 

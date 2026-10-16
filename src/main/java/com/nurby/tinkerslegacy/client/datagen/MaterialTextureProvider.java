@@ -40,10 +40,16 @@ public class MaterialTextureProvider implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
         try {
+            // 1. Generate material-tinted textures
             for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> materialEntry : TLRegistries.MATERIALS.entrySet()) {
                 generatePartTextures(cache, materialEntry.getValue());
                 generateToolTextures(cache, materialEntry.getValue());
             }
+
+            // 2. Generate raw template "unknown" textures for parts & tools
+            generateUnknownPartTextures(cache);
+            generateUnknownToolTextures(cache);
+
         } catch (IOException e) {
             throw new RuntimeException(
                     "Failed to generate material textures",
@@ -120,7 +126,6 @@ public class MaterialTextureProvider implements DataProvider {
                 if (headIndex == -1 && ToolStatTypes.HEAD.is(part.statType())) {
                     headIndex = layer;
                 }
-
             }
 
             if (headIndex != -1) {
@@ -142,6 +147,87 @@ public class MaterialTextureProvider implements DataProvider {
                 );
             }
         }
+    }
+
+    private void generateUnknownPartTextures(CachedOutput cache) throws IOException {
+        for (Map.Entry<ResourceKey<PartDefinition>, PartDefinition> entry : TLRegistries.PARTS.entrySet()) {
+            PartDefinition partDef = entry.getValue();
+            for (String textureName : partDef.textureNames()) {
+                copyTemplateTextureDirect(
+                        cache,
+                        "part_templates/" + textureName,
+                        "parts/unknown",
+                        textureName
+                );
+            }
+        }
+    }
+
+    private void generateUnknownToolTextures(CachedOutput cache) throws IOException {
+        for (Map.Entry<ResourceKey<ToolDefinition>, ToolDefinition> toolEntry : TLRegistries.TOOLS.entrySet()) {
+            ToolDefinition tool = toolEntry.getValue();
+            int headIndex = -1;
+
+            for (int layer = 0; layer < tool.parts().size(); layer++) {
+                ToolPart part = tool.parts().get(layer);
+
+                copyTemplateTextureDirect(
+                        cache,
+                        "tool_templates/" + tool.id().getPath() + "/layer" + layer,
+                        "tools/" + tool.id().getPath() + "/unknown",
+                        "layer" + layer
+                );
+
+                if (headIndex == -1 && ToolStatTypes.HEAD.is(part.statType())) {
+                    headIndex = layer;
+                }
+            }
+
+            if (headIndex != -1) {
+                copyTemplateTextureDirect(
+                        cache,
+                        "tool_templates/" + tool.id().getPath() + "/layer" + headIndex + "_broken",
+                        "tools/" + tool.id().getPath() + "/unknown",
+                        "layer" + headIndex + "_broken"
+                );
+            }
+        }
+    }
+
+    private void copyTemplateTextureDirect(
+            CachedOutput cache,
+            String sourcePath,
+            String outputPath,
+            String textureName
+    ) throws IOException {
+        ResourceLocation sourceId = ResourceLocation.fromNamespaceAndPath(
+                TinkersLegacy.MODID,
+                "textures/item/" + sourcePath + ".png"
+        );
+
+        Resource resource = existingFileHelper.getResource(
+                sourceId,
+                PackType.CLIENT_RESOURCES
+        );
+
+        byte[] bytes;
+        try (InputStream stream = resource.open()) {
+            bytes = stream.readAllBytes();
+        }
+
+        Path path = output.getOutputFolder()
+                .resolve("assets")
+                .resolve(TinkersLegacy.MODID)
+                .resolve("textures")
+                .resolve("item")
+                .resolve(outputPath)
+                .resolve(textureName + ".png");
+
+        cache.writeIfNeeded(
+                path,
+                bytes,
+                HashCode.fromBytes(bytes)
+        );
     }
 
     private void generateTexture(

@@ -2,7 +2,6 @@ package com.nurby.tinkerslegacy.item.dynamic;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.library.ClientHandler;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.util.TinkersUtils;
@@ -54,13 +53,13 @@ public class DynamicTool extends Item {
      * and attribute modifiers.</p>
      */
     public void calculateStats(ItemStack stack) {
-        List<MaterialLayer> layers = stack.get(TLDataComponents.MATERIALS);
+        List<ResourceLocation> materials = stack.get(TLDataComponents.MATERIALS);
 
-        if (layers == null) {
+        if (materials == null) {
             return;
         }
 
-        Map<String, Number> stats = getDefinition().calculateStats(layers);
+        Map<String, Number> stats = getDefinition().calculateStats(materials);
 
         stack.set(TLDataComponents.BASE_STATS, stats);
 
@@ -183,12 +182,12 @@ public class DynamicTool extends Item {
     // Name and Description
     @Override
     public Component getName(ItemStack stack) {
-        List<MaterialLayer> layers =
+        List<ResourceLocation> materials =
                 stack.get(TLDataComponents.MATERIALS);
 
         return TinkersUtils.getToolName(
                 getDefinition(),
-                layers
+                materials
         );
     }
 

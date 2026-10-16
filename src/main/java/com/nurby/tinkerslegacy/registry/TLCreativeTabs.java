@@ -4,7 +4,6 @@ import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import net.minecraft.core.registries.Registries;
@@ -131,9 +130,7 @@ public final class TLCreativeTabs {
                         stack.set(
                                         TLDataComponents.MATERIALS,
                                         part.statTypes().stream()
-                                                        .map(statType -> new MaterialLayer(
-                                                                        statType,
-                                                                        TLMaterials.IRON.get().id()))
+                                                        .map(statType -> TLMaterials.IRON.get().id())
                                                         .toList());
                         return stack;
                 }
@@ -172,16 +169,14 @@ public final class TLCreativeTabs {
 
                                         ItemStack stack = new ItemStack(item.get());
 
-                                        List<MaterialLayer> layers = part.statTypes()
+                                        List<ResourceLocation> materials = part.statTypes()
                                                         .stream()
-                                                        .map(statType -> new MaterialLayer(
-                                                                        statType,
-                                                                        material.id()))
+                                                        .map(statType -> material.id())
                                                         .toList();
 
                                         stack.set(
                                                         TLDataComponents.MATERIALS,
-                                                        layers);
+                                                        materials);
 
                                         output.accept(stack);
                                 }
@@ -213,12 +208,8 @@ public final class TLCreativeTabs {
                                 stack.set(
                                                 TLDataComponents.MATERIALS,
                                                 List.of(
-                                                                new MaterialLayer(
-                                                                                ToolStatTypes.ARROW_SHAFT.getId(),
-                                                                                material.id()),
-                                                                new MaterialLayer(
-                                                                                ToolStatTypes.HEAD.getId(),
-                                                                                iron.id())));
+                                                                material.id(),
+                                                                iron.id()));
 
                                 output.accept(stack);
                         }
@@ -240,9 +231,7 @@ public final class TLCreativeTabs {
                         stack.set(
                                         TLDataComponents.MATERIALS,
                                         definition.parts().stream()
-                                                        .map(part -> new MaterialLayer(
-                                                                        part.statType(),
-                                                                        TLMaterials.IRON.get().id()))
+                                                        .map(part -> TLMaterials.IRON.get().id())
                                                         .toList());
                         tool.calculateStats(stack);
                         return stack;
@@ -276,16 +265,14 @@ public final class TLCreativeTabs {
 
                                         ItemStack stack = new ItemStack(tool);
 
-                                        List<MaterialLayer> layers = definition.parts()
+                                        List<ResourceLocation> materials = definition.parts()
                                                         .stream()
-                                                        .map(part -> new MaterialLayer(
-                                                                        part.statType(),
-                                                                        material.id()))
+                                                        .map(part -> material.id())
                                                         .toList();
 
                                         stack.set(
                                                         TLDataComponents.MATERIALS,
-                                                        layers);
+                                                        materials);
 
                                         tool.calculateStats(stack);
 
