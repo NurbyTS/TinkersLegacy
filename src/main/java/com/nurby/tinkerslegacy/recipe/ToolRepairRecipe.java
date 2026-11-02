@@ -1,9 +1,8 @@
 package com.nurby.tinkerslegacy.recipe;
 
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.tool.ToolRepair;
+import com.nurby.tinkerslegacy.api.tool.ToolRepair;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.registry.TLRecipeSerializers;
-
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

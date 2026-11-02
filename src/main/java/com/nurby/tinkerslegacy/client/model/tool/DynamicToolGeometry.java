@@ -5,12 +5,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.CompositeModel;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
@@ -88,6 +88,7 @@ public final class DynamicToolGeometry
     public static final class Loader
             implements IGeometryLoader<DynamicToolGeometry> {
 
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "dynamic_tool");
         public static final Loader INSTANCE = new Loader();
 
         private Loader() {

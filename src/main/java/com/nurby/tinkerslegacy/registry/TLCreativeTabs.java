@@ -1,23 +1,25 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.item.PatternItem;
-import com.nurby.tinkerslegacy.library.station.StationRecipes;
-import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolAssembly;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.api.material.MaterialDefinition;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.station.StationRecipes;
+import com.nurby.tinkerslegacy.api.tool.ToolAssembly;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.content.item.PatternItem;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicPart;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
+import com.nurby.tinkerslegacy.registry.tools.TLTools;
+import com.nurby.tinkerslegacy.registry.tools.ToolParts;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -145,12 +147,7 @@ public final class TLCreativeTabs {
                         PartDefinition part = ToolParts.part(ToolParts.Type.BINDING);
                         ItemStack stack = new ItemStack(TLItems.Parts.item(ToolParts.Type.BINDING));
                         stack.set(
-                                        TLDataComponents.MATERIALS,
-                                        part.statTypes().stream()
-                                                        .map(statType -> new MaterialLayer(
-                                                                        statType,
-                                                                        TLMaterials.IRON.get().id()))
-                                                        .toList());
+                                        TLDataComponents.MATERIALS, List.of(TLMaterials.IRON.getId()));
                         return stack;
                 }
 
@@ -190,11 +187,8 @@ public final class TLCreativeTabs {
 
                                         ItemStack stack = new ItemStack(item.get());
 
-                                        List<MaterialLayer> layers = part.statTypes()
-                                                        .stream()
-                                                        .map(statType -> new MaterialLayer(
-                                                                        statType,
-                                                                        material.id()))
+                                    List<ResourceLocation> layers = part.statTypes()
+                                                        .stream().map(statType -> material.id())
                                                         .toList();
 
                                         stack.set(
@@ -230,13 +224,7 @@ public final class TLCreativeTabs {
 
                                 stack.set(
                                                 TLDataComponents.MATERIALS,
-                                                List.of(
-                                                                new MaterialLayer(
-                                                                                ToolStatTypes.ARROW_SHAFT.getId(),
-                                                                                material.id()),
-                                                                new MaterialLayer(
-                                                                                ToolStatTypes.HEAD.getId(),
-                                                                                iron.id())));
+                                                List.of(material.id(), material.id(), iron.id()));
 
                                 output.accept(stack);
                         }
@@ -254,12 +242,7 @@ public final class TLCreativeTabs {
                 private static ItemStack createIcon() {
                         ToolDefinition definition = TLTools.tool(TLTools.Type.PICKAXE);
                         return ToolAssembly.create(
-                                        definition,
-                                        definition.parts().stream()
-                                                        .map(part -> new MaterialLayer(
-                                                                        part.statType(),
-                                                                        TLMaterials.IRON.get().id()))
-                                                        .toList());
+                                        definition, List.of(TLMaterials.IRON.get().id(), TLMaterials.IRON.get().id(), TLMaterials.IRON.get().id()));
                 }
 
                 private static void populate(
@@ -283,7 +266,7 @@ public final class TLCreativeTabs {
                                                 continue;
                                         }
 
-                                        List<MaterialLayer> layers = definition.defaultMaterials(material);
+                                    List<ResourceLocation> layers = definition.defaultMaterials(material);
 
                                         ItemStack stack = ToolAssembly.create(definition, layers, parameters.holders());
 

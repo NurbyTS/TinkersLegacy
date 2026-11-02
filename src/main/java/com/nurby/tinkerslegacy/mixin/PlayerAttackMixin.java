@@ -1,11 +1,11 @@
 package com.nurby.tinkerslegacy.mixin;
 
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.event.ToolCombatAbilities;
-import com.nurby.tinkerslegacy.tools.ScytheDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
-import com.nurby.tinkerslegacy.library.tool.traits.ToolTraits;
-import com.nurby.tinkerslegacy.library.tool.modifier.ModifierEffects;
+import com.nurby.tinkerslegacy.api.tool.ToolState;
+import com.nurby.tinkerslegacy.api.tool.modifier.ModifierEffects;
+import com.nurby.tinkerslegacy.api.tool.traits.ToolTraits;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
+import com.nurby.tinkerslegacy.content.tools.ScytheDefinition;
+import com.nurby.tinkerslegacy.event.ToolCombatEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,8 +53,7 @@ public abstract class PlayerAttackMixin {
         private float tinkerslegacy$modifyBaseDamage(float damage, Entity target) {
                 Player player = (Player) (Object) this;
                 ItemStack weapon = player.getWeaponItem();
-                if (!(target instanceof LivingEntity living) || !(weapon.getItem() instanceof DynamicTool tool)
-                                || tool.getDefinition() instanceof com.nurby.tinkerslegacy.tools.ProjectileToolDefinition
+                if (!(target instanceof LivingEntity living) || !(weapon.getItem() instanceof DynamicTool tool) || tool.getDefinition() instanceof com.nurby.tinkerslegacy.content.tools.ProjectileToolDefinition
                                 || ToolState.broken(weapon)) return damage;
                 // Vanilla applies cooldown and critical multipliers after this base damage value.
                 return ModifierEffects.modifyDamage(weapon, player, living,
@@ -78,12 +77,12 @@ public abstract class PlayerAttackMixin {
                 ItemStack weapon = player.getWeaponItem();
 
                 if (weapon.getItem() instanceof DynamicTool tool) {
-                        if (tool.getDefinition() instanceof com.nurby.tinkerslegacy.tools.ProjectileToolDefinition) {
+                    if (tool.getDefinition() instanceof com.nurby.tinkerslegacy.content.tools.ProjectileToolDefinition) {
                                 return target.hurt(source, damage);
                         }
                         if (ToolState.broken(weapon)) return false;
-                        damage = ToolCombatAbilities.finishDamage(weapon, damage, ToolCombatAbilities.attackStrength(player));
-                        boolean successful = ToolCombatAbilities.hit(player, weapon, target, source, damage);
+                    damage = ToolCombatEvents.finishDamage(weapon, damage, ToolCombatEvents.attackStrength(player));
+                    boolean successful = ToolCombatEvents.hit(player, weapon, target, source, damage);
                         if (successful) {
                                 if (tool.getDefinition() instanceof ScytheDefinition) {
                                         // A broken primary hit must stop the remaining area attack immediately.
@@ -93,8 +92,8 @@ public abstract class PlayerAttackMixin {
                                         tinkerslegacy$wearDamage = damage;
                                 }
                         }
-                        if (tool.getDefinition() instanceof ScytheDefinition && ToolCombatAbilities.attackStrength(player) > 0.9F) {
-                                successful |= ToolCombatAbilities.sweep(player, target, source);
+                    if (tool.getDefinition() instanceof ScytheDefinition && ToolCombatEvents.attackStrength(player) > 0.9F) {
+                        successful |= ToolCombatEvents.sweep(player, target, source);
                         }
                         return successful;
                 }

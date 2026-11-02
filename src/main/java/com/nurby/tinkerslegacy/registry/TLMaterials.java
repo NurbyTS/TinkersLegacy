@@ -1,16 +1,16 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.client.datagen.render_info.CompositeRenderInfo;
-import com.nurby.tinkerslegacy.client.datagen.render_info.MetalRenderInfo;
-import com.nurby.tinkerslegacy.client.datagen.render_info.TintMaterialRenderInfo;
-import com.nurby.tinkerslegacy.library.material.MaterialBuilder;
-import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.recipe.CastingRecipeInfo;
-import com.nurby.tinkerslegacy.library.material.recipe.LegacyRecipeInfo;
-import com.nurby.tinkerslegacy.library.material.stat.MaterialStat;
+import com.nurby.tinkerslegacy.api.material.MaterialBuilder;
+import com.nurby.tinkerslegacy.api.material.MaterialDefinition;
+import com.nurby.tinkerslegacy.api.material.recipe.CastingRecipeInfo;
+import com.nurby.tinkerslegacy.api.material.recipe.LegacyRecipeInfo;
+import com.nurby.tinkerslegacy.api.material.stat.MaterialStat;
+import com.nurby.tinkerslegacy.client.datagen.texture.render_info.CompositeRenderInfo;
+import com.nurby.tinkerslegacy.client.datagen.texture.render_info.MetalRenderInfo;
+import com.nurby.tinkerslegacy.client.datagen.texture.render_info.TintMaterialRenderInfo;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
 import com.nurby.tinkerslegacy.util.TinkersUtils;
-
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;

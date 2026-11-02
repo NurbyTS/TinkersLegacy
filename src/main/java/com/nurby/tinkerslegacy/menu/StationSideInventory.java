@@ -1,6 +1,6 @@
 package com.nurby.tinkerslegacy.menu;
 
-import com.nurby.tinkerslegacy.block.StationBlock;
+import com.nurby.tinkerslegacy.content.block.StationBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

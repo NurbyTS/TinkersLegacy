@@ -1,14 +1,12 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.block.StationBlock;
-
-import net.minecraft.core.registries.Registries;
+import com.nurby.tinkerslegacy.content.block.StationBlock;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

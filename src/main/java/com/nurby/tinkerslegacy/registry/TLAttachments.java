@@ -1,7 +1,7 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.tool.ToolCombatCredit;
+import com.nurby.tinkerslegacy.api.tool.ToolCombatCredit;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;

@@ -3,10 +3,9 @@ package com.nurby.tinkerslegacy.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.nurby.tinkerslegacy.TLConfig;
-import com.nurby.tinkerslegacy.block.StationBlock;
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.library.station.StationLayout;
-
+import com.nurby.tinkerslegacy.api.station.StationLayout;
+import com.nurby.tinkerslegacy.content.block.StationBlock;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

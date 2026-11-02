@@ -3,18 +3,14 @@ package com.nurby.tinkerslegacy.client.model.tool;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.tool.ToolModifierEntry;
-import com.nurby.tinkerslegacy.library.tool.ToolModifiers;
+import com.nurby.tinkerslegacy.api.tool.ToolModifierEntry;
+import com.nurby.tinkerslegacy.api.tool.ToolModifiers;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public final class ToolModifierModels {
         private final ResourceLocation tool;

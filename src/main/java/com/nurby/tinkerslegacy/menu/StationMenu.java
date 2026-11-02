@@ -1,38 +1,20 @@
 package com.nurby.tinkerslegacy.menu;
 
 import com.nurby.tinkerslegacy.TLConfig;
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
-import com.nurby.tinkerslegacy.registry.TLItems;
-import com.nurby.tinkerslegacy.library.tool.ToolAssembly;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
-import com.nurby.tinkerslegacy.library.tool.ToolModifiers;
-import com.nurby.tinkerslegacy.library.tool.ToolPartRequirement;
-import com.nurby.tinkerslegacy.library.station.MaterialInputs;
-import com.nurby.tinkerslegacy.library.station.StationDefinition;
-import com.nurby.tinkerslegacy.library.station.StationOperations;
-import com.nurby.tinkerslegacy.library.station.StationLayout;
-import com.nurby.tinkerslegacy.registry.TLDataComponents;
-import com.nurby.tinkerslegacy.library.station.StationRecipes;
-import com.nurby.tinkerslegacy.library.station.StationResult;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
+import com.nurby.tinkerslegacy.api.station.*;
+import com.nurby.tinkerslegacy.api.tool.*;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicPart;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.network.StationStatusPayload;
-import com.nurby.tinkerslegacy.library.station.StationSelection;
-import com.nurby.tinkerslegacy.registry.TLSounds;
-import net.minecraft.sounds.SoundSource;
-import com.nurby.tinkerslegacy.registry.TLRegistries;
-import com.nurby.tinkerslegacy.registry.TLStationMenus;
-import com.nurby.tinkerslegacy.registry.TLStations;
-import com.nurby.tinkerslegacy.registry.ToolStatTypes;
-
+import com.nurby.tinkerslegacy.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -42,14 +24,12 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import javax.annotation.Nullable;
 
 public class StationMenu extends AbstractContainerMenu implements StationMenuAccess {
         private final StationDefinition definition;
@@ -352,10 +332,9 @@ public class StationMenu extends AbstractContainerMenu implements StationMenuAcc
                         return false;
                 }
                 if (inputs.getItem(0).getItem() instanceof DynamicTool tool) {
-                        List<MaterialLayer> materials = inputs.getItem(0).getOrDefault(TLDataComponents.MATERIALS, List.of());
+                    List<ResourceLocation> materials = inputs.getItem(0).getOrDefault(TLDataComponents.MATERIALS, List.of());
                         return tool.getDefinition().repairParts().stream()
-                                        .filter(index -> index >= 0 && index < materials.size())
-                                        .anyMatch(index -> materials.get(index).material().equals(match.material()));
+                                        .filter(index -> index >= 0 && index < materials.size()).anyMatch(index -> materials.get(index).equals(match.material()));
                 }
                 return true;
         }

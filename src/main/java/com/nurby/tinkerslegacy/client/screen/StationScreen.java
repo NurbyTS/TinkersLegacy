@@ -1,19 +1,13 @@
 package com.nurby.tinkerslegacy.client.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.ClientHandler;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
-import com.nurby.tinkerslegacy.library.station.MaterialInputs;
-import com.nurby.tinkerslegacy.library.station.StationOperations;
-import com.nurby.tinkerslegacy.library.station.StationRecipes;
-import com.nurby.tinkerslegacy.library.tool.ToolAssembly;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolLeveling;
-import com.nurby.tinkerslegacy.library.tool.ToolEffectText;
-import com.nurby.tinkerslegacy.library.tool.ToolModifierEntry;
-import com.nurby.tinkerslegacy.library.tool.ToolProgress;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
+import com.nurby.tinkerslegacy.api.ClientHandler;
+import com.nurby.tinkerslegacy.api.station.MaterialInputs;
+import com.nurby.tinkerslegacy.api.station.StationOperations;
+import com.nurby.tinkerslegacy.api.station.StationRecipes;
+import com.nurby.tinkerslegacy.api.tool.*;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.menu.StationMenu;
 import com.nurby.tinkerslegacy.network.StationSelectionPayload;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
@@ -21,8 +15,6 @@ import com.nurby.tinkerslegacy.registry.TLItems;
 import com.nurby.tinkerslegacy.registry.TLMaterials;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import com.nurby.tinkerslegacy.util.TinkersUtils;
-
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -37,15 +29,9 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class StationScreen extends AbstractContainerScreen<StationMenu> {
 
@@ -345,8 +331,7 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
                                 if (shown.has(TLDataComponents.NEXT_LEVEL_XP)) {
                                         stats.add(Component.translatable("tinkerslegacy.tool.xp", progress.xp(), shown.get(TLDataComponents.NEXT_LEVEL_XP)));
                                 }
-                                details.addAll(ClientHandler.traitNames(shown,
-                                                com.nurby.tinkerslegacy.library.tool.traits.ToolTraits.traits(shown)));
+                                details.addAll(ClientHandler.traitNames(shown, com.nurby.tinkerslegacy.api.tool.traits.ToolTraits.traits(shown)));
                                 details.addAll(ToolEffectText.modifierNames(shown, true));
                                 if (details.isEmpty()) {
                                         details.add(text("no_modifiers"));
@@ -480,8 +465,7 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
                                         return ItemStack.EMPTY;
                                 }
                                 ItemStack stack = new ItemStack(item.get());
-                                stack.set(TLDataComponents.MATERIALS, TLRegistries.PARTS.get(key).statTypes().stream()
-                                                .map(stat -> new MaterialLayer(stat, TLMaterials.IRON.getId())).toList());
+                                stack.set(TLDataComponents.MATERIALS, TLRegistries.PARTS.get(key).statTypes().stream().map(stat -> TLMaterials.IRON.getId()).toList());
                                 return stack;
                         }
                         ToolDefinition tool = TLRegistries.TOOLS.get(key);

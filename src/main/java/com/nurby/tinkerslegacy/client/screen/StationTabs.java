@@ -1,9 +1,8 @@
 package com.nurby.tinkerslegacy.client.screen;
 
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.library.station.StationConnections;
+import com.nurby.tinkerslegacy.api.station.StationConnections;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
 import com.nurby.tinkerslegacy.network.StationOpenPayload;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -15,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.LinkedHashMap;

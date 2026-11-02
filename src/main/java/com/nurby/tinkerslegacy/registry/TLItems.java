@@ -1,17 +1,18 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.item.TooltipItem;
-import com.nurby.tinkerslegacy.item.PatternItem;
-import com.nurby.tinkerslegacy.item.MaterialShardItem;
-import com.nurby.tinkerslegacy.item.TooltipBlockItem;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.block.SlimyFoliage;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.content.block.SlimyFoliage;
+import com.nurby.tinkerslegacy.content.item.MaterialShardItem;
+import com.nurby.tinkerslegacy.content.item.PatternItem;
+import com.nurby.tinkerslegacy.content.item.TooltipBlockItem;
+import com.nurby.tinkerslegacy.content.item.TooltipItem;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicPart;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.registry.TLBlocks.SlimyBlocks.Soil;
-
+import com.nurby.tinkerslegacy.registry.tools.TLTools;
+import com.nurby.tinkerslegacy.registry.tools.ToolParts;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,18 +21,13 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.List;
-import java.util.Locale;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public final class TLItems {
         private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(

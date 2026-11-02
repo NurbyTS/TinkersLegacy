@@ -1,36 +1,21 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.block.CongealedSlimeBlock;
-import com.nurby.tinkerslegacy.block.ColoredSlimeBlock;
-import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
-import com.nurby.tinkerslegacy.block.SlimyFoliage;
-import com.nurby.tinkerslegacy.block.StationBlock;
-import com.nurby.tinkerslegacy.block.SlimyLeavesBlock;
-import com.nurby.tinkerslegacy.block.SlimyVineBlock;
-import com.nurby.tinkerslegacy.block.TreatedSoilBlock;
-import com.nurby.tinkerslegacy.block.SlimyMudBlock;
-
+import com.nurby.tinkerslegacy.content.block.*;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.resources.ResourceLocation;
-
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
-import java.util.EnumMap;
-import java.util.Locale;
-import java.util.Collections;
 
 public final class TLBlocks {
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(
@@ -75,8 +60,7 @@ public final class TLBlocks {
                         GRAVEYARD_SOIL(() -> new TreatedSoilBlock(groutProperties(), false)),
                         CONSECRATED_SOIL(() -> new TreatedSoilBlock(groutProperties(), true)),
                         LAVAWOOD(() -> new Block(firewoodProperties())),
-                        FIREWOOD(() -> new Block(firewoodProperties())),
-                        GLOW(() -> new com.nurby.tinkerslegacy.block.GlowBlock(BlockBehaviour.Properties.of()
+                        FIREWOOD(() -> new Block(firewoodProperties())), GLOW(() -> new com.nurby.tinkerslegacy.content.block.GlowBlock(BlockBehaviour.Properties.of()
                                         .noCollission().noOcclusion().instabreak().replaceable().lightLevel(state -> 14)));
 
                         private final Supplier<? extends Block> factory;

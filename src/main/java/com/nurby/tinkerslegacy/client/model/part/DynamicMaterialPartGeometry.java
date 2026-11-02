@@ -8,11 +8,7 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.neoforged.neoforge.client.model.CompositeModel;
@@ -68,8 +64,7 @@ public final class DynamicMaterialPartGeometry
                                                 baker,
                                                 itemContext,
                                                 modelState,
-                                                part,
-                                                baseModel
+                                                part, baseModel, spriteGetter
                                 );
 
                 return CompositeModel.Baked.builder(
@@ -91,6 +86,7 @@ public final class DynamicMaterialPartGeometry
         public static final class Loader
                         implements IGeometryLoader<DynamicMaterialPartGeometry> {
 
+            public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "dynamic_material_part");
                 public static final Loader INSTANCE = new Loader();
 
                 private Loader() {

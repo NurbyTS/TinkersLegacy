@@ -1,16 +1,14 @@
 package com.nurby.tinkerslegacy.network;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.api.station.StationSelection;
 import com.nurby.tinkerslegacy.menu.StationMenu;
-import com.nurby.tinkerslegacy.library.station.StationSelection;
-
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record StationStatusPayload(int containerId, Component error, StationSelection selection, long acknowledgedRequest) implements CustomPacketPayload {

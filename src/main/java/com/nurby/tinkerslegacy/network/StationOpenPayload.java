@@ -1,16 +1,14 @@
 package com.nurby.tinkerslegacy.network;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.library.station.StationConnections;
+import com.nurby.tinkerslegacy.api.station.StationConnections;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
 import com.nurby.tinkerslegacy.menu.StationMenuAccess;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record StationOpenPayload(int containerId, BlockPos position) implements CustomPacketPayload {

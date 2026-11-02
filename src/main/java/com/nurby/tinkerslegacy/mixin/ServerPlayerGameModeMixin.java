@@ -1,22 +1,20 @@
 package com.nurby.tinkerslegacy.mixin;
 
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.tool.ToolLeveling;
-import com.nurby.tinkerslegacy.library.tool.ToolAreaActions;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
-import com.nurby.tinkerslegacy.tools.ScytheDefinition;
-import com.nurby.tinkerslegacy.tools.ExcavatorDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolAreaActions;
+import com.nurby.tinkerslegacy.api.tool.ToolLeveling;
+import com.nurby.tinkerslegacy.api.tool.ToolState;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -99,9 +97,9 @@ public abstract class ServerPlayerGameModeMixin {
                 tinkerslegacy$removedBlock |= callback.getReturnValueZ();
                 if (callback.getReturnValueZ() && tinkerslegacy$validToolBreak) {
                         if (tinkerslegacy$eligibleBreak) ToolLeveling.award(tinkerslegacy$miningTool, player, 1);
-                        com.nurby.tinkerslegacy.library.tool.traits.ToolTraits.afterBlockBreak(
+                    com.nurby.tinkerslegacy.api.tool.traits.ToolTraits.afterBlockBreak(
                                         tinkerslegacy$miningTool, player.serverLevel(), state, pos, player);
-                        com.nurby.tinkerslegacy.library.tool.modifier.ModifierEffects.afterBlockBreak(
+                    com.nurby.tinkerslegacy.api.tool.modifier.ModifierEffects.afterBlockBreak(
                                         tinkerslegacy$miningTool, player.serverLevel(), pos);
                         tinkerslegacy$eligibleBreak = false;
                         tinkerslegacy$validToolBreak = false;

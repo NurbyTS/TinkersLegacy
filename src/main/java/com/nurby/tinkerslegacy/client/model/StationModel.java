@@ -1,7 +1,7 @@
 package com.nurby.tinkerslegacy.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.nurby.tinkerslegacy.library.station.StationAppearance;
+import com.nurby.tinkerslegacy.api.station.StationAppearance;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLStations;
 

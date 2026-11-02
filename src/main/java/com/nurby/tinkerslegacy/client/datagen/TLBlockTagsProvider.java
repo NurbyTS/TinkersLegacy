@@ -47,7 +47,7 @@ public class TLBlockTagsProvider extends BlockTagsProvider {
                 // Slimy Plants
                 for (var type : TLBlocks.SlimyPlants.Type.values()) {
                         Block block = TLBlocks.block(type);
-                        if (block instanceof com.nurby.tinkerslegacy.block.SlimyVineBlock) {
+                    if (block instanceof com.nurby.tinkerslegacy.content.block.SlimyVineBlock) {
                                 tag(BlockTags.CLIMBABLE).add(block);
                                 tag(BlockTags.MINEABLE_WITH_AXE).add(block);
                         } else {

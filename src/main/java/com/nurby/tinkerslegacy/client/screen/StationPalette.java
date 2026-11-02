@@ -1,8 +1,8 @@
 package com.nurby.tinkerslegacy.client.screen;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.registry.ToolStatTypes;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
 
 public final class StationPalette {
         private static final int BROWN = 0x684E1E;

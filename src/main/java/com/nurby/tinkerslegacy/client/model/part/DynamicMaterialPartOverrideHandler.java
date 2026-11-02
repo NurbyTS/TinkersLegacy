@@ -1,14 +1,13 @@
 package com.nurby.tinkerslegacy.client.model.part;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.material.MaterialDefinition;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.client.model.AbstractDynamicModelHandler;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLMaterials;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
-import com.nurby.tinkerslegacy.registry.ToolStatTypes;
-import net.minecraft.client.multiplayer.ClientLevel;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -18,351 +17,135 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
-public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
+public class DynamicMaterialPartOverrideHandler extends AbstractDynamicModelHandler {
 
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger("TinkersLegacy/DynamicPart");
+    private static final ResourceLocation BOLT_CORE = ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "bolt_core");
 
-    private static final ResourceLocation BOLT_CORE =
-            ResourceLocation.fromNamespaceAndPath(
-                    TinkersLegacy.MODID,
-                    "bolt_core"
-            );
-
-    private final Map<String, BakedModel> models =
-            new HashMap<>();
-
-    private final ItemOverrides nested;
-    private final ModelBaker baker;
-    private final ModelState modelState;
-    private final BlockModel baseModel;
-    private final ResourceLocation part;
+    private final ResourceLocation partId;
 
     public DynamicMaterialPartOverrideHandler(
             ItemOverrides nested,
             ModelBaker baker,
             IGeometryBakingContext owner,
-            ModelState modelState,
-            ResourceLocation part,
-            BlockModel baseModel
+            ModelState modelState, ResourceLocation partId, BlockModel baseModel, Function<Material, TextureAtlasSprite> spriteGetter
     ) {
-        this.nested = nested;
-        this.baker = baker;
-        this.modelState = modelState;
-        this.baseModel = baseModel;
-        this.part = part;
+        super(nested, baker, modelState, baseModel, spriteGetter);
+        this.partId = partId;
 
-        bakeModels(
-                baker,
-                owner,
-                modelState,
-                part,
-                baseModel
-        );
+        prebakePartModels();
     }
 
-    @Override
-    public BakedModel resolve(
-            BakedModel originalModel,
-            ItemStack stack,
-            @Nullable ClientLevel level,
-            @Nullable LivingEntity entity,
-            int seed
-    ) {
-        BakedModel overridden =
-                nested.resolve(
-                        originalModel,
-                        stack,
-                        level,
-                        entity,
-                        seed
-                );
-
-        if (overridden != originalModel) {
-            return overridden;
-        }
-
-        List<MaterialLayer> materials =
-                stack.get(TLDataComponents.MATERIALS);
-
-        if (materials == null || materials.isEmpty()) {
-            return originalModel;
-        }
-
-        String cacheKey = createCacheKey(materials);
-
-        BakedModel model = models.get(cacheKey);
-
-        if (model != null) {
-            return model;
-        }
-
-        return bakeRuntimeModel(materials);
-    }
-
-    private void bakeModels(
-            ModelBaker baker,
-            IGeometryBakingContext owner,
-            ModelState modelState,
-            ResourceLocation part,
-            BlockModel baseModel
-    ) {
-        PartDefinition definition = TLRegistries.PARTS.get(part);
-
+    private void prebakePartModels() {
+        PartDefinition definition = TLRegistries.PARTS.get(partId);
         if (definition == null) {
-            LOGGER.warn(
-                    "Unable to bake dynamic part {}: no PartDefinition",
-                    part
-            );
+            LOGGER.warn("Unable to bake dynamic part {}: no PartDefinition", partId);
             return;
         }
 
         baseModel.resolveParents(baker::getModel);
 
-        if (part.equals(BOLT_CORE)) {
-            bakeBoltCoreModels(
-                    baker,
-                    modelState,
-                    baseModel,
-                    part
-            );
+        if (partId.equals(BOLT_CORE)) {
+            prebakeBoltCoreModels();
             return;
         }
 
-        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> materialEntry : TLRegistries.MATERIALS.entrySet()) {
-            MaterialDefinition material = materialEntry.getValue();
-
-            if (!material.parts().contains(part)) {
+        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> entry : TLRegistries.MATERIALS.entrySet()) {
+            MaterialDefinition material = entry.getValue();
+            if (!material.parts().contains(partId))
                 continue;
+
+            List<ResourceLocation> textureLocations = resolveTexturesForPart(definition, List.of(material.id()));
+            BakedModel baked = bakeModel(textureLocations);
+            if (baked != null) {
+                baseCache.put(textureLocations, baked);
             }
-
-            List<MaterialLayer> layers = definition.statTypes()
-                    .stream()
-                    .map(statType -> new MaterialLayer(
-                            statType,
-                            material.id()
-                    ))
-                    .toList();
-
-            bakeModel(
-                    baker,
-                    modelState,
-                    baseModel,
-                    part,
-                    layers
-            );
         }
     }
 
-    private void bakeBoltCoreModels(
-            ModelBaker baker,
-            ModelState modelState,
-            BlockModel baseModel,
-            ResourceLocation part
-    ) {
+    private void prebakeBoltCoreModels() {
         MaterialDefinition iron = TLMaterials.IRON.value();
+        ResourceLocation shaftType = ToolStatTypes.ARROW_SHAFT.getId();
 
-        ResourceLocation shaftType =
-                ToolStatTypes.ARROW_SHAFT.getId();
-
-        ResourceLocation headType =
-                ToolStatTypes.HEAD.getId();
-
-
-        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> materialEntry : TLRegistries.MATERIALS.entrySet()) {
-            MaterialDefinition material = materialEntry.getValue();
-
-            if (!material.stats().containsKey(shaftType)) {
+        for (Map.Entry<ResourceKey<MaterialDefinition>, MaterialDefinition> entry : TLRegistries.MATERIALS.entrySet()) {
+            MaterialDefinition material = entry.getValue();
+            if (!material.stats().containsKey(shaftType))
                 continue;
+
+            List<ResourceLocation> textureLocations = List.of(ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "item/parts/" + material.id().getPath() + "/bolt_shaft"), ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "item/parts/" + iron.id().getPath() + "/bolt_tip")
+            );
+
+            BakedModel baked = bakeModel(textureLocations);
+            if (baked != null) {
+                baseCache.put(textureLocations, baked);
             }
-
-            List<MaterialLayer> layers = List.of(
-                    new MaterialLayer(
-                            shaftType,
-                            material.id()
-                    ),
-                    new MaterialLayer(
-                            headType,
-                            iron.id()
-                    )
-            );
-
-            bakeModel(
-                    baker,
-                    modelState,
-                    baseModel,
-                    part,
-                    layers
-            );
         }
     }
 
-    private BakedModel bakeRuntimeModel(
-            List<MaterialLayer> materials
-    ) {
-        BakedModel baked = bakeModel(
-                baker,
-                modelState,
-                baseModel,
-                part,
-                materials
-        );
-
-        models.put(
-                createCacheKey(materials),
-                baked
-        );
-
-        return baked;
-    }
-
-    private BakedModel bakeModel(
-            ModelBaker baker,
-            ModelState modelState,
-            BlockModel baseModel,
-            ResourceLocation part,
-            List<MaterialLayer> materials
-    ) {
-        Function<Material, TextureAtlasSprite> spriteGetter =
-                material -> {
-                    ResourceLocation texture =
-                            material.texture();
-
-                    ResourceLocation generated =
-                            resolveGeneratedTexture(
-                                    texture,
-                                    part,
-                                    materials
-                            );
-
-                    return baker.getModelTextureGetter().apply(
-                            new Material(
-                                    material.atlasLocation(),
-                                    generated
-                            )
-                    );
-                };
-
-        return baker.bakeUncached(
-                baseModel,
-                modelState,
-                spriteGetter
-        );
-    }
-
-    private ResourceLocation resolveGeneratedTexture(
-            ResourceLocation texture,
-            ResourceLocation part,
-            List<MaterialLayer> materials
-    ) {
-        String path = texture.getPath();
-
-        String textureName;
-
-        if (path.startsWith("item/part_templates/")) {
-            textureName = path.substring(
-                    "item/part_templates/".length()
-            );
-        }
-        else if (path.startsWith("item/part_silhouette/")) {
-            textureName = path.substring(
-                    "item/part_silhouette/".length()
-            );
-        }
-        else if (path.startsWith("item/tool_part/")) {
-            textureName = path.substring(
-                    "item/tool_part/".length()
-            );
-        }
-        else {
-            return texture;
-        }
-
-        ResourceLocation statType =
-                findStatType(
-                        part,
-                        textureName,
-                        materials
-                );
-
-        if (statType == null) {
-            return texture;
-        }
-
-        for (MaterialLayer layer : materials) {
-            if (!layer.statType().equals(statType)) {
-                continue;
-            }
-
-            return ResourceLocation.fromNamespaceAndPath(
-                    TinkersLegacy.MODID,
-                    "item/parts/"
-                            + layer.material().getPath()
-                            + "/"
-                            + textureName
-            );
-        }
-
-        return texture;
-    }
-
-    private ResourceLocation findStatType(
-            ResourceLocation part,
-            String textureName,
-            List<MaterialLayer> materials
-    ) {
-        if (textureName.equals("bolt_shaft")) {
-            return ToolStatTypes.ARROW_SHAFT.getId();
-        }
-
-        if (textureName.equals("bolt_tip")) {
-            return ToolStatTypes.HEAD.getId();
-        }
-
-        PartDefinition definition = TLRegistries.PARTS.get(part);
-
-        if (definition == null) {
+    @Override
+    protected List<ResourceLocation> resolveTextureLocations(ItemStack stack) {
+        PartDefinition definition = TLRegistries.PARTS.get(partId);
+        if (definition == null)
             return null;
+
+        List<ResourceLocation> layers = stack.get(TLDataComponents.MATERIALS);
+        layers = (layers != null) ? layers : List.of();
+
+        // Special case logic for Bolt Core
+        if (partId.equals(BOLT_CORE)) {
+            return resolveBoltCoreTextures(layers);
         }
 
-        for (ResourceLocation type : definition.statTypes()) {
-            for (MaterialLayer layer : materials) {
-                if (layer.statType().equals(type)) {
-                    return type;
-                }
-            }
-        }
-
-        return null;
+        return resolveTexturesForPart(definition, layers);
     }
 
-    private String createCacheKey(
-            List<MaterialLayer> materials
-    ) {
-        StringBuilder key = new StringBuilder();
+    private List<ResourceLocation> resolveTexturesForPart(PartDefinition definition, List<ResourceLocation> materialIds) {
+        List<ResourceLocation> textures = new ArrayList<>();
 
-        for (MaterialLayer layer : materials) {
-            if (!key.isEmpty()) {
-                key.append('|');
+        // 1. Empty / Unassembled fallback handling
+        if (materialIds.isEmpty()) {
+            for (int i = 0; i < definition.textureNames().size(); i++) {
+                String textureName = definition.textureNames().get(i);
+                ResourceLocation defaultMat = definition.defaultSlotMaterials().get(i);
+                ResourceLocation matId = Objects.requireNonNullElse(defaultMat, UNKNOWN_MATERIAL);
+
+                textures.add(ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "item/parts/" + matId.getPath() + "/" + textureName));
             }
-
-            key.append(layer.statType())
-                    .append('=')
-                    .append(layer.material());
+            return textures;
         }
 
-        return key.toString();
+        // 2. Generic slot resolution: input material -> slot default -> UNKNOWN_MATERIAL fallback
+        for (int i = 0; i < definition.textureNames().size(); i++) {
+            String textureName = definition.textureNames().get(i);
+            ResourceLocation defaultMat = definition.defaultSlotMaterials().get(i);
+
+            ResourceLocation matId;
+            if (i < materialIds.size() && materialIds.get(i) != null) {
+                matId = materialIds.get(i);
+            } else {
+                matId = Objects.requireNonNullElse(defaultMat, UNKNOWN_MATERIAL);
+            }
+
+            textures.add(ResourceLocation.fromNamespaceAndPath(
+                    TinkersLegacy.MODID, "item/parts/" + matId.getPath() + "/" + textureName));
+        }
+
+        return textures;
+    }
+
+    private List<ResourceLocation> resolveBoltCoreTextures(List<ResourceLocation> materialIds) {
+        ResourceLocation shaftMat = (materialIds.size() > 0 && materialIds.get(0) != null) ? materialIds.get(0) : UNKNOWN_MATERIAL;
+
+        ResourceLocation headMat = (materialIds.size() > 1 && materialIds.get(1) != null) ? materialIds.get(1) : TLMaterials.IRON.getId();
+
+        return List.of(ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "item/parts/" + shaftMat.getPath() + "/bolt_shaft"), ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "item/parts/" + headMat.getPath() + "/bolt_tip"));
     }
 }

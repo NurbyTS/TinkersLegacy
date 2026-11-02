@@ -1,11 +1,10 @@
 package com.nurby.tinkerslegacy.menu;
 
-import com.nurby.tinkerslegacy.block.entity.StationBlockEntity;
-import com.nurby.tinkerslegacy.library.station.StationDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
+import com.nurby.tinkerslegacy.api.station.StationDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolState;
+import com.nurby.tinkerslegacy.content.block.entity.StationBlockEntity;
 import com.nurby.tinkerslegacy.registry.TLStationMenus;
 import com.nurby.tinkerslegacy.registry.TLStations;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -16,23 +15,17 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.inventory.ResultSlot;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-
 import net.neoforged.neoforge.items.SlotItemHandler;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
-
-import javax.annotation.Nullable;
 
 public class CraftingStationMenu extends AbstractContainerMenu implements StationMenuAccess {
         public static final int RESULT_SLOT = 0;

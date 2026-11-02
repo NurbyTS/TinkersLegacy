@@ -1,13 +1,12 @@
 package com.nurby.tinkerslegacy.client.screen;
 
-import com.nurby.tinkerslegacy.client.model.PartModelOffsets;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.registry.TLRegistries;
-import com.nurby.tinkerslegacy.registry.TLItems;
-import com.nurby.tinkerslegacy.registry.ToolStatTypes;
-import com.nurby.tinkerslegacy.registry.ToolParts;
-
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.client.model.PartModelOffsets;
+import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.registry.TLRegistries;
+import com.nurby.tinkerslegacy.registry.tools.ToolParts;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;

@@ -2,12 +2,10 @@ package com.nurby.tinkerslegacy.registry;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import com.nurby.tinkerslegacy.library.tool.ToolProgress;
-import com.nurby.tinkerslegacy.library.tool.ToolModifierEntry;
-import net.minecraft.core.UUIDUtil;
-import java.util.UUID;
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
+import com.nurby.tinkerslegacy.api.tool.ToolModifierEntry;
+import com.nurby.tinkerslegacy.api.tool.ToolProgress;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,6 +19,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public final class TLDataComponents {
@@ -68,14 +67,10 @@ public final class TLDataComponents {
                         );
 
         public static final DeferredHolder<
-                        DataComponentType<?>,
-                        DataComponentType<List<MaterialLayer>>
+                        DataComponentType<?>, DataComponentType<List<ResourceLocation>>
                         > MATERIALS = COMPONENTS.register(
-                        "materials",
-                        id -> DataComponentType.<List<MaterialLayer>>builder()
-                                        .persistent(MaterialLayer.CODEC.listOf())
-                                        .networkSynchronized(
-                                                        MaterialLayer.STREAM_CODEC.apply(
+                        "materials", id -> DataComponentType.<List<ResourceLocation>>builder().persistent(ResourceLocation.CODEC.listOf())
+                                        .networkSynchronized(ResourceLocation.STREAM_CODEC.apply(
                                                                         ByteBufCodecs.list()
                                                         )
                                         )
@@ -168,12 +163,9 @@ public final class TLDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> MOSS_LAST_HEAL =
                         component("moss_last_heal", Codec.LONG, ByteBufCodecs.VAR_LONG);
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<MaterialLayer>>> EMBOSSMENT =
-                        component("embossment", MaterialLayer.CODEC.listOf(), MaterialLayer.STREAM_CODEC.apply(ByteBufCodecs.list()));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> EMBOSSMENT = component("embossment", ResourceLocation.CODEC.listOf(), ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<com.nurby.tinkerslegacy.library.tool.traits.ToolTraitData>> TRAIT_DATA =
-                        component("trait_data", com.nurby.tinkerslegacy.library.tool.traits.ToolTraitData.CODEC,
-                                        com.nurby.tinkerslegacy.library.tool.traits.ToolTraitData.STREAM_CODEC);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<com.nurby.tinkerslegacy.api.tool.traits.ToolTraitData>> TRAIT_DATA = component("trait_data", com.nurby.tinkerslegacy.api.tool.traits.ToolTraitData.CODEC, com.nurby.tinkerslegacy.api.tool.traits.ToolTraitData.STREAM_CODEC);
 
         // Stats
         public static Map<String, Number> normalizeStats(Map<String, Number> stats) {

@@ -2,7 +2,7 @@ package com.nurby.tinkerslegacy.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.nurby.tinkerslegacy.entity.TLToolProjectile;
+import com.nurby.tinkerslegacy.content.entity.TLToolProjectile;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;

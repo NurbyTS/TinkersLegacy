@@ -1,20 +1,14 @@
 package com.nurby.tinkerslegacy.client.datagen;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
-import com.nurby.tinkerslegacy.block.SlimyLeavesBlock;
-import com.nurby.tinkerslegacy.block.SlimyVineBlock;
-import com.nurby.tinkerslegacy.block.GlowBlock;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.VineBlock;
-import com.nurby.tinkerslegacy.block.StationBlock;
-import com.nurby.tinkerslegacy.block.ColoredSlimeBlock;
-import com.nurby.tinkerslegacy.block.CongealedSlimeBlock;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Blocks;
+import com.nurby.tinkerslegacy.content.block.*;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;

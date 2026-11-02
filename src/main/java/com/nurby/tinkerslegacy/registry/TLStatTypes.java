@@ -1,8 +1,8 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.stat.PartStatDefinition;
-import com.nurby.tinkerslegacy.library.material.stat.StatField;
+import com.nurby.tinkerslegacy.api.material.stat.PartStatDefinition;
+import com.nurby.tinkerslegacy.api.material.stat.StatField;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;

@@ -1,14 +1,14 @@
 package com.nurby.tinkerslegacy.event;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.content.command.ToolCommand;
 import com.nurby.tinkerslegacy.registry.TLTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import com.nurby.tinkerslegacy.command.ToolCommand;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
 @EventBusSubscriber(modid = TinkersLegacy.MODID)
 public class CommonEvents {

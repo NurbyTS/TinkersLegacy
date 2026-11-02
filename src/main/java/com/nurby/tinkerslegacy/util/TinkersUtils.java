@@ -1,16 +1,15 @@
 package com.nurby.tinkerslegacy.util;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
-import com.nurby.tinkerslegacy.library.material.stat.MaterialStat;
-import com.nurby.tinkerslegacy.library.material.stat.MaterialStatMap;
-import com.nurby.tinkerslegacy.library.material.stat.PartStatDefinition;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolState;
-import com.nurby.tinkerslegacy.library.tool.ToolPart;
+import com.nurby.tinkerslegacy.api.material.MaterialDefinition;
+import com.nurby.tinkerslegacy.api.material.stat.MaterialStat;
+import com.nurby.tinkerslegacy.api.material.stat.MaterialStatMap;
+import com.nurby.tinkerslegacy.api.material.stat.PartStatDefinition;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolPart;
+import com.nurby.tinkerslegacy.api.tool.ToolState;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import net.minecraft.ChatFormatting;
@@ -22,11 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class TinkersUtils {
     private static final int COLOR_DURABILITY = 0x48CC48;
@@ -52,19 +47,16 @@ public final class TinkersUtils {
     private TinkersUtils() {
     }
 
-    public static List<Component> getStatsForLayer(
-            MaterialLayer layer,
+    public static List<Component> getStatsForLayer(ResourceLocation materialId, ResourceLocation statType,
             Component heading
     ) {
         List<Component> components = new ArrayList<>();
 
-        MaterialDefinition material =
-                TLRegistries.MATERIALS.get(layer.material());
+        MaterialDefinition material = TLRegistries.MATERIALS.get(materialId);
 
         if (material == null) {
             components.add(
-                    Component.literal(
-                            "Unknown material: " + layer.material()
+                    Component.literal("Unknown material: " + materialId
                     ).withStyle(ChatFormatting.UNDERLINE)
             );
 
@@ -75,7 +67,7 @@ public final class TinkersUtils {
                 heading.copy().withStyle(ChatFormatting.UNDERLINE)
         );
 
-        MaterialStat stat = material.stats().get(layer.statType());
+        MaterialStat stat = material.stats().get(statType);
 
         if (stat != null) {
             stat.statMap().values().forEach(
@@ -86,17 +78,13 @@ public final class TinkersUtils {
         return components;
     }
 
-    public static List<Component> getStatsForLayer(
-            MaterialLayer layer
+    public static List<Component> getStatsForLayer(ResourceLocation materialId, ResourceLocation statType
     ) {
-        ResourceLocation statType = layer.statType();
-
         String key = statType.getNamespace()
                 + ".material_stat_type."
                 + statType.getPath();
 
-        return getStatsForLayer(
-                layer,
+        return getStatsForLayer(materialId, statType,
                 translationOrFallback(key)
         );
     }
@@ -106,7 +94,7 @@ public final class TinkersUtils {
             ItemStack stack,
             List<Component> tooltipComponents
     ) {
-        List<MaterialLayer> materials =
+        List<ResourceLocation> materials =
                 stack.get(TLDataComponents.MATERIALS);
 
         if (materials == null || materials.isEmpty()) {
@@ -117,19 +105,13 @@ public final class TinkersUtils {
 
         for (int index = 0; index < definition.parts().size(); index++) {
             ToolPart part = definition.parts().get(index);
-            MaterialLayer layer = index < materials.size() ? materials.get(index) : null;
+            ResourceLocation materialId = index < materials.size() ? materials.get(index) : null;
 
-            if (layer == null) {
-                continue;
-            }
-
-            MaterialDefinition material =
-                    TLRegistries.MATERIALS.get(layer.material());
+            MaterialDefinition material = TLRegistries.MATERIALS.get(materialId);
 
             MutableComponent partName =
                     getMaterialPartName(
-                            part.part(),
-                            List.of(layer)
+                            part.part(), materialId != null ? List.of(materialId) : List.of()
                     ).withColor(
                             material == null
                                     ? 0xFFFFFF
@@ -142,9 +124,9 @@ public final class TinkersUtils {
 
             first = false;
 
-            tooltipComponents.addAll(
-                    getStatsForLayer(layer, partName)
-            );
+            if (materialId != null) {
+                tooltipComponents.addAll(getStatsForLayer(materialId, part.statType(), partName));
+            }
         }
     }
 
@@ -240,8 +222,7 @@ public final class TinkersUtils {
                 .withStyle(style -> style.withColor(color));
     }
 
-    public static Component formatMaterialName(
-            List<MaterialLayer> materials
+    public static Component formatMaterialName(List<ResourceLocation> materials
     ) {
         if (materials == null || materials.isEmpty()) {
             return translationOrFallback(
@@ -250,10 +231,8 @@ public final class TinkersUtils {
         }
 
         List<MutableComponent> materialNames = materials.stream()
-                .map(MaterialLayer::material)
                 .distinct()
-                .map(material -> materialName(material,
-                        materials.stream().map(MaterialLayer::material).distinct().count() > 1))
+                .map(material -> materialName(material, materials.stream().distinct().count() > 1))
                 .toList();
 
         Component result = materialNames.getFirst();
@@ -267,58 +246,48 @@ public final class TinkersUtils {
         return result;
     }
 
-        // Names
-        private static MutableComponent materialName(ResourceLocation material, boolean combined) {
-                String key = material.getNamespace() + ".material." + material.getPath();
-                return combined ? Component.translatableWithFallback(key + ".name", "%s", Component.translatable(key))
-                                : Component.translatable(key);
-        }
+    // Names
+    private static MutableComponent materialName(ResourceLocation material, boolean combined) {
+        String key = material.getNamespace() + ".material." + material.getPath();
+        return combined ? Component.translatableWithFallback(key + ".name", "%s", Component.translatable(key)) : Component.translatable(key);
+    }
 
-        public static MutableComponent getMaterialPartName(
-                        ResourceLocation part,
-                        List<MaterialLayer> materials) {
-                return Component.translatable("item." + part.getNamespace() + ".parts." + part.getPath(),
-                                formatMaterialName(materials));
-        }
+    public static MutableComponent getMaterialPartName(ResourceLocation part, List<ResourceLocation> materials) {
+        return Component.translatable("item." + part.getNamespace() + ".parts." + part.getPath(), formatMaterialName(materials));
+    }
 
-        public static Component getToolName(
-                        ToolDefinition tool,
-                        List<MaterialLayer> materials) {
-                Component name = Component.translatable("item." + tool.id().getNamespace() + ".tools." + tool.id().getPath());
-                if (materials == null || materials.isEmpty()) {
-                        return name;
-                }
-                List<MaterialLayer> namingParts = tool.repairParts().stream()
-                                .filter(index -> index >= 0 && index < materials.size())
-                                .map(materials::get)
-                                .filter(layer -> TLRegistries.MATERIALS.containsKey(layer.material()))
-                                .toList();
-                if (namingParts.isEmpty()) {
-                        return name;
-                }
-                return Component.translatable("tinkerslegacy.tool.material_name", formatMaterialName(namingParts), name);
+    public static Component getToolName(ToolDefinition tool, List<ResourceLocation> materials) {
+        Component name = Component.translatable("item." + tool.id().getNamespace() + ".tools." + tool.id().getPath());
+        if (materials == null || materials.isEmpty()) {
+            return name;
         }
+        List<ResourceLocation> namingParts = tool.repairParts().stream().filter(index -> index >= 0 && index < materials.size()).map(materials::get).filter(TLRegistries.MATERIALS::containsKey).toList();
+        if (namingParts.isEmpty()) {
+            return name;
+        }
+        return Component.translatable("tinkerslegacy.tool.material_name", formatMaterialName(namingParts), name);
+    }
 
     public static void addToolStatsTooltip(
             ItemStack stack,
             List<Component> tooltipComponents
     ) {
-        Map<String, Number> stats =
-                stack.get(TLDataComponents.MODIFIED_STATS.get());
-        DynamicTool dynTool = (DynamicTool) stack.getItem();
+        Map<String, Number> stats = stack.getOrDefault(TLDataComponents.MODIFIED_STATS, Map.of());
+        if (!(stack.getItem() instanceof DynamicTool dynTool)) {
+            return;
+        }
         ToolDefinition toolDef = dynTool.getDefinition();
 
-        if (stats == null) {
+        if (stats.isEmpty()) {
             return;
         }
 
         addDurabilityStat(
                 stack,
-                tooltipComponents,
-                stats.get(STAT_DURABILITY)
+                tooltipComponents, stats.getOrDefault(STAT_DURABILITY, 0)
         );
 
-        if (toolDef.isTool()) {
+        if (toolDef.isHarvestTool()) {
             if (stats.containsKey(STAT_HARVEST_LEVEL)) {
                 addStat(
                         tooltipComponents,
@@ -354,8 +323,7 @@ public final class TinkersUtils {
 
             addStat(
                     tooltipComponents,
-                    STAT_MINING_SPEED,
-                    stats.get(STAT_MINING_SPEED)
+                    STAT_MINING_SPEED, stats.getOrDefault(STAT_MINING_SPEED, 1)
             );
         }
 
@@ -367,8 +335,7 @@ public final class TinkersUtils {
 
         addStat(
                 tooltipComponents,
-                STAT_FREE_MODIFIERS,
-                stats.get(STAT_FREE_MODIFIERS)
+                STAT_FREE_MODIFIERS, stats.getOrDefault(STAT_FREE_MODIFIERS, 0)
         );
     }
 
@@ -555,15 +522,13 @@ public final class TinkersUtils {
     }
 
     public static double getActualDamage(ItemStack stack) {
-        Map<String, Number> stats = stack.get(TLDataComponents.MODIFIED_STATS.get());
-        if (stats == null) {
+        Map<String, Number> stats = stack.getOrDefault(TLDataComponents.MODIFIED_STATS, Map.of());
+        if (stats.isEmpty() || !(stack.getItem() instanceof DynamicTool tool)) {
             return 0.0;
         }
-        DynamicTool tool = (DynamicTool) stack.getItem();
         double attackDamage = stats.getOrDefault(STAT_ATTACK_DAMAGE, 0).doubleValue();
         return tool.getDefinition().baseDamage() + attackDamage * tool.getDefinition().damagePotential();
     }
-
 
     public static double calcCutoffDamage(
             double damage,

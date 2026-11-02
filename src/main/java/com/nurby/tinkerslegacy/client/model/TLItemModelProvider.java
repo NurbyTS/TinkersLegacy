@@ -1,22 +1,19 @@
 package com.nurby.tinkerslegacy.client.model;
 
 import com.google.gson.JsonObject;
-
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.client.datagen.PatternTextureProvider;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.station.StationRecipes;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.client.datagen.texture.PatternTextureProvider;
+import com.nurby.tinkerslegacy.content.block.SlimyVineBlock;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
-import com.nurby.tinkerslegacy.block.SlimyVineBlock;
-import com.nurby.tinkerslegacy.registry.TLTools;
-import com.nurby.tinkerslegacy.registry.ToolParts;
-import com.nurby.tinkerslegacy.library.station.StationRecipes;
-
+import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.registry.tools.TLTools;
+import com.nurby.tinkerslegacy.registry.tools.ToolParts;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -156,7 +153,7 @@ public class TLItemModelProvider extends ItemModelProvider {
                                                 getExistingFile(
                                                                 mcLoc("item/handheld")));
 
-                if (definition instanceof com.nurby.tinkerslegacy.tools.RangedToolDefinition) {
+            if (definition instanceof com.nurby.tinkerslegacy.content.tools.RangedToolDefinition) {
                         builder.parent(getExistingFile(modLoc("item/" + id.getPath() + "_base")));
                 }
 

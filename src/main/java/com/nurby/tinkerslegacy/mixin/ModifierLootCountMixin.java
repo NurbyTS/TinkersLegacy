@@ -3,7 +3,7 @@ package com.nurby.tinkerslegacy.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.nurby.tinkerslegacy.library.tool.modifier.ModifierEffects;
+import com.nurby.tinkerslegacy.api.tool.modifier.ModifierEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;

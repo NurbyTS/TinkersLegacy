@@ -1,7 +1,7 @@
 package com.nurby.tinkerslegacy.client;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.station.StationRecipes;
+import com.nurby.tinkerslegacy.api.station.StationRecipes;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLItems;
 import com.nurby.tinkerslegacy.registry.TLRegistries;

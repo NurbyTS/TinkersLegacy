@@ -1,8 +1,8 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.station.StationDefinition;
-import com.nurby.tinkerslegacy.library.station.StationOperations;
+import com.nurby.tinkerslegacy.api.station.StationDefinition;
+import com.nurby.tinkerslegacy.api.station.StationOperations;
 
 import net.minecraft.resources.ResourceLocation;
 

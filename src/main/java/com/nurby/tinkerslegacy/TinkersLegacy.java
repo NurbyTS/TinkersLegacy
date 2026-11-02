@@ -1,15 +1,17 @@
 package com.nurby.tinkerslegacy;
 
+import com.mojang.logging.LogUtils;
 import com.nurby.tinkerslegacy.registry.*;
-import com.nurby.tinkerslegacy.registry.TLTools;
+import com.nurby.tinkerslegacy.registry.armory.ArmoryStatTypes;
+import com.nurby.tinkerslegacy.registry.tools.TLToolEntities;
+import com.nurby.tinkerslegacy.registry.tools.TLTools;
+import com.nurby.tinkerslegacy.registry.tools.ToolParts;
+import com.nurby.tinkerslegacy.registry.tools.ToolStatTypes;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.ModContainer;
 
 @Mod(TinkersLegacy.MODID)
 public class TinkersLegacy {
@@ -39,7 +41,7 @@ public class TinkersLegacy {
                 TLRecipeSerializers.register(modEventBus);
                 TLToolEntities.register(modEventBus);
                 com.nurby.tinkerslegacy.registry.TLSounds.register(modEventBus);
-                com.nurby.tinkerslegacy.library.tool.traits.ToolTraitEffects.register(modEventBus);
+            com.nurby.tinkerslegacy.api.tool.traits.ToolTraitEffects.register(modEventBus);
 
                 TLCreativeTabs.register(modEventBus);
         }

@@ -1,10 +1,9 @@
 package com.nurby.tinkerslegacy.client.model.tool;
 
 import com.mojang.math.Transformation;
-import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
-import com.nurby.tinkerslegacy.library.tool.ToolRangedActions;
-import com.nurby.tinkerslegacy.tools.RangedToolDefinition;
-
+import com.nurby.tinkerslegacy.api.tool.ToolRangedActions;
+import com.nurby.tinkerslegacy.content.item.dynamic.DynamicTool;
+import com.nurby.tinkerslegacy.content.tools.RangedToolDefinition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -25,7 +24,6 @@ import net.neoforged.neoforge.client.model.CompositeModel;
 import net.neoforged.neoforge.client.model.IQuadTransformer;
 import net.neoforged.neoforge.client.model.QuadTransformers;
 import net.neoforged.neoforge.client.model.data.ModelData;
-
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
 package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
-import com.nurby.tinkerslegacy.library.material.stat.PartStatDefinition;
-import com.nurby.tinkerslegacy.library.part.PartDefinition;
-import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
-import net.minecraft.core.Holder;
+import com.nurby.tinkerslegacy.api.material.MaterialDefinition;
+import com.nurby.tinkerslegacy.api.material.stat.PartStatDefinition;
+import com.nurby.tinkerslegacy.api.part.PartDefinition;
+import com.nurby.tinkerslegacy.api.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.api.trait.TraitDefinition;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -59,4 +59,8 @@ public class TLRegistries {
     public static final Registry<ToolDefinition> TOOLS = new RegistryBuilder<>(TOOL_KEY)
             .sync(true)
             .create();
+
+    public static final ResourceKey<Registry<TraitDefinition>> TRAIT_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "trait"));
+
+    public static final Registry<TraitDefinition> TRAITS = new RegistryBuilder<>(TRAIT_KEY).sync(true).create();
 }

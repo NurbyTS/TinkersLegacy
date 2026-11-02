@@ -1,41 +1,43 @@
 package com.nurby.tinkerslegacy.client;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
-import com.nurby.tinkerslegacy.client.screen.StationScreen;
+import com.nurby.tinkerslegacy.client.datagen.TLBlockLootProvider;
+import com.nurby.tinkerslegacy.client.datagen.TLBlockStateProvider;
+import com.nurby.tinkerslegacy.client.datagen.TLBlockTagsProvider;
+import com.nurby.tinkerslegacy.client.datagen.recipe.TLRecipeProvider;
+import com.nurby.tinkerslegacy.client.datagen.texture.MaterialTextureProvider;
+import com.nurby.tinkerslegacy.client.datagen.texture.PatternTextureProvider;
+import com.nurby.tinkerslegacy.client.datagen.texture.ToolModifierTextureProvider;
+import com.nurby.tinkerslegacy.client.model.StationModel;
+import com.nurby.tinkerslegacy.client.model.TLItemModelProvider;
+import com.nurby.tinkerslegacy.client.model.part.DynamicMaterialPartGeometry;
+import com.nurby.tinkerslegacy.client.model.tool.DynamicToolGeometry;
+import com.nurby.tinkerslegacy.client.renderer.StationRenderer;
 import com.nurby.tinkerslegacy.client.renderer.TLToolProjectileRenderer;
 import com.nurby.tinkerslegacy.client.renderer.TraitBlueSlimeRenderer;
-import com.nurby.tinkerslegacy.registry.TLToolEntities;
 import com.nurby.tinkerslegacy.client.screen.CraftingStationScreen;
-import com.nurby.tinkerslegacy.registry.TLStationMenus;
-import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
-import com.nurby.tinkerslegacy.block.SlimyLeavesBlock;
-import com.nurby.tinkerslegacy.block.SlimyVineBlock;
+import com.nurby.tinkerslegacy.client.screen.StationScreen;
+import com.nurby.tinkerslegacy.content.block.SlimyGrassBlock;
+import com.nurby.tinkerslegacy.content.block.SlimyLeavesBlock;
+import com.nurby.tinkerslegacy.content.block.SlimyVineBlock;
+import com.nurby.tinkerslegacy.content.block.StationBlock;
+import com.nurby.tinkerslegacy.registry.TLBlockEntities;
 import com.nurby.tinkerslegacy.registry.TLBlocks;
-import com.nurby.tinkerslegacy.client.model.TLItemModelProvider;
-import com.nurby.tinkerslegacy.client.model.part.DynamicMaterialPartModelLoader;
-import com.nurby.tinkerslegacy.client.datagen.MaterialTextureProvider;
-import com.nurby.tinkerslegacy.client.datagen.ToolModifierTextureProvider;
-import com.nurby.tinkerslegacy.client.datagen.PatternTextureProvider;
-import com.nurby.tinkerslegacy.client.model.tool.DynamicToolModelLoader;
-import com.nurby.tinkerslegacy.client.datagen.TLBlockStateProvider;
-import com.nurby.tinkerslegacy.datagen.TLBlockLootProvider;
-import com.nurby.tinkerslegacy.datagen.TLRecipeProvider;
-import com.nurby.tinkerslegacy.client.datagen.TLBlockTagsProvider;
-
+import com.nurby.tinkerslegacy.registry.TLStationMenus;
+import com.nurby.tinkerslegacy.registry.tools.TLToolEntities;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
@@ -48,16 +50,14 @@ public final class ClientEvents {
                 event.registerEntityRenderer(TLToolEntities.PROJECTILE.get(),
                                 TLToolProjectileRenderer::new);
                 event.registerEntityRenderer(TLToolEntities.BLUE_SLIME.get(), TraitBlueSlimeRenderer::new);
-                event.registerBlockEntityRenderer(com.nurby.tinkerslegacy.registry.TLBlockEntities.STATION.get(),
-                                com.nurby.tinkerslegacy.client.renderer.StationRenderer::new);
+            event.registerBlockEntityRenderer(TLBlockEntities.STATION.get(), StationRenderer::new);
         }
 
         @SubscribeEvent
         public static void stationModels(ModelEvent.ModifyBakingResult event) {
                 event.getModels().replaceAll((id, model) -> {
-                        var block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(id.id());
-                        return block instanceof com.nurby.tinkerslegacy.block.StationBlock station
-                                        ? new com.nurby.tinkerslegacy.client.model.StationModel(model, station.definitionId(), null) : model;
+                    var block = BuiltInRegistries.BLOCK.get(id.id());
+                    return block instanceof StationBlock station ? new StationModel(model, station.definitionId(), null) : model;
                 });
         }
 
@@ -138,16 +138,8 @@ public final class ClientEvents {
 
         @SubscribeEvent
         public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
-                event.register(
-                                ResourceLocation.fromNamespaceAndPath(
-                                                TinkersLegacy.MODID,
-                                                "dynamic_material_part"),
-                                DynamicMaterialPartModelLoader.INSTANCE);
+                event.register(DynamicMaterialPartGeometry.Loader.ID, DynamicMaterialPartGeometry.Loader.INSTANCE);
 
-                event.register(
-                                ResourceLocation.fromNamespaceAndPath(
-                                                TinkersLegacy.MODID,
-                                                "dynamic_tool"),
-                                DynamicToolModelLoader.INSTANCE);
+                event.register(DynamicToolGeometry.Loader.ID, DynamicToolGeometry.Loader.INSTANCE);
         }
 }
