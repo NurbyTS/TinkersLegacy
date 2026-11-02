@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tinkerslegacy:knightslime_ingot",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "tag": "c:dyes/purple"
+    },
+    {
+      "tag": "c:ingots/iron"
+    },
+    {
+      "tag": "c:stones"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:knightslime_ingot"
+  }
+}

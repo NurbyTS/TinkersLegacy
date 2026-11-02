@@ -3,9 +3,12 @@ package com.nurby.tinkerslegacy.registry;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
+import com.nurby.tinkerslegacy.item.PatternItem;
+import com.nurby.tinkerslegacy.library.station.StationRecipes;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
 import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
+import com.nurby.tinkerslegacy.library.tool.ToolAssembly;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -22,7 +25,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.function.Consumer;
 
 public final class TLCreativeTabs {
 
@@ -45,13 +47,13 @@ public final class TLCreativeTabs {
         private static void registerTab(
                         String name,
                         Supplier<ItemStack> icon,
-                        Consumer<CreativeModeTab.Output> contents) {
+                        CreativeModeTab.DisplayItemsGenerator contents) {
                 CREATIVE_TABS.register(name, () -> {
                         CreativeModeTab.Builder builder = CreativeModeTab.builder()
                                         .title(Component.translatable(
                                                         "itemGroup.tinkerslegacy." + name))
                                         .icon(icon)
-                                        .displayItems((parameters, output) -> contents.accept(output));
+                                        .displayItems(contents);
 
                         int index = TAB_ORDER.indexOf(name);
 
@@ -73,11 +75,13 @@ public final class TLCreativeTabs {
                                         All::populate);
                 }
 
-                private static void populate(CreativeModeTab.Output output) {
-                        Items.populate(output);
-                        Blocks.populate(output);
-                        Parts.populate(output);
-                        Tools.populate(output);
+                private static void populate(
+                                CreativeModeTab.ItemDisplayParameters parameters,
+                                CreativeModeTab.Output output) {
+                        Items.populate(parameters, output);
+                        Blocks.populate(parameters, output);
+                        Parts.populate(parameters, output);
+                        Tools.populate(parameters, output);
                 }
         }
 
@@ -89,12 +93,22 @@ public final class TLCreativeTabs {
                                         Items::populate);
                 }
 
-                private static void populate(CreativeModeTab.Output output) {
+                private static void populate(
+                                CreativeModeTab.ItemDisplayParameters parameters,
+                                CreativeModeTab.Output output) {
                         for (Item item : TLItems.registeredItems()) {
                                 if (!(item instanceof BlockItem)
-                                                && !(item instanceof DynamicPart)
+                                                && !TLItems.Parts.isPart(item)
                                                 && !(item instanceof DynamicTool)) {
-                                        output.accept(item);
+                                        if (item instanceof PatternItem) {
+                                                for (var shape : StationRecipes.shapes()) {
+                                                        ItemStack pattern = new ItemStack(item);
+                                                        pattern.set(TLDataComponents.PART, shape);
+                                                        output.accept(pattern);
+                                                }
+                                        } else {
+                                                output.accept(item);
+                                        }
                                 }
                         }
                 }
@@ -108,7 +122,9 @@ public final class TLCreativeTabs {
                                         Blocks::populate);
                 }
 
-                private static void populate(CreativeModeTab.Output output) {
+                private static void populate(
+                                CreativeModeTab.ItemDisplayParameters parameters,
+                                CreativeModeTab.Output output) {
                         for (Item item : TLItems.registeredItems()) {
                                 if (item instanceof BlockItem) {
                                         output.accept(item);
@@ -139,9 +155,11 @@ public final class TLCreativeTabs {
                 }
 
                 private static void populate(
+                                CreativeModeTab.ItemDisplayParameters parameters,
                                 CreativeModeTab.Output output) {
                         addRegularParts(output);
                         addBolts(output);
+                        TLItems.Parts.MATERIAL_SHARD.get().variants().forEach(output::accept);
                 }
 
                 private static void addRegularParts(
@@ -166,7 +184,7 @@ public final class TLCreativeTabs {
 
                                         MaterialDefinition material = materialEntry.getValue();
 
-                                        if (!material.parts().contains(part.id())) {
+                                        if (!material.available() || !material.parts().contains(part.id())) {
                                                 continue;
                                         }
 
@@ -203,7 +221,7 @@ public final class TLCreativeTabs {
 
                                 MaterialDefinition material = entry.getValue();
 
-                                if (!material.stats().containsKey(
+                                if (!material.available() || !material.stats().containsKey(
                                                 ToolStatTypes.ARROW_SHAFT.getId())) {
                                         continue;
                                 }
@@ -234,21 +252,18 @@ public final class TLCreativeTabs {
                 }
 
                 private static ItemStack createIcon() {
-                        ToolDefinition definition = TLTools.PICKAXE.get();
-                        DynamicTool tool = TLItems.Tools.PICKAXE.get();
-                        ItemStack stack = new ItemStack(tool);
-                        stack.set(
-                                        TLDataComponents.MATERIALS,
+                        ToolDefinition definition = TLTools.tool(TLTools.Type.PICKAXE);
+                        return ToolAssembly.create(
+                                        definition,
                                         definition.parts().stream()
                                                         .map(part -> new MaterialLayer(
                                                                         part.statType(),
                                                                         TLMaterials.IRON.get().id()))
                                                         .toList());
-                        tool.calculateStats(stack);
-                        return stack;
                 }
 
                 private static void populate(
+                                CreativeModeTab.ItemDisplayParameters parameters,
                                 CreativeModeTab.Output output) {
                         for (Map.Entry<ResourceKey<ToolDefinition>, ToolDefinition> entry : TLRegistries.TOOLS
                                         .entrySet()) {
@@ -264,32 +279,17 @@ public final class TLCreativeTabs {
 
                                         MaterialDefinition material = materialEntry.getValue();
 
-                                        if (!definition.supports(material)) {
+                                        if (!material.available()) {
                                                 continue;
                                         }
 
-                                        DynamicTool tool = TLItems.Tools.get(definition);
+                                        List<MaterialLayer> layers = definition.defaultMaterials(material);
 
-                                        if (tool == null) {
-                                                continue;
+                                        ItemStack stack = ToolAssembly.create(definition, layers, parameters.holders());
+
+                                        if (!stack.isEmpty()) {
+                                                output.accept(stack);
                                         }
-
-                                        ItemStack stack = new ItemStack(tool);
-
-                                        List<MaterialLayer> layers = definition.parts()
-                                                        .stream()
-                                                        .map(part -> new MaterialLayer(
-                                                                        part.statType(),
-                                                                        material.id()))
-                                                        .toList();
-
-                                        stack.set(
-                                                        TLDataComponents.MATERIALS,
-                                                        layers);
-
-                                        tool.calculateStats(stack);
-
-                                        output.accept(stack);
                                 }
                         }
                 }

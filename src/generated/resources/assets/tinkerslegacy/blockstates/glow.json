@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "tinkerslegacy:block/glow",
+      "x": 270
+    },
+    "facing=east": {
+      "model": "tinkerslegacy:block/glow",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "tinkerslegacy:block/glow",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "tinkerslegacy:block/glow"
+    },
+    "facing=up": {
+      "model": "tinkerslegacy:block/glow",
+      "x": 90
+    },
+    "facing=west": {
+      "model": "tinkerslegacy:block/glow",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "tinkerslegacy:station",
+  "appearance": {
+    "item": "tinkerslegacy:storage_block_pigiron"
+  },
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tinkerslegacy:seared_bricks"
+    },
+    "M": {
+      "item": "tinkerslegacy:storage_block_pigiron"
+    },
+    "T": {
+      "item": "tinkerslegacy:tool_station"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "MTM",
+    "M M"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:tool_forge"
+  }
+}

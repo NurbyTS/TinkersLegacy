@@ -13,27 +13,34 @@ import net.neoforged.fml.ModContainer;
 
 @Mod(TinkersLegacy.MODID)
 public class TinkersLegacy {
-    public static final String MODID = "tinkerslegacy";
-    public static final Logger LOGGER = LogUtils.getLogger();
+        public static final String MODID = "tinkerslegacy";
+        public static final Logger LOGGER = LogUtils.getLogger();
 
-    public TinkersLegacy(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, TLConfig.SPEC);
+        public TinkersLegacy(IEventBus modEventBus, ModContainer modContainer) {
+                modContainer.registerConfig(ModConfig.Type.COMMON, TLConfig.SPEC);
 
-        // TODO: Make these load conditionally
-        TLStatTypes.register(modEventBus);
-        ToolStatTypes.register(modEventBus);
-        ArmoryStatTypes.register(modEventBus);
+                // TODO: Make these load conditionally
+                TLStatTypes.register(modEventBus);
+                ToolStatTypes.register(modEventBus);
+                ArmoryStatTypes.register(modEventBus);
 
-        TLMaterials.register(modEventBus);
-        ToolParts.register(modEventBus);
-        // TODO: ArmorParts.register(modEventBus);
+                TLMaterials.register(modEventBus);
+                ToolParts.register(modEventBus);
+                // TODO: ArmorParts.register(modEventBus);
 
-        TLTools.register(modEventBus);
+                TLTools.register(modEventBus);
 
-        TLDataComponents.register(modEventBus);
-        TLBlocks.register(modEventBus);
-        TLItems.register(modEventBus);
+                TLDataComponents.register(modEventBus);
+                TLAttachments.register(modEventBus);
+                TLBlocks.register(modEventBus);
+                TLItems.register(modEventBus);
+                TLBlockEntities.register(modEventBus);
+                TLStationMenus.register(modEventBus);
+                TLRecipeSerializers.register(modEventBus);
+                TLToolEntities.register(modEventBus);
+                com.nurby.tinkerslegacy.registry.TLSounds.register(modEventBus);
+                com.nurby.tinkerslegacy.library.tool.traits.ToolTraitEffects.register(modEventBus);
 
-        TLCreativeTabs.register(modEventBus);
-    }
+                TLCreativeTabs.register(modEventBus);
+        }
 }

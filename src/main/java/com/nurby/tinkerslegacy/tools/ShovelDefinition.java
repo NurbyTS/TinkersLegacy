@@ -73,7 +73,7 @@ public class ShovelDefinition extends ToolDefinition {
     public InteractionResult useOn(
             UseOnContext context
     ) {
-        return Items.DIAMOND_SHOVEL.useOn(context);
+        return com.nurby.tinkerslegacy.library.tool.ToolAreaActions.flatten(context);
     }
 
     @Override

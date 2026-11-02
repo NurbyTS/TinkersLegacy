@@ -1,0 +1,148 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine"
+      },
+      "when": {
+        "north": "true",
+        "stage": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "stage": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine",
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "stage": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine",
+        "y": 270
+      },
+      "when": {
+        "stage": "0",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_up"
+      },
+      "when": {
+        "stage": "0",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_mid"
+      },
+      "when": {
+        "north": "true",
+        "stage": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_mid",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "stage": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_mid",
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "stage": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_mid",
+        "y": 270
+      },
+      "when": {
+        "stage": "1",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_mid_up"
+      },
+      "when": {
+        "stage": "1",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_end"
+      },
+      "when": {
+        "north": "true",
+        "stage": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_end",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "stage": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_end",
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "stage": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_end",
+        "y": 270
+      },
+      "when": {
+        "stage": "2",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "tinkerslegacy:block/purple_slime_vine_end_up"
+      },
+      "when": {
+        "stage": "2",
+        "up": "true"
+      }
+    }
+  ]
+}

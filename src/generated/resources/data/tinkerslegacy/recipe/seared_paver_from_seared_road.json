@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "tinkerslegacy:seared_blocks",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:seared_road"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:seared_paver"
+  }
+}

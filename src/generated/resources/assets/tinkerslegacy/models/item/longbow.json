@@ -1,0 +1,11 @@
+{
+  "parent": "tinkerslegacy:item/longbow_base",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/longbow/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/longbow/layer2",
+    "layer2": "tinkerslegacy:item/tool_templates/longbow/layer4",
+    "layer3": "tinkerslegacy:item/tool_templates/longbow/layer5"
+  },
+  "tool": "tinkerslegacy:longbow"
+}

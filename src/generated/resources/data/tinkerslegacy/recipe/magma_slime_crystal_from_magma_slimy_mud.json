@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.75,
+  "ingredient": {
+    "item": "tinkerslegacy:magma_slimy_mud"
+  },
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:magma_slime_crystal"
+  }
+}

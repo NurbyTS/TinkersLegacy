@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:broad_axe_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/broad_axe_head"
+    "layer0": "tinkerslegacy:item/part_templates/broad_axe_head"
+  },
+  "transform": {
+    "translation": [
+      -0.1875,
+      -0.25,
+      0.0
+    ]
   }
 }

@@ -5,6 +5,11 @@ import com.nurby.tinkerslegacy.block.CongealedSlimeBlock;
 import com.nurby.tinkerslegacy.block.ColoredSlimeBlock;
 import com.nurby.tinkerslegacy.block.SlimyGrassBlock;
 import com.nurby.tinkerslegacy.block.SlimyFoliage;
+import com.nurby.tinkerslegacy.block.StationBlock;
+import com.nurby.tinkerslegacy.block.SlimyLeavesBlock;
+import com.nurby.tinkerslegacy.block.SlimyVineBlock;
+import com.nurby.tinkerslegacy.block.TreatedSoilBlock;
+import com.nurby.tinkerslegacy.block.SlimyMudBlock;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -63,7 +68,16 @@ public final class TLBlocks {
 
         public static final class IntermediaryBlocks {
                 public enum Type {
-                        GROUT(() -> new Block(groutProperties()));
+                        GROUT(() -> new Block(groutProperties())),
+                        GREEN_SLIMY_MUD(() -> new SlimyMudBlock(groutProperties().mapColor(MapColor.COLOR_GREEN))),
+                        BLUE_SLIMY_MUD(() -> new SlimyMudBlock(groutProperties().mapColor(MapColor.COLOR_CYAN))),
+                        MAGMA_SLIMY_MUD(() -> new Block(groutProperties().mapColor(MapColor.COLOR_ORANGE))),
+                        GRAVEYARD_SOIL(() -> new TreatedSoilBlock(groutProperties(), false)),
+                        CONSECRATED_SOIL(() -> new TreatedSoilBlock(groutProperties(), true)),
+                        LAVAWOOD(() -> new Block(firewoodProperties())),
+                        FIREWOOD(() -> new Block(firewoodProperties())),
+                        GLOW(() -> new com.nurby.tinkerslegacy.block.GlowBlock(BlockBehaviour.Properties.of()
+                                        .noCollission().noOcclusion().instabreak().replaceable().lightLevel(state -> 14)));
 
                         private final Supplier<? extends Block> factory;
 
@@ -89,6 +103,11 @@ public final class TLBlocks {
                                         .strength(3.0F, 3.0F)
                                         .sound(SoundType.SAND)
                                         .friction(0.8F);
+                }
+
+                private static BlockBehaviour.Properties firewoodProperties() {
+                        return BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.0F, 7.0F)
+                                        .sound(SoundType.WOOD).lightLevel(state -> 7);
                 }
 
                 private static void register() {
@@ -338,12 +357,84 @@ public final class TLBlocks {
                 }
         }
 
+        public static final class SlimyPlants {
+                public enum Type {
+                        BLUE_LEAVES("blue_slime_leaves", 0x2AEC81, false),
+                        ORANGE_LEAVES("orange_slime_leaves", 0xD09800, false),
+                        PURPLE_LEAVES("purple_slime_leaves", 0xA92DFF, false),
+                        BLUE_VINE("blue_slime_vine", 0x2AEC81, true),
+                        PURPLE_VINE("purple_slime_vine", 0xA92DFF, true);
+
+                        private final String name;
+                        private final int color;
+                        private final boolean vine;
+
+                        Type(String name, int color, boolean vine) {
+                                this.name = name;
+                                this.color = color;
+                                this.vine = vine;
+                        }
+                }
+
+                private static final Map<Type, DeferredHolder<Block, Block>> VARIANTS = registerVariants(
+                                Type.values(), type -> type.name,
+                                type -> type.vine
+                                                ? new SlimyVineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE), type.color)
+                                                : new SlimyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+                                                                .strength(0.3F), type.color));
+
+                public static final List<DeferredHolder<Block, Block>> ALL = List.copyOf(VARIANTS.values());
+
+                public static DeferredHolder<Block, Block> get(Type type) {
+                        return VARIANTS.get(type);
+                }
+
+                private static void register() {
+                }
+        }
+
+        public static final class Workstations {
+                public enum Type {
+                        CRAFTING_STATION,
+                        STENCIL_TABLE,
+                        PART_BUILDER,
+                        TOOL_STATION,
+                        TOOL_FORGE
+                }
+
+                private static final Map<Type, DeferredHolder<Block, Block>> VARIANTS = registerVariants(
+                                Type.values(),
+                                TLBlocks::variantName,
+                                type -> new StationBlock(
+                                                ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, variantName(type)),
+                                                properties(type)));
+
+                public static final List<DeferredHolder<Block, Block>> ALL = List.copyOf(VARIANTS.values());
+
+                public static DeferredHolder<Block, Block> get(Type type) {
+                        return VARIANTS.get(type);
+                }
+
+                private static BlockBehaviour.Properties properties(Type type) {
+                        return type == Type.TOOL_FORGE
+                                        ? BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
+                                                        .strength(2.0F, 10.0F).sound(SoundType.METAL)
+                                                        .requiresCorrectToolForDrops().noOcclusion()
+                                        : BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE).noOcclusion();
+                }
+
+                private static void register() {
+                }
+        }
+
         public static void register(IEventBus modBus) {
                 OreBlocks.register();
                 IntermediaryBlocks.register();
                 StorageBlocks.register();
                 SearedBlocks.register();
                 SlimyBlocks.register();
+                SlimyPlants.register();
+                Workstations.register();
                 BLOCKS.register(modBus);
         }
 
@@ -380,6 +471,22 @@ public final class TLBlocks {
         }
 
         // Getters
+        public static DeferredHolder<Block, Block> get(SlimyPlants.Type type) {
+                return SlimyPlants.get(type);
+        }
+
+        public static Block block(SlimyPlants.Type type) {
+                return get(type).get();
+        }
+
+        public static DeferredHolder<Block, Block> get(Workstations.Type type) {
+                return Workstations.get(type);
+        }
+
+        public static Block block(Workstations.Type type) {
+                return get(type).get();
+        }
+
         public static DeferredHolder<Block, Block> get(String name) {
                 return get(ResourceLocation.fromNamespaceAndPath(
                                 TinkersLegacy.MODID,

@@ -4,6 +4,8 @@ import com.nurby.tinkerslegacy.TLConfig;
 import com.nurby.tinkerslegacy.library.material.MaterialDefinition;
 import com.nurby.tinkerslegacy.library.material.layer.MaterialLayer;
 import com.nurby.tinkerslegacy.library.material.stat.MaterialStat;
+import com.nurby.tinkerslegacy.library.station.StationOperations;
+import com.nurby.tinkerslegacy.library.station.StationRequirement;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import com.nurby.tinkerslegacy.registry.ToolStatTypes;
 import net.minecraft.core.BlockPos;
@@ -30,459 +32,496 @@ import java.util.Map;
 
 public abstract class ToolDefinition {
 
-    private final ResourceLocation id;
-    private final List<ToolPart> parts;
+        private final ResourceLocation id;
+        private final List<ToolPart> parts;
+        private final List<ToolPartRequirement> partRequirements;
 
-    protected ToolDefinition(
-            ResourceLocation id,
-            List<ToolPart> parts
-    ) {
-        this.id = id;
-        this.parts = List.copyOf(parts);
-    }
-
-    public ResourceLocation id() {
-        return id;
-    }
-
-    public List<ToolPart> parts() {
-        return parts;
-    }
-
-    public float damagePotential() {
-        return 1.0F;
-    }
-
-    public float baseDamage() {
-        return 1.0F;
-    }
-
-    public float damageCutoff() {
-        return 15.0F;
-    }
-
-    public float attackSpeed() {
-        return 1.0F;
-    }
-
-    public float miningSpeedModifier() {
-        return 1.0F;
-    }
-
-    public float durabilityModifier() {
-        return 1.0f;
-    }
-
-    // Used primarily for descriptions, since weapons should not display
-    // stats such as mining speed and mining level.
-    public boolean isTool() {
-        return true;
-    }
-
-    public final Map<String, Number> calculateStats(
-            List<MaterialLayer> layers
-    ) {
-        Map<String, Number> stats = new HashMap<>();
-
-        stats.put(
-                "attack_damage",
-                calculateAttackDamage(layers)
-        );
-
-        stats.put(
-                "attack_speed",
-                attackSpeed()
-        );
-
-        stats.put(
-                "durability",
-                calculateDurability(layers)
-        );
-
-        stats.put(
-                "mining_speed",
-                calculateMiningSpeed(layers)
-        );
-
-        int harvestLevel = calculateHarvestLevel(layers);
-
-        if (harvestLevel != -1) {
-            stats.put(
-                    "harvest_level",
-                    harvestLevel
-            );
+        protected ToolDefinition(
+                        ResourceLocation id,
+                        List<ToolPart> parts
+        ) {
+                this.id = id;
+                this.parts = List.copyOf(parts);
+                this.partRequirements = this.parts.stream()
+                                .map(part -> new ToolPartRequirement(part.part(), List.of(part.statType())))
+                                .toList();
         }
 
-        stats.put(
-                "free_modifiers",
-                TLConfig.NEW_TOOL_MIN_MODIFIERS.getAsInt()
-        );
+        protected ToolDefinition(
+                        ResourceLocation id,
+                        ToolPartRequirement... requirements) {
+                this.id = id;
+                this.partRequirements = List.of(requirements);
+                this.parts = this.partRequirements.stream()
+                                .flatMap(requirement -> requirement.statTypes().stream()
+                                                .map(statType -> new ToolPart(requirement.part(), statType)))
+                                .toList();
+        }
 
-        calculateSpecialStats(layers, stats);
+        // Getters
+        public List<ToolPartRequirement> partRequirements() {
+                return partRequirements;
+        }
 
-        return Map.copyOf(stats);
-    }
+        public List<Integer> repairParts() {
+                List<Integer> indices = new ArrayList<>();
+                for (int index = 0; index < parts.size(); index++) {
+                        if (parts.get(index).statType().equals(ToolStatTypes.HEAD.getId())) {
+                                indices.add(index);
+                        }
+                }
+                return List.copyOf(indices);
+        }
 
-    protected double calculateAttackDamage(
-            List<MaterialLayer> layers
-    ) {
-        return getStatAverage(
-                layers,
-                ToolStatTypes.HEAD.getId(),
-                "attack_damage"
-        );
-    }
+        public float repairModifierForPart(int index) {
+                return 1.0F;
+        }
 
-    protected double calculateDurability(
-            List<MaterialLayer> layers
-    ) {
-        double durability =
-                getStatSum(
-                        layers,
-                        ToolStatTypes.HEAD.getId(),
-                        "durability"
+        public List<MaterialLayer> defaultMaterials(MaterialDefinition material) {
+                return parts.stream().map(part -> new MaterialLayer(part.statType(), material.id())).toList();
+        }
+
+        public List<Integer> renderLayers() {
+                List<Integer> result = new ArrayList<>();
+                int layer = 0;
+                for (ToolPartRequirement part : partRequirements) {
+                        result.add(layer);
+                        layer += part.statTypes().size();
+                }
+                return List.copyOf(result);
+        }
+
+        public boolean acceptsMaterials(List<MaterialLayer> materials) {
+                return true;
+        }
+
+        public StationRequirement stationRequirement(ResourceLocation operation) {
+                return new StationRequirement(StationOperations.TOOL_FAMILY, 1);
+        }
+
+        public boolean isHarvestTool() {
+                return isTool();
+        }
+
+        public boolean isWeapon() {
+                return false;
+        }
+
+        public ResourceLocation id() {
+                return id;
+        }
+
+        public List<ToolPart> parts() {
+                return parts;
+        }
+
+        public float damagePotential() {
+                return 1.0F;
+        }
+
+        public float baseDamage() {
+                return 1.0F;
+        }
+
+        public float damageCutoff() {
+                return 15.0F;
+        }
+
+        public float attackSpeed() {
+                return 1.0F;
+        }
+
+        public float miningSpeedModifier() {
+                return 1.0F;
+        }
+
+        public float durabilityModifier() {
+                return 1.0f;
+        }
+
+        // Used primarily for descriptions, since weapons should not display
+        // stats such as mining speed and mining level.
+        public boolean isTool() {
+                return true;
+        }
+
+        public final Map<String, Number> calculateStats(
+                        List<MaterialLayer> layers
+        ) {
+                Map<String, Number> stats = new HashMap<>();
+
+                stats.put(
+                                "attack_damage",
+                                calculateAttackDamage(layers)
                 );
 
-        durability += getStatSum(
-                layers,
-                ToolStatTypes.EXTRA.getId(),
-                "durability"
-        );
-
-        List<MaterialStat> handles =
-                getStats(
-                        layers,
-                        ToolStatTypes.HANDLE.getId()
+                stats.put(
+                                "attack_speed",
+                                attackSpeed()
                 );
 
-        for (MaterialStat handle : handles) {
-            durability *= handle.statMap()
-                    .getFloat("modifier");
-        }
-
-        durability += getStatSum(
-                layers,
-                ToolStatTypes.HANDLE.getId(),
-                "durability"
-        );
-
-        return durability * durabilityModifier();
-    }
-
-    protected double calculateMiningSpeed(
-            List<MaterialLayer> layers
-    ) {
-        return getStatAverage(
-                layers,
-                ToolStatTypes.HEAD.getId(),
-                "mining_speed"
-        ) * miningSpeedModifier();
-    }
-
-    // This is intentionally overridable for tools such as the mattock.
-    protected int calculateHarvestLevel(
-            List<MaterialLayer> layers
-    ) {
-        return getStatMax(
-                layers,
-                ToolStatTypes.HEAD.getId(),
-                "harvest_level"
-        );
-    }
-
-    protected void calculateSpecialStats(
-            List<MaterialLayer> layers,
-            Map<String, Number> stats
-    ) {
-    }
-
-    protected double getStatSum(
-            List<MaterialLayer> layers,
-            ResourceLocation statType,
-            String field
-    ) {
-        return getStats(layers, statType).stream()
-                .mapToDouble(stat ->
-                        stat.statMap().getFloat(field)
-                )
-                .sum();
-    }
-
-    protected double getStatAverage(
-            List<MaterialLayer> layers,
-            ResourceLocation statType,
-            String field
-    ) {
-        return getStats(layers, statType).stream()
-                .mapToDouble(stat ->
-                        stat.statMap().getFloat(field)
-                )
-                .average()
-                .orElse(0.0D);
-    }
-
-    protected double getStatMin(
-            List<MaterialLayer> layers,
-            ResourceLocation statType,
-            String field
-    ) {
-        return getStats(layers, statType).stream()
-                .mapToDouble(stat ->
-                        stat.statMap().getFloat(field)
-                )
-                .min()
-                .orElse(0.0D);
-    }
-
-    protected double getStatMaxValue(
-            List<MaterialLayer> layers,
-            ResourceLocation statType,
-            String field
-    ) {
-        return getStats(layers, statType).stream()
-                .mapToDouble(stat ->
-                        stat.statMap().getFloat(field)
-                )
-                .max()
-                .orElse(0.0D);
-    }
-
-    protected int getStatMax(
-            List<MaterialLayer> layers,
-            ResourceLocation statType,
-            String field
-    ) {
-        List<MaterialStat> stats =
-                getStats(layers, statType);
-
-        if (stats.isEmpty()) {
-            return -1;
-        }
-
-        return stats.stream()
-                .mapToInt(stat ->
-                        stat.statMap().getInt(field)
-                )
-                .max()
-                .orElse(-1);
-    }
-
-    protected MaterialStat getPartStats(
-            List<MaterialLayer> layers,
-            ResourceLocation partId
-    ) {
-        int partIndex =
-                getPartIndex(
-                        layers,
-                        partId
+                stats.put(
+                                "durability",
+                                calculateDurability(layers)
                 );
 
-        MaterialLayer layer =
-                layers.get(partIndex);
+                stats.put(
+                                "mining_speed",
+                                calculateMiningSpeed(layers)
+                );
 
-        ToolPart part =
-                parts.get(partIndex);
+                int harvestLevel = calculateHarvestLevel(layers);
 
-        if (!layer.statType().equals(part.statType())) {
-            throw new IllegalArgumentException(
-                    "Material layer at index "
-                            + partIndex
-                            + " does not match tool part: "
-                            + partId
-            );
+                if (harvestLevel != -1) {
+                        stats.put(
+                                        "harvest_level",
+                                        harvestLevel
+                        );
+                }
+
+                stats.put(
+                                "free_modifiers",
+                                TLConfig.NEW_TOOL_MIN_MODIFIERS.getAsInt()
+                );
+
+                calculateSpecialStats(layers, stats);
+
+                return Map.copyOf(stats);
         }
 
-        MaterialDefinition material =
-                getMaterial(layer);
-
-        MaterialStat stat =
-                material.stats().get(part.statType());
-
-        if (stat == null) {
-            throw new IllegalArgumentException(
-                    "Material "
-                            + layer.material()
-                            + " has no stat for type: "
-                            + part.statType()
-            );
+        protected List<MaterialStat> headStats(List<MaterialLayer> layers) {
+                return getStats(layers, ToolStatTypes.HEAD.getId());
         }
 
-        return stat;
-    }
+        protected static double average(List<MaterialStat> stats, String name) {
+                return stats.stream().mapToDouble(stat -> stat.statMap().getFloat(name)).average().orElse(0);
+        }
 
-    private int getPartIndex(
-            List<MaterialLayer> layers,
-            ResourceLocation partId
-    ) {
-        for (int i = 0; i < parts.size(); i++) {
-            if (!parts.get(i).part().equals(partId)) {
-                continue;
-            }
+        protected double calculateAttackDamage(List<MaterialLayer> layers) {
+                return average(headStats(layers), "attack_damage");
+        }
 
-            if (i >= layers.size()) {
+        protected double calculateDurability(List<MaterialLayer> layers) {
+                List<MaterialStat> handles = getStats(layers, ToolStatTypes.HANDLE.getId());
+                List<MaterialStat> extras = getStats(layers, ToolStatTypes.EXTRA.getId());
+                int durability = Math.max(1, (int) average(headStats(layers), "durability"));
+                durability += Math.round((float) average(extras, "durability"));
+                if (!handles.isEmpty()) {
+                        durability = Math.round(durability * (float) average(handles, "modifier"));
+                        durability += Math.round((float) average(handles, "durability"));
+                }
+                return (int) (Math.max(1, durability) * durabilityModifier());
+        }
+
+        protected double calculateMiningSpeed(List<MaterialLayer> layers) {
+                // Modifiers operate on the material stat before the tool's mining multiplier.
+                return average(headStats(layers), "mining_speed");
+        }
+
+        // This is intentionally overridable for tools such as the mattock.
+        protected int calculateHarvestLevel(
+                        List<MaterialLayer> layers
+        ) {
+                return getStatMax(
+                                layers,
+                                ToolStatTypes.HEAD.getId(),
+                                "harvest_level"
+                );
+        }
+
+        protected void calculateSpecialStats(
+                        List<MaterialLayer> layers,
+                        Map<String, Number> stats
+        ) {
+        }
+
+        protected double getStatSum(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType,
+                        String field
+        ) {
+                return getStats(layers, statType).stream()
+                                .mapToDouble(stat ->
+                                                stat.statMap().getFloat(field)
+                                )
+                                .sum();
+        }
+
+        protected double getStatAverage(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType,
+                        String field
+        ) {
+                return getStats(layers, statType).stream()
+                                .mapToDouble(stat ->
+                                                stat.statMap().getFloat(field)
+                                )
+                                .average()
+                                .orElse(0.0D);
+        }
+
+        protected double getStatMin(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType,
+                        String field
+        ) {
+                return getStats(layers, statType).stream()
+                                .mapToDouble(stat ->
+                                                stat.statMap().getFloat(field)
+                                )
+                                .min()
+                                .orElse(0.0D);
+        }
+
+        protected double getStatMaxValue(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType,
+                        String field
+        ) {
+                return getStats(layers, statType).stream()
+                                .mapToDouble(stat ->
+                                                stat.statMap().getFloat(field)
+                                )
+                                .max()
+                                .orElse(0.0D);
+        }
+
+        protected int getStatMax(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType,
+                        String field
+        ) {
+                List<MaterialStat> stats =
+                                getStats(layers, statType);
+
+                if (stats.isEmpty()) {
+                        return -1;
+                }
+
+                return stats.stream()
+                                .mapToInt(stat ->
+                                                stat.statMap().getInt(field)
+                                )
+                                .max()
+                                .orElse(-1);
+        }
+
+        protected MaterialStat getPartStats(
+                        List<MaterialLayer> layers,
+                        ResourceLocation partId
+        ) {
+                int partIndex =
+                                getPartIndex(
+                                                layers,
+                                                partId
+                                );
+
+                MaterialLayer layer =
+                                layers.get(partIndex);
+
+                ToolPart part =
+                                parts.get(partIndex);
+
+                if (!layer.statType().equals(part.statType())) {
+                        throw new IllegalArgumentException(
+                                        "Material layer at index "
+                                                        + partIndex
+                                                        + " does not match tool part: "
+                                                        + partId
+                        );
+                }
+
+                MaterialDefinition material =
+                                getMaterial(layer);
+
+                MaterialStat stat =
+                                material.stats().get(part.statType());
+
+                if (stat == null) {
+                        throw new IllegalArgumentException(
+                                        "Material "
+                                                        + layer.material()
+                                                        + " has no stat for type: "
+                                                        + part.statType()
+                        );
+                }
+
+                return stat;
+        }
+
+        private int getPartIndex(
+                        List<MaterialLayer> layers,
+                        ResourceLocation partId
+        ) {
+                for (int i = 0; i < parts.size(); i++) {
+                        if (!parts.get(i).part().equals(partId)) {
+                                continue;
+                        }
+
+                        if (i >= layers.size()) {
+                                throw new IllegalArgumentException(
+                                                "Missing material layer for part: "
+                                                                + partId
+                                );
+                        }
+
+                        return i;
+                }
+
                 throw new IllegalArgumentException(
-                        "Missing material layer for part: "
-                                + partId
+                                "Unknown tool part: " + partId
                 );
-            }
-
-            return i;
         }
 
-        throw new IllegalArgumentException(
-                "Unknown tool part: " + partId
-        );
-    }
+        public List<MaterialStat> getStats(
+                        List<MaterialLayer> layers,
+                        ResourceLocation statType
+        ) {
+                List<MaterialStat> stats =
+                                new ArrayList<>();
 
-    public List<MaterialStat> getStats(
-            List<MaterialLayer> layers,
-            ResourceLocation statType
-    ) {
-        List<MaterialStat> stats =
-                new ArrayList<>();
+                for (MaterialLayer layer : layers) {
+                        if (!layer.statType().equals(statType)) {
+                                continue;
+                        }
 
-        for (MaterialLayer layer : layers) {
-            if (!layer.statType().equals(statType)) {
-                continue;
-            }
+                        MaterialDefinition material =
+                                        getMaterial(layer);
 
-            MaterialDefinition material =
-                    getMaterial(layer);
+                        MaterialStat stat =
+                                        material.stats().get(statType);
 
-            MaterialStat stat =
-                    material.stats().get(statType);
+                        if (stat == null) {
+                                throw new IllegalArgumentException(
+                                                "Material "
+                                                                + layer.material()
+                                                                + " has no stat for type: "
+                                                                + statType
+                                );
+                        }
 
-            if (stat == null) {
-                throw new IllegalArgumentException(
-                        "Material "
-                                + layer.material()
-                                + " has no stat for type: "
-                                + statType
+                        stats.add(stat);
+                }
+
+                return List.copyOf(stats);
+        }
+
+        private MaterialDefinition getMaterial(
+                        MaterialLayer layer
+        ) {
+                MaterialDefinition material =
+                                TLRegistries.MATERIALS.get(layer.material());
+
+                if (material == null) {
+                        throw new IllegalArgumentException(
+                                        "Unknown material: "
+                                                        + layer.material()
+                        );
+                }
+
+                return material;
+        }
+
+        public boolean supports(
+                        MaterialDefinition material
+        ) {
+                return parts.stream().allMatch(part ->
+                                material.stats().containsKey(part.statType())
                 );
-            }
-
-            stats.add(stat);
         }
 
-        return List.copyOf(stats);
-    }
+        public void addExtraToolRules(ItemStack stack, Map<String, Number> stats, List<Tool.Rule> rules, float miningSpeed) { }
 
-    private MaterialDefinition getMaterial(
-            MaterialLayer layer
-    ) {
-        MaterialDefinition material =
-                TLRegistries.MATERIALS.get(layer.material());
-
-        if (material == null) {
-            throw new IllegalArgumentException(
-                    "Unknown material: "
-                            + layer.material()
-            );
+        public InteractionResult useOn(
+                        UseOnContext context
+        ) {
+                return null;
         }
 
-        return material;
-    }
+        public boolean canPerformAction(
+                        ItemStack stack,
+                        ItemAbility itemAbility
+        ) {
+                return false;
+        }
 
-    public boolean supports(
-            MaterialDefinition material
-    ) {
-        return parts.stream().allMatch(part ->
-                material.stats().containsKey(part.statType())
-        );
-    }
+        public InteractionResultHolder<ItemStack> use(
+                        Level level,
+                        Player player,
+                        InteractionHand hand
+        ) {
+                return InteractionResultHolder.pass(
+                                player.getItemInHand(hand)
+                );
+        }
 
-    public void addExtraToolRules(ItemStack stack, Map<String, Number> stats, List<Tool.Rule> rules, float miningSpeed) { }
+        public void releaseUsing(
+                        ItemStack stack,
+                        Level level,
+                        LivingEntity entity,
+                        int timeCharged
+        ) {
+        }
 
-    public InteractionResult useOn(
-            UseOnContext context
-    ) {
-        return null;
-    }
+        public int getUseDuration(
+                        ItemStack stack,
+                        LivingEntity entity
+        ) {
+                return 0;
+        }
 
-    public boolean canPerformAction(
-            ItemStack stack,
-            ItemAbility itemAbility
-    ) {
-        return false;
-    }
+        public UseAnim getUseAnimation(
+                        ItemStack stack
+        ) {
+                return UseAnim.NONE;
+        }
 
-    public InteractionResultHolder<ItemStack> use(
-            Level level,
-            Player player,
-            InteractionHand hand
-    ) {
-        return InteractionResultHolder.pass(
-                player.getItemInHand(hand)
-        );
-    }
+        public boolean hurtEnemy(
+                        ItemStack stack,
+                        LivingEntity target,
+                        LivingEntity attacker
+        ) {
+                return true;
+        }
 
-    public void releaseUsing(
-            ItemStack stack,
-            Level level,
-            LivingEntity entity,
-            int timeCharged
-    ) {
-    }
+        public boolean canDisableShield(
+                        ItemStack stack,
+                        ItemStack shield,
+                        LivingEntity entity,
+                        LivingEntity attacker
+        ) {
+                return false;
+        }
 
-    public int getUseDuration(
-            ItemStack stack,
-            LivingEntity entity
-    ) {
-        return 0;
-    }
+        public float knockback() {
+                return 1.0F;
+        }
 
-    public UseAnim getUseAnimation(
-            ItemStack stack
-    ) {
-        return UseAnim.NONE;
-    }
+        public boolean damagesOnBlockBreak(
+                        ItemStack stack,
+                        Level level,
+                        BlockState state,
+                        BlockPos pos,
+                        LivingEntity entity
+        ) {
+                return true;
+        }
 
-    public boolean hurtEnemy(
-            ItemStack stack,
-            LivingEntity target,
-            LivingEntity attacker
-    ) {
-        return true;
-    }
+        public InteractionResult interactLivingEntity(
+                        ItemStack stack,
+                        Player player,
+                        LivingEntity target,
+                        InteractionHand hand
+        ) {
+                return InteractionResult.PASS;
+        }
 
-    public boolean canDisableShield(
-            ItemStack stack,
-            ItemStack shield,
-            LivingEntity entity,
-            LivingEntity attacker
-    ) {
-        return false;
-    }
-
-    public float knockback() {
-        return 1.0F;
-    }
-
-    public boolean damagesOnBlockBreak(
-            ItemStack stack,
-            Level level,
-            BlockState state,
-            BlockPos pos,
-            LivingEntity entity
-    ) {
-        return true;
-    }
-
-    public InteractionResult interactLivingEntity(
-            ItemStack stack,
-            Player player,
-            LivingEntity target,
-            InteractionHand hand
-    ) {
-        return InteractionResult.PASS;
-    }
-
-    public boolean dealDamage(
-            Player player,
-            Entity target,
-            DamageSource source,
-            float damage
-    ) {
-        return target.hurt(source, damage);
-    }
+        public boolean dealDamage(
+                        Player player,
+                        Entity target,
+                        DamageSource source,
+                        float damage
+        ) {
+                return target.hurt(source, damage);
+        }
 }

@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:bow_limb",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/bow_limb"
+    "layer0": "tinkerslegacy:item/part_templates/bow_limb"
+  },
+  "transform": {
+    "translation": [
+      0.25,
+      0.125,
+      0.0
+    ]
   }
 }

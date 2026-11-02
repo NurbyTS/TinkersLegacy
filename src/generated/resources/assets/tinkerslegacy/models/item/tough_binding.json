@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:tough_binding",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/tough_binding"
+    "layer0": "tinkerslegacy:item/part_templates/tough_binding"
   }
 }

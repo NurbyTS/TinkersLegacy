@@ -1,0 +1,6 @@
+{
+  "parent": "tinkerslegacy:block/slime/vine_up",
+  "textures": {
+    "vine": "tinkerslegacy:block/slime/slimevine"
+  }
+}

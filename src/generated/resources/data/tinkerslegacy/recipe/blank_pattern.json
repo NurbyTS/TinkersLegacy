@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "PS",
+    "SP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "tinkerslegacy:blank_pattern"
+  }
+}

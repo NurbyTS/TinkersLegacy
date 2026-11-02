@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:scythe_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/scythe_head"
+    "layer0": "tinkerslegacy:item/part_templates/scythe_head"
+  },
+  "transform": {
+    "translation": [
+      -0.125,
+      -0.3125,
+      0.0
+    ]
   }
 }

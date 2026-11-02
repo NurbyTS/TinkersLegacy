@@ -24,103 +24,104 @@ import net.neoforged.neoforge.client.model.geometry.StandaloneGeometryBakingCont
 import java.util.function.Function;
 
 public final class DynamicMaterialPartGeometry
-        implements IUnbakedGeometry<DynamicMaterialPartGeometry> {
+                implements IUnbakedGeometry<DynamicMaterialPartGeometry> {
 
-    private final ResourceLocation part;
-    private final BlockModel baseModel;
+        private final ResourceLocation part;
+        private final BlockModel baseModel;
 
-    public DynamicMaterialPartGeometry(
-            ResourceLocation part,
-            BlockModel baseModel
-    ) {
-        this.part = part;
-        this.baseModel = baseModel;
-    }
-
-    @Override
-    public BakedModel bake(
-            IGeometryBakingContext context,
-            ModelBaker baker,
-            Function<Material, TextureAtlasSprite> spriteGetter,
-            ModelState modelState,
-            ItemOverrides overrides
-    ) {
-        TextureAtlasSprite particleSprite = spriteGetter.apply(
-                new Material(
-                        InventoryMenu.BLOCK_ATLAS,
-                        MissingTextureAtlasSprite.getLocation()
-                )
-        );
-
-        StandaloneGeometryBakingContext itemContext =
-                StandaloneGeometryBakingContext.builder(context)
-                        .build(
-                                ResourceLocation.fromNamespaceAndPath(
-                                        TinkersLegacy.MODID,
-                                        "dynamic_material_part"
-                                )
-                        );
-
-        ItemOverrides dynamicOverrides =
-                new DynamicMaterialPartOverrideHandler(
-                        overrides,
-                        baker,
-                        itemContext,
-                        modelState,
-                        part,
-                        baseModel
-                );
-
-        return CompositeModel.Baked.builder(
-                itemContext,
-                particleSprite,
-                dynamicOverrides,
-                context.getTransforms()
-        ).build();
-    }
-
-    @Override
-    public void resolveParents(
-            Function<ResourceLocation, UnbakedModel> modelGetter,
-            IGeometryBakingContext context
-    ) {
-        baseModel.resolveParents(modelGetter);
-    }
-
-    public static final class Loader
-            implements IGeometryLoader<DynamicMaterialPartGeometry> {
-
-        public static final Loader INSTANCE = new Loader();
-
-        private Loader() {
+        public DynamicMaterialPartGeometry(
+                        ResourceLocation part,
+                        BlockModel baseModel
+        ) {
+                this.part = part;
+                this.baseModel = baseModel;
         }
 
         @Override
-        public DynamicMaterialPartGeometry read(
-                JsonObject jsonObject,
-                JsonDeserializationContext context
-        ) throws JsonParseException {
+        public BakedModel bake(
+                        IGeometryBakingContext context,
+                        ModelBaker baker,
+                        Function<Material, TextureAtlasSprite> spriteGetter,
+                        ModelState modelState,
+                        ItemOverrides overrides
+        ) {
+                TextureAtlasSprite particleSprite = spriteGetter.apply(
+                                new Material(
+                                                InventoryMenu.BLOCK_ATLAS,
+                                                MissingTextureAtlasSprite.getLocation()
+                                )
+                );
 
-            String partString = jsonObject
-                    .get("part")
-                    .getAsString();
+                StandaloneGeometryBakingContext itemContext =
+                                StandaloneGeometryBakingContext.builder(context)
+                                                .build(
+                                                                ResourceLocation.fromNamespaceAndPath(
+                                                                                TinkersLegacy.MODID,
+                                                                                "dynamic_material_part"
+                                                                )
+                                                );
 
-            ResourceLocation part =
-                    ResourceLocation.parse(partString);
+                // The retained base model applies its own root transform during bakeUncached.
+                ItemOverrides dynamicOverrides =
+                                new DynamicMaterialPartOverrideHandler(
+                                                overrides,
+                                                baker,
+                                                itemContext,
+                                                modelState,
+                                                part,
+                                                baseModel
+                                );
 
-            jsonObject.remove("loader");
-            jsonObject.remove("part");
-
-            BlockModel baseModel =
-                    context.deserialize(
-                            jsonObject,
-                            BlockModel.class
-                    );
-
-            return new DynamicMaterialPartGeometry(
-                    part,
-                    baseModel
-            );
+                return CompositeModel.Baked.builder(
+                                itemContext,
+                                particleSprite,
+                                dynamicOverrides,
+                                context.getTransforms()
+                ).build();
         }
-    }
+
+        @Override
+        public void resolveParents(
+                        Function<ResourceLocation, UnbakedModel> modelGetter,
+                        IGeometryBakingContext context
+        ) {
+                baseModel.resolveParents(modelGetter);
+        }
+
+        public static final class Loader
+                        implements IGeometryLoader<DynamicMaterialPartGeometry> {
+
+                public static final Loader INSTANCE = new Loader();
+
+                private Loader() {
+                }
+
+                @Override
+                public DynamicMaterialPartGeometry read(
+                                JsonObject jsonObject,
+                                JsonDeserializationContext context
+                ) throws JsonParseException {
+
+                        String partString = jsonObject
+                                        .get("part")
+                                        .getAsString();
+
+                        ResourceLocation part =
+                                        ResourceLocation.parse(partString);
+
+                        jsonObject.remove("loader");
+                        jsonObject.remove("part");
+
+                        BlockModel baseModel =
+                                        context.deserialize(
+                                                        jsonObject,
+                                                        BlockModel.class
+                                        );
+
+                        return new DynamicMaterialPartGeometry(
+                                        part,
+                                        baseModel
+                        );
+                }
+        }
 }

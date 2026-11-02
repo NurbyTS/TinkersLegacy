@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:large_sword_blade",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/large_sword_blade"
+    "layer0": "tinkerslegacy:item/part_templates/large_sword_blade"
+  },
+  "transform": {
+    "translation": [
+      -0.0625,
+      -0.0625,
+      0.0
+    ]
   }
 }

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:copy_components",
+      "include": [
+        "tinkerslegacy:station_base"
+      ],
+      "source": "block_entity"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tinkerslegacy:tool_forge"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "tinkerslegacy:blocks/tool_forge"
+}

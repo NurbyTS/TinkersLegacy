@@ -2,6 +2,8 @@ package com.nurby.tinkerslegacy.registry;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.item.TooltipItem;
+import com.nurby.tinkerslegacy.item.PatternItem;
+import com.nurby.tinkerslegacy.item.MaterialShardItem;
 import com.nurby.tinkerslegacy.item.TooltipBlockItem;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicPart;
 import com.nurby.tinkerslegacy.item.dynamic.DynamicTool;
@@ -12,6 +14,9 @@ import com.nurby.tinkerslegacy.registry.TLBlocks.SlimyBlocks.Soil;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +46,9 @@ public final class TLItems {
         public static final class Items {
                 public static final class IntermediaryItems {
                         public enum Type {
-                                SILKY_CLOTH;
+                                SILKY_CLOTH,
+                                BLANK_PATTERN,
+                                PATTERN(() -> new PatternItem(new Item.Properties()));
 
                                 private final Supplier<? extends Item> factory;
 
@@ -89,7 +96,12 @@ public final class TLItems {
 
                                 EXPANDER_HORIZONTAL(() -> new TooltipItem(
                                                 new Item.Properties(),
-                                                "tooltip.tinkerslegacy.expander_horizontal"));
+                                                "tooltip.tinkerslegacy.expander_horizontal")),
+
+                                REINFORCED_PLATE(() -> new Item(new Item.Properties())),
+                                NECROTIC_BONE(() -> new Item(new Item.Properties())),
+                                BACON(() -> new Item(new Item.Properties().food(new net.minecraft.world.food.FoodProperties.Builder()
+                                                .nutrition(4).saturationModifier(0.6F).build())));
 
                                 private final Supplier<? extends Item> factory;
 
@@ -300,16 +312,37 @@ public final class TLItems {
                 public static final class Slimeballs {
                         public enum Type {
                                 BLUE(() -> new TooltipItem(
-                                                new Item.Properties(),
+                                                new Item.Properties().food(new FoodProperties.Builder()
+                                                                .nutrition(1).saturationModifier(1.0F).alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 900, 2), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.JUMP, 1200, 2), 1.0F)
+                                                                .build()),
                                                 "tooltip.tinkerslegacy.blue_slimeball")),
 
                                 PURPLE(() -> new TooltipItem(
-                                                new Item.Properties(),
+                                                new Item.Properties().food(new FoodProperties.Builder()
+                                                                .nutrition(1).saturationModifier(2.0F).alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.UNLUCK, 900), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.LUCK, 1200), 1.0F)
+                                                                .build()),
                                                 "tooltip.tinkerslegacy.purple_slimeball")),
 
                                 MAGMA(() -> new TooltipItem(
-                                                new Item.Properties(),
-                                                "tooltip.tinkerslegacy.magma_slimeball"));
+                                                new Item.Properties().food(new FoodProperties.Builder()
+                                                                .nutrition(2).saturationModifier(1.0F).alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.WEAKNESS, 900), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.WITHER, 300), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200), 1.0F)
+                                                                .build()),
+                                                "tooltip.tinkerslegacy.magma_slimeball")),
+
+                                BLOOD(() -> new TooltipItem(
+                                                new Item.Properties().food(new FoodProperties.Builder()
+                                                                .nutrition(1).saturationModifier(1.5F).alwaysEdible()
+                                                                .effect(() -> new MobEffectInstance(MobEffects.POISON, 900, 2), 1.0F)
+                                                                .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 1200), 1.0F)
+                                                                .build()),
+                                                "tooltip.tinkerslegacy.blood_slimeball"));
 
                                 private final Supplier<? extends Item> factory;
 
@@ -364,6 +397,14 @@ public final class TLItems {
                                         .registerBlockItem(
                                                         TLBlocks.get(TLBlocks.IntermediaryBlocks.Type.GROUT),
                                                         "tooltip.tinkerslegacy.grout");
+
+                        static {
+                                for (var type : TLBlocks.IntermediaryBlocks.Type.values()) {
+                                        if (type != TLBlocks.IntermediaryBlocks.Type.GROUT && type != TLBlocks.IntermediaryBlocks.Type.GLOW) {
+                                                TLItems.Blocks.registerBlockItem(TLBlocks.get(type), "tooltip.tinkerslegacy." + variantName(type));
+                                        }
+                                }
+                        }
 
                         private static void register() {
                         }
@@ -460,12 +501,36 @@ public final class TLItems {
                         }
                 }
 
+                public static final class SlimyPlants {
+                        static {
+                                for (var block : TLBlocks.SlimyPlants.ALL) {
+                                        registerBlockItem(block);
+                                }
+                        }
+
+                        private static void register() {
+                        }
+                }
+
+                public static final class Workstations {
+                        static {
+                                for (var block : TLBlocks.Workstations.ALL) {
+                                        registerBlockItem(block);
+                                }
+                        }
+
+                        private static void register() {
+                        }
+                }
+
                 private static void register() {
                         OreBlocks.register();
                         IntermediaryBlocks.register();
                         StorageBlocks.register();
                         SearedBlocks.register();
                         SlimyBlocks.register();
+                        SlimyPlants.register();
+                        Workstations.register();
                 }
 
                 private static DeferredHolder<Item, BlockItem> registerBlockItem(
@@ -501,6 +566,10 @@ public final class TLItems {
         public static final class Parts {
                 private static final Map<ResourceLocation, DeferredHolder<Item, DynamicPart>> ITEMS = new LinkedHashMap<>();
 
+                public static final DeferredHolder<Item, MaterialShardItem> MATERIAL_SHARD = TLItems.add(
+                                "material_shard",
+                                () -> new MaterialShardItem(new Item.Properties()));
+
                 static {
                         for (var part : ToolParts.ALL) {
                                 register(part);
@@ -518,6 +587,11 @@ public final class TLItems {
 
                         ITEMS.put(definition.getId(), holder);
                         return holder;
+                }
+
+                // Getters
+                public static boolean isPart(Item item) {
+                        return item instanceof DynamicPart || item instanceof MaterialShardItem;
                 }
 
                 public static DeferredHolder<Item, DynamicPart> get(ToolParts.Type type) {
@@ -541,22 +615,13 @@ public final class TLItems {
         public static final class Tools {
                 private static final Map<ResourceLocation, DeferredHolder<Item, DynamicTool>> ITEMS = new LinkedHashMap<>();
 
-                public static final DeferredHolder<Item, DynamicTool> PICKAXE = register(TLTools.PICKAXE);
+                static {
+                        for (var tool : TLTools.ALL) {
+                                register(tool);
+                        }
+                }
 
-                public static final DeferredHolder<Item, DynamicTool> SHOVEL = register(TLTools.SHOVEL);
-
-                public static final DeferredHolder<Item, DynamicTool> HATCHET = register(TLTools.HATCHET);
-
-                public static final DeferredHolder<Item, DynamicTool> MATTOCK = register(TLTools.MATTOCK);
-
-                public static final DeferredHolder<Item, DynamicTool> KAMA = register(TLTools.KAMA);
-
-                public static final DeferredHolder<Item, DynamicTool> BROADSWORD = register(TLTools.BROADSWORD);
-
-                public static final DeferredHolder<Item, DynamicTool> LONGSWORD = register(TLTools.LONGSWORD);
-
-                public static final DeferredHolder<Item, DynamicTool> RAPIER = register(TLTools.RAPIER);
-
+                // Registration
                 private static void register() {
                 }
 
@@ -568,6 +633,15 @@ public final class TLItems {
 
                         ITEMS.put(definition.getId(), holder);
                         return holder;
+                }
+
+                // Getters
+                public static DeferredHolder<Item, DynamicTool> get(TLTools.Type type) {
+                        return get(TLTools.get(type).getId());
+                }
+
+                public static DynamicTool item(TLTools.Type type) {
+                        return get(type).get();
                 }
 
                 public static DeferredHolder<Item, DynamicTool> get(ResourceLocation id) {

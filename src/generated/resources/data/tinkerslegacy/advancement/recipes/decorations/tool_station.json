@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pattern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tinkerslegacy:blank_pattern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:tool_station"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pattern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:tool_station"
+    ]
+  }
+}

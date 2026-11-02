@@ -1,5 +1,10 @@
 {
   "values": [
+    "tinkerslegacy:consecrated_soil",
+    "tinkerslegacy:graveyard_soil",
+    "tinkerslegacy:green_slimy_mud",
+    "tinkerslegacy:blue_slimy_mud",
+    "tinkerslegacy:magma_slimy_mud",
     "#tinkerslegacy:slimy_ground",
     "tinkerslegacy:grout"
   ]

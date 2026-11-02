@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tinkerslegacy:congealed_slime_blocks",
+  "key": {
+    "#": {
+      "tag": "c:slime_balls/blue"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:blue_congealed_slime_block"
+  }
+}

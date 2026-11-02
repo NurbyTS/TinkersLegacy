@@ -3,60 +3,82 @@ package com.nurby.tinkerslegacy.registry;
 import com.nurby.tinkerslegacy.TinkersLegacy;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.tools.*;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+
 public final class TLTools {
+        public static final DeferredRegister<ToolDefinition> TOOLS = DeferredRegister.create(
+                        TLRegistries.TOOL_KEY,
+                        TinkersLegacy.MODID);
 
-    public static final DeferredRegister<ToolDefinition> TOOLS = DeferredRegister.create(
-            TLRegistries.TOOL_KEY,
-            TinkersLegacy.MODID
-    );
+        public enum Type {
+                PICKAXE("pickaxe", PickaxeDefinition::new),
+                SHOVEL("shovel", ShovelDefinition::new),
+                HATCHET("hatchet", HatchetDefinition::new),
+                MATTOCK("mattock", MattockDefinition::new),
+                KAMA("kama", KamaDefinition::new),
+                BROADSWORD("broadsword", BroadswordDefinition::new),
+                LONGSWORD("longsword", LongswordDefinition::new),
+                RAPIER("rapier", RapierDefinition::new),
+                FRYPAN("frypan", FrypanDefinition::new),
+                BATTLESIGN("battlesign", BattlesignDefinition::new),
+                HAMMER("hammer", HammerDefinition::new),
+                EXCAVATOR("excavator", ExcavatorDefinition::new),
+                LUMBERAXE("lumberaxe", LumberaxeDefinition::new),
+                SCYTHE("scythe", ScytheDefinition::new),
+                CLEAVER("cleaver", CleaverDefinition::new),
+                SHORTBOW("shortbow", ShortbowDefinition::new),
+                LONGBOW("longbow", LongbowDefinition::new),
+                CROSSBOW("crossbow", CrossbowDefinition::new),
+                ARROW("arrow", ArrowDefinition::new),
+                BOLT("bolt", BoltDefinition::new),
+                SHURIKEN("shuriken", ShurikenDefinition::new);
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> PICKAXE = TOOLS.register(
-            "pickaxe",
-            PickaxeDefinition::new
-    );
+                private final String name;
+                private final Supplier<? extends ToolDefinition> factory;
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> SHOVEL = TOOLS.register(
-            "shovel",
-            ShovelDefinition::new
-    );
+                Type(String name, Supplier<? extends ToolDefinition> factory) {
+                        this.name = name;
+                        this.factory = factory;
+                }
+        }
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> HATCHET = TOOLS.register(
-            "hatchet",
-            HatchetDefinition::new
-    );
+        private static final Map<Type, DeferredHolder<ToolDefinition, ToolDefinition>> VARIANTS = registerVariants();
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> MATTOCK = TOOLS.register(
-            "mattock",
-            MattockDefinition::new
-    );
+        public static final List<DeferredHolder<ToolDefinition, ToolDefinition>> ALL = List.copyOf(VARIANTS.values());
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> KAMA = TOOLS.register(
-            "kama",
-            KamaDefinition::new
-    );
+        private TLTools() {
+        }
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> BROADSWORD = TOOLS.register(
-            "broadsword",
-            BroadswordDefinition::new
-    );
+        // Getters
+        public static DeferredHolder<ToolDefinition, ToolDefinition> get(Type type) {
+                return VARIANTS.get(type);
+        }
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> LONGSWORD = TOOLS.register(
-            "longsword",
-            LongswordDefinition::new
-    );
+        public static ToolDefinition tool(Type type) {
+                return get(type).get();
+        }
 
-    public static final DeferredHolder<ToolDefinition, ToolDefinition> RAPIER = TOOLS.register(
-            "rapier",
-            RapierDefinition::new
-    );
+        // Registration
+        public static void register(IEventBus modBus) {
+                TOOLS.register(modBus);
+        }
 
-    private TLTools() {}
+        private static Map<Type, DeferredHolder<ToolDefinition, ToolDefinition>> registerVariants() {
+                Map<Type, DeferredHolder<ToolDefinition, ToolDefinition>> result = new LinkedHashMap<>();
 
-    public static void register(IEventBus bus) {
-        TOOLS.register(bus);
-    }
+                for (Type type : Type.values()) {
+                        result.put(type, TOOLS.register(type.name, type.factory));
+                }
+
+                return Collections.unmodifiableMap(result);
+        }
 }

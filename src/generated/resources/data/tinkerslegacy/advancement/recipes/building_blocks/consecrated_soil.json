@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_graveyard_soil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tinkerslegacy:graveyard_soil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:consecrated_soil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_graveyard_soil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:consecrated_soil"
+    ]
+  }
+}

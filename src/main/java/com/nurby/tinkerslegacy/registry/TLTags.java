@@ -12,6 +12,8 @@ public final class TLTags {
         }
 
         public static final class Blocks {
+                public static final TagKey<Block> PETRAMOR_BLOCKS = create("petramor_blocks");
+                public static final TagKey<Block> NEEDS_COBALT_TOOL = create("needs_cobalt_tool");
                 public static final TagKey<Block> STORAGE_BLOCKS = create("storage_blocks");
                 public static final TagKey<Block> SEARED_BLOCKS = create("seared_blocks");
                 public static final TagKey<Block> SLIMY_GROUND = create("slimy_ground");

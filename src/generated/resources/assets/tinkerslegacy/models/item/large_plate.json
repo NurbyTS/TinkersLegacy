@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:large_plate",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/large_plate"
+    "layer0": "tinkerslegacy:item/part_templates/large_plate"
   }
 }

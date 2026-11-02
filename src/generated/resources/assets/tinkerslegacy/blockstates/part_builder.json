@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tinkerslegacy:block/part_builder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tinkerslegacy:block/part_builder"
+    },
+    "facing=south": {
+      "model": "tinkerslegacy:block/part_builder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tinkerslegacy:block/part_builder",
+      "y": 270
+    }
+  }
+}

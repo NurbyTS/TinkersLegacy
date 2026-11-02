@@ -3,7 +3,13 @@
   "package": "com.nurby.tinkerslegacy.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "PlayerAttackMixin"
+    "PlayerAttackMixin",
+    "ProjectileWeaponItemMixin",
+    "ServerPlayerGameModeMixin",
+    "ServerPlayerGameModeAccessor",
+    "ModifierLootCountMixin",
+    "ModifierLootChanceMixin",
+    "ModifierExperienceOrbMixin"
   ],
   "client": [],
   "injectors": {

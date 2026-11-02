@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:magma_slimeball"
+    },
+    {
+      "item": "tinkerslegacy:magma_slimeball"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:netherrack"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:magma_slimy_mud"
+  }
+}

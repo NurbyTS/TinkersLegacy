@@ -9,11 +9,11 @@ import com.nurby.tinkerslegacy.library.material.stat.MaterialStatMap;
 import com.nurby.tinkerslegacy.library.material.stat.PartStatDefinition;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
+import com.nurby.tinkerslegacy.library.tool.ToolState;
 import com.nurby.tinkerslegacy.library.tool.ToolPart;
 import com.nurby.tinkerslegacy.registry.TLDataComponents;
 import com.nurby.tinkerslegacy.registry.TLRegistries;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -45,7 +45,7 @@ public final class TinkersUtils {
     private static final String STAT_HARVEST_LEVEL = "harvest_level";
     private static final String STAT_FREE_MODIFIERS = "free_modifiers";
 
-    public static final String STAT_HARVEST_LEVEL_PICK = "harvest_level_pick";
+    public static final String STAT_HARVEST_LEVEL_PICK = "harvest_level_pickaxe";
     public static final String STAT_HARVEST_LEVEL_AXE = "harvest_level_axe";
     public static final String STAT_HARVEST_LEVEL_SHOVEL = "harvest_level_shovel";
 
@@ -115,11 +115,9 @@ public final class TinkersUtils {
 
         boolean first = true;
 
-        for (ToolPart part : definition.parts()) {
-            MaterialLayer layer = findMaterialForStatType(
-                    materials,
-                    part.statType()
-            );
+        for (int index = 0; index < definition.parts().size(); index++) {
+            ToolPart part = definition.parts().get(index);
+            MaterialLayer layer = index < materials.size() ? materials.get(index) : null;
 
             if (layer == null) {
                 continue;
@@ -148,16 +146,6 @@ public final class TinkersUtils {
                     getStatsForLayer(layer, partName)
             );
         }
-    }
-
-    private static MaterialLayer findMaterialForStatType(
-            List<MaterialLayer> materials,
-            ResourceLocation statType
-    ) {
-        return materials.stream()
-                .filter(layer -> layer.statType().equals(statType))
-                .findFirst()
-                .orElse(null);
     }
 
     public static void addStat(
@@ -264,11 +252,8 @@ public final class TinkersUtils {
         List<MutableComponent> materialNames = materials.stream()
                 .map(MaterialLayer::material)
                 .distinct()
-                .map(material -> translationOrFallback(
-                        material.getNamespace()
-                                + ".material."
-                                + material.getPath()
-                ))
+                .map(material -> materialName(material,
+                        materials.stream().map(MaterialLayer::material).distinct().count() > 1))
                 .toList();
 
         Component result = materialNames.getFirst();
@@ -282,56 +267,37 @@ public final class TinkersUtils {
         return result;
     }
 
-    public static MutableComponent getMaterialPartName(
-            ResourceLocation part,
-            List<MaterialLayer> materials
-    ) {
-        String key = "item."
-                + part.getNamespace()
-                + ".parts."
-                + part.getPath();
-
-        if (!I18n.exists(key)) {
-            return Component.literal(
-                    "Component missing translation key for: " + key
-            );
+        // Names
+        private static MutableComponent materialName(ResourceLocation material, boolean combined) {
+                String key = material.getNamespace() + ".material." + material.getPath();
+                return combined ? Component.translatableWithFallback(key + ".name", "%s", Component.translatable(key))
+                                : Component.translatable(key);
         }
 
-        return Component.translatable(
-                key,
-                formatMaterialName(materials)
-        );
-    }
-
-    public static Component getToolName(
-            ToolDefinition tool,
-            List<MaterialLayer> materials
-    ) {
-        String toolKey = "item."
-                + tool.id().getNamespace()
-                + ".tools."
-                + tool.id().getPath();
-
-        if (materials == null || materials.isEmpty()) {
-            return Component.translatable(
-                    toolKey,
-                    translationOrFallback(
-                            TinkersLegacy.MODID + ".material.unknown"
-                    )
-            );
+        public static MutableComponent getMaterialPartName(
+                        ResourceLocation part,
+                        List<MaterialLayer> materials) {
+                return Component.translatable("item." + part.getNamespace() + ".parts." + part.getPath(),
+                                formatMaterialName(materials));
         }
 
-        if (!I18n.exists(toolKey)) {
-            return Component.literal(
-                    "Component missing translation key for: " + toolKey
-            );
+        public static Component getToolName(
+                        ToolDefinition tool,
+                        List<MaterialLayer> materials) {
+                Component name = Component.translatable("item." + tool.id().getNamespace() + ".tools." + tool.id().getPath());
+                if (materials == null || materials.isEmpty()) {
+                        return name;
+                }
+                List<MaterialLayer> namingParts = tool.repairParts().stream()
+                                .filter(index -> index >= 0 && index < materials.size())
+                                .map(materials::get)
+                                .filter(layer -> TLRegistries.MATERIALS.containsKey(layer.material()))
+                                .toList();
+                if (namingParts.isEmpty()) {
+                        return name;
+                }
+                return Component.translatable("tinkerslegacy.tool.material_name", formatMaterialName(namingParts), name);
         }
-
-        return Component.translatable(
-                toolKey,
-                formatMaterialName(materials)
-        );
-    }
 
     public static void addToolStatsTooltip(
             ItemStack stack,
@@ -413,8 +379,8 @@ public final class TinkersUtils {
     ) {
         int maximum = maximumValue.intValue();
 
-        int current = Math.max(
-                maximum - stack.getDamageValue(),
+        int current = ToolState.broken(stack) ? 0 : Math.max(
+                maximum - ToolState.damage(stack),
                 0
         );
 
@@ -584,16 +550,8 @@ public final class TinkersUtils {
         return compatible;
     }
 
-    private static MutableComponent translationOrFallback(
-            String key
-    ) {
-        if (I18n.exists(key)) {
-            return Component.translatable(key);
-        }
-
-        return Component.literal(
-                "Missing translation key for: " + key
-        );
+    private static MutableComponent translationOrFallback(String key) {
+        return Component.translatable(key);
     }
 
     public static double getActualDamage(ItemStack stack) {
@@ -603,11 +561,11 @@ public final class TinkersUtils {
         }
         DynamicTool tool = (DynamicTool) stack.getItem();
         double attackDamage = stats.getOrDefault(STAT_ATTACK_DAMAGE, 0).doubleValue();
-        return calcCutoffDamage(tool.getDefinition().baseDamage() + attackDamage * tool.getDefinition().damagePotential(), tool.getDefinition().damageCutoff());
+        return tool.getDefinition().baseDamage() + attackDamage * tool.getDefinition().damagePotential();
     }
 
 
-    private static double calcCutoffDamage(
+    public static double calcCutoffDamage(
             double damage,
             double cutoff
     ) {

@@ -19,6 +19,9 @@ public class TLDamageTypes {
                     )
             );
 
+        public static final ResourceKey<DamageType> TRAIT_ABSOLUTE = ResourceKey.create(
+                        Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TinkersLegacy.MODID, "trait_absolute"));
+
     public static DamageSource rapierDamageSource(Player player) {
         return new DamageSource(
                 player.level()

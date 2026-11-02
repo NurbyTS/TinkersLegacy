@@ -24,82 +24,87 @@ import java.util.Map;
 
 public class HatchetDefinition extends ToolDefinition {
 
-    public HatchetDefinition() {
-        super(
-                id("hatchet"),
-                List.of(
-                        new ToolPart(id("axe_head"), ToolStatTypes.HEAD.getId()),
-                        new ToolPart(id("tool_rod"), ToolStatTypes.HANDLE.getId()),
-                        new ToolPart(id("binding"), ToolStatTypes.EXTRA.getId())
-                )
-        );
-    }
+        public HatchetDefinition() {
+                super(
+                                id("hatchet"),
+                                List.of(
+                                                new ToolPart(id("axe_head"), ToolStatTypes.HEAD.getId()),
+                                                new ToolPart(id("tool_rod"), ToolStatTypes.HANDLE.getId()),
+                                                new ToolPart(id("binding"), ToolStatTypes.EXTRA.getId())
+                                )
+                );
+        }
 
-    private static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(
-                TinkersLegacy.MODID,
-                path
-        );
-    }
+        private static ResourceLocation id(String path) {
+                return ResourceLocation.fromNamespaceAndPath(
+                                TinkersLegacy.MODID,
+                                path
+                );
+        }
 
-    @Override
-    public float baseDamage() {
-        return 1.55f;
-    }
+        @Override
+        public boolean isWeapon() {
+                return true;
+        }
 
-    @Override
-    public float damagePotential() {
-        return 1.1F;
-    }
+        @Override
+        public float baseDamage() {
+                return 1.55f;
+        }
 
-    @Override
-    public float knockback() {
-        return 1.3f;
-    }
+        @Override
+        public float damagePotential() {
+                return 1.1F;
+        }
 
-    @Override
-    public float attackSpeed() {
-        return 1.1f;
-    }
+        @Override
+        public float knockback() {
+                return 1.3f;
+        }
 
-    @Override
-    public void addExtraToolRules(ItemStack stack, Map<String, Number> stats, List<Tool.Rule> rules, float miningSpeed) {
-        rules.add(
-                Tool.Rule.minesAndDrops(
-                        BlockTags.MINEABLE_WITH_AXE,
-                        miningSpeed
-                )
-        );
-    }
+        @Override
+        public float attackSpeed() {
+                return 1.1f;
+        }
 
-    @Override
-    public boolean canPerformAction(
-            ItemStack stack,
-            ItemAbility itemAbility
-    ) {
-        return itemAbility == ItemAbilities.AXE_STRIP
-                || itemAbility == ItemAbilities.AXE_SCRAPE
-                || itemAbility == ItemAbilities.AXE_WAX_OFF;
-    }
+        @Override
+        public void addExtraToolRules(ItemStack stack, Map<String, Number> stats, List<Tool.Rule> rules, float miningSpeed) {
+                rules.add(
+                                Tool.Rule.minesAndDrops(
+                                                BlockTags.MINEABLE_WITH_AXE,
+                                                miningSpeed
+                                )
+                );
+        }
 
-    @Override
-    public boolean canDisableShield(
-            ItemStack stack,
-            ItemStack shield,
-            LivingEntity entity,
-            LivingEntity attacker
-    ) {
-        return true;
-    }
+        @Override
+        public boolean canPerformAction(
+                        ItemStack stack,
+                        ItemAbility itemAbility
+        ) {
+                return itemAbility == ItemAbilities.AXE_STRIP
+                                || itemAbility == ItemAbilities.AXE_SCRAPE
+                                || itemAbility == ItemAbilities.AXE_WAX_OFF;
+        }
 
-    @Override
-    public boolean damagesOnBlockBreak(
-            ItemStack stack,
-            Level level,
-            BlockState state,
-            BlockPos pos,
-            LivingEntity entity
-    ) {
-        return !state.is(BlockTags.LEAVES);
-    }
+        @Override
+        public boolean canDisableShield(
+                        ItemStack stack,
+                        ItemStack shield,
+                        LivingEntity entity,
+                        LivingEntity attacker
+        ) {
+                return true;
+        }
+
+        @Override
+        public boolean damagesOnBlockBreak(
+                        ItemStack stack,
+                        Level level,
+                        BlockState state,
+                        BlockPos pos,
+                        LivingEntity entity
+        ) {
+                return !state.is(BlockTags.LEAVES);
+        }
 }

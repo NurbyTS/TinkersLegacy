@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/cleaver/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/cleaver/layer1",
+    "layer2": "tinkerslegacy:item/tool_templates/cleaver/layer2",
+    "layer3": "tinkerslegacy:item/tool_templates/cleaver/layer3"
+  },
+  "tool": "tinkerslegacy:cleaver"
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "tinkerslegacy:slimy_mud",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "tag": "c:sands"
+    },
+    {
+      "tag": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:green_slimy_mud"
+  }
+}

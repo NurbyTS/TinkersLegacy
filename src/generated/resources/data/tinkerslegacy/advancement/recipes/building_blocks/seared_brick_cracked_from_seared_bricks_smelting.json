@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_seared_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tinkerslegacy:seared_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:seared_brick_cracked_from_seared_bricks_smelting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_seared_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:seared_brick_cracked_from_seared_bricks_smelting"
+    ]
+  }
+}

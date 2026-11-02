@@ -1,0 +1,23 @@
+{
+  "type": "tinkerslegacy:station",
+  "appearance": {
+    "tag": "minecraft:planks"
+  },
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "minecraft:planks"
+    },
+    "P": {
+      "item": "tinkerslegacy:blank_pattern"
+    }
+  },
+  "pattern": [
+    "P",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:stencil_table"
+  }
+}

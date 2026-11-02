@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:cobalt_nugget"
+    },
+    {
+      "item": "tinkerslegacy:ardite_nugget"
+    },
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:manyullyn_nugget"
+  }
+}

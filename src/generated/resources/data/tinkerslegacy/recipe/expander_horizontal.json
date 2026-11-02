@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:gems/lapis"
+    },
+    "B": {
+      "item": "minecraft:piston"
+    },
+    "C": {
+      "item": "tinkerslegacy:purple_slimeball"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BCB",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:expander_horizontal"
+  }
+}

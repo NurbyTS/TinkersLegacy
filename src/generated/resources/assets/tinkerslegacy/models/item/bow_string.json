@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:bow_string",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/bow_string"
+    "layer0": "tinkerslegacy:item/part_templates/bow_string"
   }
 }

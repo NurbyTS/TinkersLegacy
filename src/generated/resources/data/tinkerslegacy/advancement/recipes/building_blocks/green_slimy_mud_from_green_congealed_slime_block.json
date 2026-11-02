@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_congealed_slime": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tinkerslegacy:green_congealed_slime_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:green_slimy_mud_from_green_congealed_slime_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_congealed_slime"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:green_slimy_mud_from_green_congealed_slime_block"
+    ]
+  }
+}

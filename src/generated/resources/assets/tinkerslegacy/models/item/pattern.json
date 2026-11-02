@@ -1,0 +1,176 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "tinkerslegacy:pattern/pick_head",
+      "predicate": {
+        "tinkerslegacy:part": 1.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/axe_head",
+      "predicate": {
+        "tinkerslegacy:part": 2.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/shovel_head",
+      "predicate": {
+        "tinkerslegacy:part": 3.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/kama_head",
+      "predicate": {
+        "tinkerslegacy:part": 4.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/sword_blade",
+      "predicate": {
+        "tinkerslegacy:part": 5.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/hammer_head",
+      "predicate": {
+        "tinkerslegacy:part": 6.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/broad_axe_head",
+      "predicate": {
+        "tinkerslegacy:part": 7.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/large_sword_blade",
+      "predicate": {
+        "tinkerslegacy:part": 8.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/excavator_head",
+      "predicate": {
+        "tinkerslegacy:part": 9.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/scythe_head",
+      "predicate": {
+        "tinkerslegacy:part": 10.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/pan_head",
+      "predicate": {
+        "tinkerslegacy:part": 11.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/sign_head",
+      "predicate": {
+        "tinkerslegacy:part": 12.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/large_plate",
+      "predicate": {
+        "tinkerslegacy:part": 13.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/knife_blade",
+      "predicate": {
+        "tinkerslegacy:part": 14.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/bow_limb",
+      "predicate": {
+        "tinkerslegacy:part": 15.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/bow_string",
+      "predicate": {
+        "tinkerslegacy:part": 16.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/arrow_head",
+      "predicate": {
+        "tinkerslegacy:part": 17.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/arrow_shaft",
+      "predicate": {
+        "tinkerslegacy:part": 18.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/fletching",
+      "predicate": {
+        "tinkerslegacy:part": 19.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/tool_rod",
+      "predicate": {
+        "tinkerslegacy:part": 20.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/tough_tool_rod",
+      "predicate": {
+        "tinkerslegacy:part": 21.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/binding",
+      "predicate": {
+        "tinkerslegacy:part": 22.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/tough_binding",
+      "predicate": {
+        "tinkerslegacy:part": 23.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/wide_guard",
+      "predicate": {
+        "tinkerslegacy:part": 24.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/hand_guard",
+      "predicate": {
+        "tinkerslegacy:part": 25.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/cross_guard",
+      "predicate": {
+        "tinkerslegacy:part": 26.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/sharpening_kit",
+      "predicate": {
+        "tinkerslegacy:part": 27.0
+      }
+    },
+    {
+      "model": "tinkerslegacy:pattern/material_shard",
+      "predicate": {
+        "tinkerslegacy:part": 28.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "tinkerslegacy:item/material/intermediary/pattern"
+  }
+}

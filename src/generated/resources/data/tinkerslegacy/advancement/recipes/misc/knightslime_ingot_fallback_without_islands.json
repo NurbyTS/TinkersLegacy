@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_slimeball": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:slime_ball"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:knightslime_ingot_fallback_without_islands"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_slimeball"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:knightslime_ingot_fallback_without_islands"
+    ]
+  }
+}

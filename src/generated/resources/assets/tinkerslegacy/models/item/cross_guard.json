@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:cross_guard",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/cross_guard"
+    "layer0": "tinkerslegacy:item/part_templates/cross_guard"
+  },
+  "transform": {
+    "translation": [
+      0.1875,
+      0.1875,
+      0.0
+    ]
   }
 }

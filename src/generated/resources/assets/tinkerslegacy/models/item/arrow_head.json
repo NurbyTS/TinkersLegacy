@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:arrow_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/arrow_head"
+    "layer0": "tinkerslegacy:item/part_templates/arrow_head"
   }
 }

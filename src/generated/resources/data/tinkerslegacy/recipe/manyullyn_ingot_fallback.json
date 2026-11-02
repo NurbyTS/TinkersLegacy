@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:cobalt_ingot"
+    },
+    {
+      "item": "tinkerslegacy:ardite_ingot"
+    },
+    {
+      "item": "minecraft:coal_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:manyullyn_ingot"
+  }
+}

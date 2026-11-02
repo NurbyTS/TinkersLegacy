@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "tinkerslegacy:dynamic_material_part",
+  "part": "tinkerslegacy:hand_guard",
+  "textures": {
+    "layer0": "tinkerslegacy:item/part_templates/hand_guard"
+  },
+  "transform": {
+    "translation": [
+      0.25,
+      0.25,
+      0.0
+    ]
+  }
+}

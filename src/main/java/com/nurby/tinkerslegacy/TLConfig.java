@@ -16,6 +16,7 @@ public final class TLConfig {
 
     public static final ModConfigSpec.BooleanValue REUSE_STENCILS;
     public static final ModConfigSpec.BooleanValue CRAFT_CASTABLE_MATERIALS;
+    public static final ModConfigSpec.BooleanValue PART_BUILDER_METAL_FALLBACK;
     public static final ModConfigSpec.BooleanValue ENABLE_CLAY_CASTS;
     public static final ModConfigSpec.BooleanValue ALLOW_BRICK_CASTING;
     public static final ModConfigSpec.BooleanValue ENABLE_OBSIDIAN_ALLOY;
@@ -38,7 +39,7 @@ public final class TLConfig {
     public static final ModConfigSpec.IntValue NEW_TOOL_MIN_MODIFIERS;
     public static final ModConfigSpec.IntValue TOOL_MAXIMUM_LEVELS;
     public static final ModConfigSpec.IntValue TOOL_DEFAULT_BASE_XP;
-    public static final ModConfigSpec.IntValue TOOL_LEVEL_XP_INCREASE;
+    public static final ModConfigSpec.DoubleValue TOOL_LEVEL_XP_MULTIPLIER;
     public static final Map<String, ModConfigSpec.IntValue> TOOL_BASE_XP;
     public static final ModConfigSpec.IntValue NEW_ARMOR_MIN_MODIFIERS;
     public static final ModConfigSpec.IntValue ARMOR_MAXIMUM_LEVELS;
@@ -86,6 +87,10 @@ public final class TLConfig {
         CRAFT_CASTABLE_MATERIALS = BUILDER
                 .comment("Allows normally cast-only materials to be shaped in the Part Builder.")
                 .define("craftCastableMaterials", false);
+
+        PART_BUILDER_METAL_FALLBACK = BUILDER
+                .comment("Classic metal part crafting while the Smeltery is unavailable. Disable when casting is supplied.")
+                .define("partBuilderMetalFallback", true);
 
         ENABLE_CLAY_CASTS = BUILDER
                 .comment("Enables single-use clay casts.")
@@ -192,16 +197,16 @@ public final class TLConfig {
                 .defineInRange("newToolMinModifiers", 3, 0, Integer.MAX_VALUE);
 
         TOOL_MAXIMUM_LEVELS = BUILDER
-                .comment("Maximum tool levels. A negative value means unlimited.")
+                .comment("Maximum earned tool promotions. Zero or a negative value means unlimited.")
                 .defineInRange("toolMaximumLevels", -1, -1, Integer.MAX_VALUE);
 
         TOOL_DEFAULT_BASE_XP = BUILDER
                 .comment("Base XP requirement for tools without a tool-specific override.")
                 .defineInRange("toolDefaultBaseXp", 500, 1, Integer.MAX_VALUE);
 
-        TOOL_LEVEL_XP_INCREASE = BUILDER
-                .comment("Cumulative XP scaling per tool level.")
-                .defineInRange("toolLevelXpIncrease", 50, 0, Integer.MAX_VALUE);
+        TOOL_LEVEL_XP_MULTIPLIER = BUILDER
+                .comment("Tool XP requirement multiplier per promotion. 2.0 doubles the requirement; 1.0 keeps it fixed.")
+                .defineInRange("toolLevelXpMultiplier", 2.0, 1.0, 100.0);
 
         BUILDER.push("toolBaseXp");
 

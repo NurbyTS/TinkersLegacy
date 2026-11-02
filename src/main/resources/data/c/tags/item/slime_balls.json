@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#c:slime_balls/green",
+    "#c:slime_balls/blue",
+    "#c:slime_balls/purple",
+    "#c:slime_balls/magma",
+    "#c:slime_balls/blood"
+  ]
+}

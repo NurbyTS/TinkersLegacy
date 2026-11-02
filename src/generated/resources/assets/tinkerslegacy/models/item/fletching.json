@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:fletching",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/fletching"
+    "layer0": "tinkerslegacy:item/part_templates/fletching"
   }
 }

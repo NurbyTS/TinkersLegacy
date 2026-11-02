@@ -1,0 +1,31 @@
+{
+  "values": [
+    "#minecraft:base_stone_overworld",
+    "#minecraft:base_stone_nether",
+    "#minecraft:stone_bricks",
+    "#minecraft:terracotta",
+    "#c:ores",
+    "#c:cobblestones",
+    "minecraft:netherrack",
+    "minecraft:end_stone",
+    "minecraft:end_stone_bricks",
+    "minecraft:obsidian",
+    "minecraft:crying_obsidian",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
+    "minecraft:prismarine",
+    "minecraft:prismarine_bricks",
+    "minecraft:dark_prismarine",
+    "minecraft:bricks",
+    "minecraft:nether_bricks",
+    "minecraft:red_nether_bricks",
+    "minecraft:purpur_block",
+    "minecraft:purpur_pillar",
+    "minecraft:calcite",
+    "minecraft:dripstone_block",
+    "minecraft:magma_block",
+    "tinkerslegacy:nether_cobalt_ore",
+    "tinkerslegacy:nether_ardite_ore",
+    "#tinkerslegacy:seared_blocks"
+  ]
+}

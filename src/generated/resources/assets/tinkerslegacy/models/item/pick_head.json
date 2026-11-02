@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:pick_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/pick_head"
+    "layer0": "tinkerslegacy:item/part_templates/pick_head"
+  },
+  "transform": {
+    "translation": [
+      -0.125,
+      -0.125,
+      0.0
+    ]
   }
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tinkerslegacy:armor_bypassing"
+    "tinkerslegacy:armor_bypassing",
+    "tinkerslegacy:trait_absolute"
   ]
 }

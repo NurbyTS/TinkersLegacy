@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "OOO",
+    "OGO",
+    "OOO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:reinforced_plate"
+  }
+}

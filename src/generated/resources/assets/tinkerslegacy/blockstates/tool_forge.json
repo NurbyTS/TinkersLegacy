@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tinkerslegacy:block/tool_forge",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tinkerslegacy:block/tool_forge"
+    },
+    "facing=south": {
+      "model": "tinkerslegacy:block/tool_forge",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tinkerslegacy:block/tool_forge",
+      "y": 270
+    }
+  }
+}

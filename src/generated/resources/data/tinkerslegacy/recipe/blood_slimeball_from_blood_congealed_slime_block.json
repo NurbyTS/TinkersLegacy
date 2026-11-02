@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tinkerslegacy:slime_balls",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:blood_congealed_slime_block"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "tinkerslegacy:blood_slimeball"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/shuriken/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/shuriken/layer2",
+    "layer2": "tinkerslegacy:item/tool_templates/shuriken/layer4",
+    "layer3": "tinkerslegacy:item/tool_templates/shuriken/layer6"
+  },
+  "tool": "tinkerslegacy:shuriken"
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/scythe/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/scythe/layer1",
+    "layer2": "tinkerslegacy:item/tool_templates/scythe/layer2",
+    "layer3": "tinkerslegacy:item/tool_templates/scythe/layer3"
+  },
+  "tool": "tinkerslegacy:scythe"
+}

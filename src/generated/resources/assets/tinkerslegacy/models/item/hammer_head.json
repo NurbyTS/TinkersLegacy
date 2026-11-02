@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:hammer_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/hammer_head"
+    "layer0": "tinkerslegacy:item/part_templates/hammer_head"
+  },
+  "transform": {
+    "translation": [
+      -0.1875,
+      -0.1875,
+      0.0
+    ]
   }
 }

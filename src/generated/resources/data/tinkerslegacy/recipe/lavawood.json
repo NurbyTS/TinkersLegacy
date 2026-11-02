@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:lavawood"
+  }
+}

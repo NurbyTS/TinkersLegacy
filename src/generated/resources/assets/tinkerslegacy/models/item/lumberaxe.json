@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/lumberaxe/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/lumberaxe/layer1",
+    "layer2": "tinkerslegacy:item/tool_templates/lumberaxe/layer2",
+    "layer3": "tinkerslegacy:item/tool_templates/lumberaxe/layer3"
+  },
+  "tool": "tinkerslegacy:lumberaxe"
+}

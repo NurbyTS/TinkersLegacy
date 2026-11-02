@@ -3,11 +3,15 @@ package com.nurby.tinkerslegacy.client.model;
 import com.google.gson.JsonObject;
 
 import com.nurby.tinkerslegacy.TinkersLegacy;
+import com.nurby.tinkerslegacy.client.datagen.PatternTextureProvider;
 import com.nurby.tinkerslegacy.library.part.PartDefinition;
 import com.nurby.tinkerslegacy.library.tool.ToolDefinition;
 import com.nurby.tinkerslegacy.registry.TLItems;
+import com.nurby.tinkerslegacy.registry.TLBlocks;
+import com.nurby.tinkerslegacy.block.SlimyVineBlock;
 import com.nurby.tinkerslegacy.registry.TLTools;
 import com.nurby.tinkerslegacy.registry.ToolParts;
+import com.nurby.tinkerslegacy.library.station.StationRecipes;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -45,6 +49,7 @@ public class TLItemModelProvider extends ItemModelProvider {
                 registerItems();
                 registerParts();
                 registerTools();
+                registerPatterns();
         }
 
         private void registerItems() {
@@ -63,9 +68,28 @@ public class TLItemModelProvider extends ItemModelProvider {
                 flatItems(TLItems.Items.Bricks.ALL, "item/material/brick");
 
                 flatItems(TLItems.Items.Slimeballs.ALL, "item/slime");
+
+                for (var block : TLBlocks.SlimyPlants.ALL) {
+                        if (block.get() instanceof SlimyVineBlock) {
+                                withExistingParent(block.getId().getPath(), mcLoc("item/generated"))
+                                                .texture("layer0", modLoc("block/slime/slimevine"));
+                        }
+                }
+        }
+
+        private void registerPatterns() {
+                ItemModelBuilder pattern = getBuilder("pattern");
+                int index = 1;
+                for (var part : StationRecipes.shapes()) {
+                        var model = withExistingParent("pattern/" + part.getPath(), mcLoc("item/generated"))
+                                        .texture("layer0", PatternTextureProvider.texture(part));
+                        pattern.override().predicate(modLoc("part"), index++).model(model).end();
+                }
         }
 
         private void registerParts() {
+                flatItem(TLItems.Parts.MATERIAL_SHARD, "item/material/intermediary");
+
                 for (DeferredHolder<PartDefinition, ? extends PartDefinition> holder : ToolParts.PARTS.getEntries()) {
                         registerPart(holder);
                 }
@@ -80,6 +104,11 @@ public class TLItemModelProvider extends ItemModelProvider {
                                                 getExistingFile(
                                                                 mcLoc("item/generated")));
 
+                var offset = PartModelOffsets.get(id);
+                if (offset.x() != 0 || offset.y() != 0) {
+                        builder.rootTransforms().translation(offset.x() / 16.0F, -offset.y() / 16.0F, 0);
+                }
+
                 DynamicMaterialPartModelBuilder loader = builder.customLoader(
                                 DynamicMaterialPartModelBuilder::new);
 
@@ -90,13 +119,13 @@ public class TLItemModelProvider extends ItemModelProvider {
                                         "layer0",
                                         ResourceLocation.fromNamespaceAndPath(
                                                         TinkersLegacy.MODID,
-                                                        "item/tool_part/bolt_shaft"));
+                                                        "item/part_templates/bolt_shaft"));
 
                         loader.texture(
                                         "layer1",
                                         ResourceLocation.fromNamespaceAndPath(
                                                         TinkersLegacy.MODID,
-                                                        "item/tool_part/bolt_tip"));
+                                                        "item/part_templates/bolt_tip"));
 
                         return;
                 }
@@ -105,7 +134,7 @@ public class TLItemModelProvider extends ItemModelProvider {
                                 "layer0",
                                 ResourceLocation.fromNamespaceAndPath(
                                                 TinkersLegacy.MODID,
-                                                "item/tool_part/" + id.getPath()));
+                                                "item/part_templates/" + id.getPath()));
         }
 
         private void registerTools() {
@@ -127,21 +156,25 @@ public class TLItemModelProvider extends ItemModelProvider {
                                                 getExistingFile(
                                                                 mcLoc("item/handheld")));
 
+                if (definition instanceof com.nurby.tinkerslegacy.tools.RangedToolDefinition) {
+                        builder.parent(getExistingFile(modLoc("item/" + id.getPath() + "_base")));
+                }
+
                 DynamicToolModelBuilder loader = builder.customLoader(
                                 DynamicToolModelBuilder::new);
 
                 loader.tool(id);
 
-                for (int index = 0; index < definition.parts().size(); index++) {
+                for (int index = 0; index < definition.renderLayers().size(); index++) {
 
                         loader.texture(
                                         "layer" + index,
                                         ResourceLocation.fromNamespaceAndPath(
                                                         TinkersLegacy.MODID,
-                                                        "item/tools/"
+                                                        "item/tool_templates/"
                                                                         + id.getPath()
                                                                         + "/layer"
-                                                                        + index));
+                                                                        + definition.renderLayers().get(index)));
                 }
         }
 

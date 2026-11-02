@@ -1,0 +1,7 @@
+{
+  "parent": "tinkerslegacy:block/glow_surface",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "all": "tinkerslegacy:block/glow"
+  }
+}

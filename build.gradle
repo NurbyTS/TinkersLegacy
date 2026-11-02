@@ -15,10 +15,14 @@ group = mod_group_id
 sourceSets.main.resources {
     srcDir('src/generated/resources')
     exclude("**/*.bbmodel")
-    exclude("src/generated/**/.cache")
+    exclude("**/.cache/**")
 }
 
 repositories {
+    maven {
+        url = "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
     maven {
         url = "https://maven.blamejared.com/"
     }
@@ -52,11 +56,14 @@ neoForge {
 
         gameTestServer {
             type = "gameTestServer"
+            gameDirectory = layout.buildDirectory.dir('gametest')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
             data()
+            ideName = "Data (IDE Output)"
+            gameDirectory = layout.buildDirectory.dir('datagen')
             programArguments.addAll '--mod', project.mod_id, '--all', '--output',
                     file('src/generated/resources/').getAbsolutePath(), '--existing',
                     file('src/main/resources/').getAbsolutePath()
@@ -81,6 +88,7 @@ configurations {
 
 dependencies {
     compileOnly("mezz.jei:jei-1.21.1-neoforge-api:19.51.0.418")
+    compileOnly("maven.modrinth:jade:15.10.6+neoforge")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

@@ -1,0 +1,11 @@
+{
+  "parent": "tinkerslegacy:block/station_table",
+  "textures": {
+    "bottom": "minecraft:block/oak_planks",
+    "leg": "tinkerslegacy:block/station/table_side",
+    "legBottom": "minecraft:block/oak_planks",
+    "particle": "tinkerslegacy:block/station/part_builder_top",
+    "side": "tinkerslegacy:block/station/table_side",
+    "top": "tinkerslegacy:block/station/part_builder_top"
+  }
+}

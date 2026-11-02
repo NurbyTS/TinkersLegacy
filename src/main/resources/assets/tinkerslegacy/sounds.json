@@ -1,0 +1,41 @@
+{
+  "toy_squeak": {
+    "subtitle": "subtitles.tinkerslegacy.toy_squeak",
+    "sounds": [
+      "tinkerslegacy:toy_squeak"
+    ]
+  },
+  "tool_station": {
+    "subtitle": "subtitles.tinkerslegacy.tool_station",
+    "sounds": [
+      "tinkerslegacy:little_saw"
+    ]
+  },
+  "shocking_charged": {
+    "subtitle": "subtitles.tinkerslegacy.shocking_charged",
+    "sounds": [
+      "tinkerslegacy:charged"
+    ]
+  },
+  "shocking_discharge": {
+    "subtitle": "subtitles.tinkerslegacy.shocking_discharge",
+    "sounds": [
+      "tinkerslegacy:discharge"
+    ]
+  },
+  "frypan_boing": {
+    "subtitle": "subtitles.tinkerslegacy.frypan_boing",
+    "sounds": [
+      "tinkerslegacy:frypan_hit"
+    ]
+  },
+  "tool_forge": {
+    "subtitle": "subtitles.tinkerslegacy.tool_forge",
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.use",
+        "type": "event"
+      }
+    ]
+  }
+}

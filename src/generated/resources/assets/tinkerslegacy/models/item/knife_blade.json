@@ -3,6 +3,6 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:knife_blade",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/knife_blade"
+    "layer0": "tinkerslegacy:item/part_templates/knife_blade"
   }
 }

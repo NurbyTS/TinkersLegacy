@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_slimeball": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tinkerslegacy:blood_slimeball"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tinkerslegacy:blood_congealed_slime_block_from_blood_slimeball"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_slimeball"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tinkerslegacy:blood_congealed_slime_block_from_blood_slimeball"
+    ]
+  }
+}

@@ -134,7 +134,7 @@ public final class TLCookingRecipes {
                                 TLBlocks.get(TLBlocks.IntermediaryBlocks.Type.GROUT),
                                 TLItems.get(TLItems.Items.Bricks.Type.SEARED),
                                 RecipeCategory.MISC,
-                                0.1F,
+                                0.4F,
                                 List.of(new CookingMethod(Type.SMELTING, 200, "seared_brick"))));
 
                 return List.copyOf(recipes);

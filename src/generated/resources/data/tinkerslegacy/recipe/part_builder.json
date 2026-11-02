@@ -1,0 +1,23 @@
+{
+  "type": "tinkerslegacy:station",
+  "appearance": {
+    "tag": "minecraft:logs"
+  },
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "minecraft:logs"
+    },
+    "P": {
+      "item": "tinkerslegacy:blank_pattern"
+    }
+  },
+  "pattern": [
+    "P",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:part_builder"
+  }
+}

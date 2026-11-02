@@ -60,14 +60,14 @@ public final class ToolParts {
                 LARGE_PLATE("large_plate", 8,
                                 () -> List.of(ToolStatTypes.HEAD.getId(), ToolStatTypes.EXTRA.getId())),
 
-                KNIFE_BLADE("knife_blade", 3,
+                KNIFE_BLADE("knife_blade", 1,
                                 () -> List.of(ToolStatTypes.HEAD.getId(), ToolStatTypes.EXTRA.getId())),
 
                 BOW_LIMB("bow_limb", 3,
                                 () -> List.of(ToolStatTypes.HEAD.getId(), ToolStatTypes.BOW.getId())),
 
                 BOW_STRING("bow_string", 1,
-                                () -> List.of(ToolStatTypes.EXTRA.getId())),
+                                () -> List.of(ToolStatTypes.BOWSTRING.getId())),
 
                 ARROW_HEAD("arrow_head", 2,
                                 () -> List.of(ToolStatTypes.HEAD.getId())),
@@ -93,11 +93,17 @@ public final class ToolParts {
                 WIDE_GUARD("wide_guard", 1,
                                 () -> List.of(ToolStatTypes.EXTRA.getId())),
 
+                HAND_GUARD("hand_guard", 1,
+                                () -> List.of(ToolStatTypes.EXTRA.getId())),
+
                 CROSS_GUARD("cross_guard", 1,
                                 () -> List.of(ToolStatTypes.EXTRA.getId())),
 
                 BOLT_CORE("bolt_core", 2,
-                                () -> List.of(ToolStatTypes.HEAD.getId(), ToolStatTypes.ARROW_SHAFT.getId()));
+                                () -> List.of(ToolStatTypes.HEAD.getId(), ToolStatTypes.ARROW_SHAFT.getId())),
+
+                SHARPENING_KIT("sharpening_kit", 2,
+                                () -> List.of(ToolStatTypes.HEAD.getId()));
 
                 private final String name;
                 private final int castingCost;

@@ -1,0 +1,10 @@
+{
+  "parent": "tinkerslegacy:item/shortbow_base",
+  "loader": "tinkerslegacy:dynamic_tool",
+  "textures": {
+    "layer0": "tinkerslegacy:item/tool_templates/shortbow/layer0",
+    "layer1": "tinkerslegacy:item/tool_templates/shortbow/layer2",
+    "layer2": "tinkerslegacy:item/tool_templates/shortbow/layer4"
+  },
+  "tool": "tinkerslegacy:shortbow"
+}

@@ -3,7 +3,7 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:bolt_core",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/bolt_shaft",
-    "layer1": "tinkerslegacy:item/tool_part/bolt_tip"
+    "layer0": "tinkerslegacy:item/part_templates/bolt_shaft",
+    "layer1": "tinkerslegacy:item/part_templates/bolt_tip"
   }
 }

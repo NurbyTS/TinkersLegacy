@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tinkerslegacy:block/tool_station",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tinkerslegacy:block/tool_station"
+    },
+    "facing=south": {
+      "model": "tinkerslegacy:block/tool_station",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tinkerslegacy:block/tool_station",
+      "y": 270
+    }
+  }
+}

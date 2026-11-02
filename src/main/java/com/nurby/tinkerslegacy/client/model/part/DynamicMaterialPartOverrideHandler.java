@@ -271,7 +271,12 @@ public class DynamicMaterialPartOverrideHandler extends ItemOverrides {
 
         String textureName;
 
-        if (path.startsWith("item/part_silhouette/")) {
+        if (path.startsWith("item/part_templates/")) {
+            textureName = path.substring(
+                    "item/part_templates/".length()
+            );
+        }
+        else if (path.startsWith("item/part_silhouette/")) {
             textureName = path.substring(
                     "item/part_silhouette/".length()
             );

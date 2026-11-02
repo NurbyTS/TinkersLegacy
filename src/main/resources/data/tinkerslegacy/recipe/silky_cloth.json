@@ -11,7 +11,7 @@
             "item": "minecraft:string"
         },
         "B": {
-            "item": "minecraft:gold"
+            "item": "minecraft:gold_ingot"
         }
     }, 
     "result": {

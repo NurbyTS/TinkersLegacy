@@ -1,0 +1,27 @@
+{
+  "type": "tinkerslegacy:station",
+  "appearance": {
+    "item": "minecraft:gold_block"
+  },
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tinkerslegacy:seared_bricks"
+    },
+    "M": {
+      "item": "minecraft:gold_block"
+    },
+    "T": {
+      "item": "tinkerslegacy:tool_station"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "MTM",
+    "M M"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:tool_forge"
+  }
+}

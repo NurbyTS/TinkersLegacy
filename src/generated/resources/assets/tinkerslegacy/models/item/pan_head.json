@@ -3,6 +3,13 @@
   "loader": "tinkerslegacy:dynamic_material_part",
   "part": "tinkerslegacy:pan_head",
   "textures": {
-    "layer0": "tinkerslegacy:item/tool_part/pan_head"
+    "layer0": "tinkerslegacy:item/part_templates/pan_head"
+  },
+  "transform": {
+    "translation": [
+      -0.125,
+      -0.125,
+      0.0
+    ]
   }
 }

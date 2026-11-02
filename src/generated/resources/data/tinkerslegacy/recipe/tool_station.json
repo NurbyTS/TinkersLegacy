@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:crafting_table"
+    },
+    "P": {
+      "item": "tinkerslegacy:blank_pattern"
+    }
+  },
+  "pattern": [
+    "P",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:tool_station"
+  }
+}

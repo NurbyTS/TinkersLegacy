@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "tinkerslegacy:seared_blocks",
+  "ingredients": [
+    {
+      "item": "tinkerslegacy:seared_brick_small"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "tinkerslegacy:seared_tile"
+  }
+}
